@@ -107,11 +107,15 @@ une erreur sur les MX coupe le mail de la SCOP.
 - **Sobriété.** Pas d'usine à gaz. Le moins de dépendances possible, chacune
   justifiée, versions épinglées. Le site doit pouvoir être repris dans cinq ans par
   quelqu'un qui ne connaît pas l'histoire.
-- **Non-régression visuelle outillée.** Claude voit mal un rendu ; on ne valide donc
-  pas le style « à l'œil ». Deux garde-fous, décrits dans `ROADMAP.md` : égalité du
-  HTML produit avec l'ancien site tant qu'on porte à l'identique, puis comparaison
-  pixel à pixel de captures Chromium headless dès qu'on nettoie. Tout écart est
-  montré à Louis sous forme d'image de différence, c'est lui qui tranche.
+- **Le style ne se touche pas sans Louis.** Claude voit mal un rendu et gère mal
+  les retouches fines de CSS ; Louis l'a constaté et ne compte que modestement sur
+  les captures d'écran automatiques (Chromium headless et ImageMagick, lentes et peu
+  fiables pour du réglage précis). Règle : **toute modification de style est
+  d'abord proposée à Louis en prose** (quoi, où, pourquoi, effet attendu), et c'est
+  lui qui valide ou fait. Le vrai garde-fou est l'**égalité du HTML produit** avec
+  l'ancien site : tant qu'elle tient et que le CSS est recopié tel quel, le rendu
+  est identique par construction. Les captures ne servent qu'à un contrôle
+  ponctuel, jamais à piloter un réglage.
 - **Le contenu appartient à la SCOP.** Il doit rester sous forme de fichiers
   lisibles (Markdown, YAML, images) dans le dépôt, sans base de données ni format
   propriétaire, pour qu'on puisse changer d'outil d'édition sans rien perdre.

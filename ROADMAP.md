@@ -37,7 +37,7 @@ formation.
 | B4 | **Louis n'intervient plus** pour les mises à jour courantes. |
 | B5 | **Aucun abonnement ni hébergement payant.** GitHub Pages, gratuit, convient. |
 | B6 | **Aucune ressaisie** du contenu existant. |
-| B7 | **Le rendu actuel est conservé.** Le CSS est très travaillé ; un nettoyage du code est bienvenu mais ne doit rien changer au rendu, et c'est vérifié par outil, pas à l'œil. |
+| B7 | **Le rendu actuel est conservé.** Le CSS est très travaillé ; un nettoyage du code est bienvenu mais ne doit rien changer au rendu. Garde-fou : égalité du HTML produit ; toute retouche de style est proposée à Louis avant d'être faite. |
 | B8 | **Sobre et pérenne** : peu de dépendances, code lisible, reprenable par un tiers. |
 | B9 | L'**URL du QR code imprimé** continue de fonctionner. |
 
@@ -253,8 +253,7 @@ sont recopiées **sans modification** à cette étape.
    des gabarits dédiés. Les textes libres passent en Markdown, les listes (photos
    du diaporama, articles de presse, logos) en champs répétables.
 2. Même test d'égalité HTML qu'en phase 2. Les rares écarts inévitables (blancs,
-   ordre d'attributs) sont justifiés ou validés par la comparaison visuelle de la
-   phase 6.
+   ordre d'attributs) sont listés et justifiés un par un à Louis.
 
 ## Phase 4. Formulaires du CMS
 
@@ -290,14 +289,15 @@ où chaque renommage de titre cassait l'URL, disparaît.
 
 Seulement après la bascule, quand le site tourne. Rien n'y est obligatoire.
 
-**Outil de comparaison visuelle**, à écrire avant de toucher au moindre style :
-Chromium headless capture chaque page de l'ancien et du nouveau site à trois
-largeurs (390, 768 et 1 440 px), ImageMagick (`compare`) calcule l'écart pixel à
-pixel et produit une image de différence pour chaque page qui bouge. Animations
-figées, diaporama arrêté sur la même image. Les deux outils sont déjà sur le poste
-de Louis. **C'est Louis qui valide chaque écart signalé**, pas Claude.
+**Règle : aucune retouche de style sans l'accord de Louis.** Chaque changement
+touchant au CSS ou à la structure HTML est d'abord décrit à Louis en prose (quoi,
+où, pourquoi, effet attendu) ; il valide, ajuste ou le fait lui-même. Les captures
+automatiques (Chromium headless, `compare` d'ImageMagick) peuvent servir de
+contrôle ponctuel, pas d'outil de réglage : l'expérience a montré qu'elles sont
+lentes et peu fiables pour du CSS fin. Les changements purement structurels (pas
+une règle CSS modifiée) se vérifient d'abord par le test d'égalité HTML.
 
-Chantiers possibles, un commit chacun, chacun validé par l'outil :
+Chantiers possibles, un commit chacun, chacun validé par Louis :
 
 - en-tête, pied de page et barres d'onglets inclus à la construction au lieu d'être
   chargés par `fetch()`, onglet actif calculé par Hugo : `checkURL()` et jQuery
