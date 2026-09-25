@@ -1,0 +1,27 @@
+
+
+#plaquette {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+
+
+#plaquette img {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+#plaquette h2 {
+    line-height: 100%;
+    font-family: 'Faune-Black', sans-serif;
+    color: #213589;
+}
+
+
+@media (max-width: 768px) {
+
+
+    
+    
+}
+

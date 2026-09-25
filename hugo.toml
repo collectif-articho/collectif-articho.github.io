@@ -1,0 +1,17 @@
+# Configuration du site. La baseURL est fournie par le workflow à la publication.
+baseURL = "https://collectif-articho.github.io/"
+locale = "fr"
+title = "ARTI/CHÔ"
+
+# Mêmes URL que l'ancien site : /pages/projets/amenagements/le-lopin.html
+uglyURLs = true
+disableKinds = ["taxonomy", "term", "rss"]
+
+[permalinks.page]
+  projets = "/pages/:sections/:contentbasename"
+
+[permalinks.section]
+  projets = "/pages/:sections"
+
+[module.hugoVersion]
+  min = "0.146.0"

@@ -1,0 +1,96 @@
+
+#container_map_contact {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact_bunch {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+
+.contact_img {
+    position: relative;
+    margin-right: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+ 
+.bigger-svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+#container_contact {
+    position: relative;
+    margin-top: 1.5rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-bottom: 1.5rem;
+}
+#container_contact h1 {
+    font-size: 2.2rem;
+}
+/* #container_contact p { */
+    /* margin-top: -0.1rem; */
+    /* margin-bottom: 0rem; */
+/* } */
+
+#container_map_contributer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+}
+#container_map {
+    position: relative;
+    height: 30vw;
+    width: 30vw;
+    z-index: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+#map_contributer {
+    position: relative;
+    bottom: 0px;
+    left: 0px;
+}
+h4 {
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    color: #AAA;
+    font-weight: normal;
+}
+
+
+@media (max-width: 768px) {
+    #container_map {
+	height: 80vw;
+	width: 80vw;
+    }
+    
+} 
+

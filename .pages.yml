@@ -1,0 +1,36 @@
+# Formulaires de Pages CMS. Essai de l'étape 0 : une seule collection.
+media:
+  input: assets/photos
+  output: /photos
+
+content:
+  - name: amenagements
+    label: Projets · Aménagements
+    type: collection
+    path: content/projets/amenagements
+    filename: "{primary}.md"
+    view:
+      primary: title
+    fields:
+      - { name: title, label: Titre, type: string, required: true }
+      - { name: sous_titre, label: Sous-titre, type: string }
+      - { name: weight, label: Ordre d'affichage, type: number }
+      - name: infos
+        label: Informations
+        type: object
+        list: true
+        fields:
+          - { name: cle, label: Intitulé, type: string }
+          - { name: valeur, label: Valeur, type: string }
+      - name: photos
+        label: Photos (la première est la principale)
+        type: image
+        options:
+          multiple: true
+          path: assets/photos/projets/amenagements
+          rename: safe
+      - name: body
+        label: Texte
+        type: rich-text
+        options:
+          format: markdown

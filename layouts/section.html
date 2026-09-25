@@ -1,0 +1,11 @@
+{{/* Listing brut de l'essai (étape 0), remplacé à l'étape 1. */}}
+{{ define "main" }}
+<div class="container">
+    <h1 class="text_center text_compact">{{ .Title }}</h1>
+    <ul>
+        {{ range .RegularPagesRecursive }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

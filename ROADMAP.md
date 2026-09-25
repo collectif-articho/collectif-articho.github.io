@@ -3,11 +3,12 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-25** : cadrage terminé et revu, décisions D1 à D11 (§ 2),
-> aucune question ouverte. **Aucun code écrit.** Prochaine action : **étape 0**
-> (§ 4), essai de bout en bout. Elle **attend le compte GitHub `collectif-articho`**
-> (D3), demandé à la SCOP, et la création du dépôt `collectif-articho.github.io`
-> (D7).
+> **État au 2026-09-25** : **étape 0 en cours.** Compte `collectif-articho` créé,
+> dépôt `collectif-articho.github.io` public, Pages sur « GitHub Actions », Pages
+> CMS installé, Louis collaborateur. Essai écrit en local (config Hugo, fiche du
+> Lopin, gabarit de fiche, workflow, `.pages.yml`), construit sans erreur avec
+> Hugo 0.166.0. Prochaine action : premier push, vérifier la publication, puis le
+> test dans Pages CMS (§ 4, étape 0, point 5).
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
@@ -280,7 +281,11 @@ fiche et de chemin de photo de l'étape 2 est fixé d'après ce qu'écrit le CMS
    (`default_projets.html`), listing de l'onglet Projets, page Ligne de mobilier
    (`default_mobiliers.html`, carrousel compris, cas d'une seule photo traité).
 4. **Mêmes URL** : `uglyURLs = true` et permalinks préfixés par `/pages/`, donc
-   `/pages/projets/amenagements/le-lopin.html`.
+   `/pages/projets/amenagements/le-lopin.html`. Constaté à l'étape 0 : `uglyURLs`
+   ne s'applique pas aux sections, qui sortent en `amenagements/index.html` au lieu
+   de `amenagements.html`. Un permalink finissant par `.html` crée un dossier
+   `amenagements.html/`, donc à écarter ; piste à essayer : `url:` dans le
+   `_index.md` de chaque section.
 5. Photos redimensionnées par Hugo : une taille pour la page, une pour les
    vignettes. Seules ces tailles sont publiées.
 
