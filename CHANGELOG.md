@@ -2,7 +2,25 @@
 
 Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
-## 2026-09-25
+## 2026-09-25, revue du plan
+
+- Revue du plan pour l'alléger, décisions D7 à D11 dans `ROADMAP.md` :
+  - D7 : dépôt `collectif-articho.github.io`, publié à la racine, donc les chemins
+    absolus de l'ancien site marchent tels quels. Supprime la réécriture des
+    chemins par `relURL` et des `url()` du CSS. Compte unique de la SCOP confirmé.
+  - D8 : photos dans `assets/photos/`, car Pages CMS ne sait pas écrire dans le
+    dossier d'une fiche (vérifié dans sa doc).
+  - D9 : vérification du rendu à l'œil et par liens morts, abandon de
+    `compare_html.py` ; Python sans dépendance, ImageMagick, Hugo épinglé dans le
+    workflow.
+  - D10 : Pages CMS ne réduit pas les photos (vérifié), croissance du dépôt
+    acceptée ; tranche Q1.
+  - D11 : une version par étape, `v1.0` à la bascule.
+- Plan réécrit en 7 étapes (0 à 6) : l'essai de bout en bout passe en premier,
+  car il fixe le format de migration. Pages fixes éditables, accueil compris,
+  gardées avant la démonstration à la SCOP. Stub du QR code par `aliases` Hugo.
+
+## 2026-09-25, cadrage
 
 - Décisions D1 à D6 consignées dans `ROADMAP.md` : option B (CMS git et Hugo),
   outillage en Python dans un venv et abandon de R, compte GitHub

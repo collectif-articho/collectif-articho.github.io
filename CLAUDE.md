@@ -116,7 +116,7 @@ SCOP, à réutiliser pour tout document destiné aux membres (mode d'emploi…).
 | | |
 |---|---|
 | hébergeur | **GitHub Pages**, gratuit, à conserver |
-| comptes | aujourd'hui dépôt sur `lou-heraut` (compte perso de Louis) ; cible : compte `collectif-articho` de la SCOP, dépôt `collectif-articho/website`, Louis collaborateur (`ROADMAP.md`, D3). **Pas encore créé.** |
+| comptes | aujourd'hui dépôt sur `lou-heraut` (compte perso de Louis) ; cible : un seul compte `collectif-articho` tenu par la SCOP, dépôt `collectif-articho.github.io` servi à la racine, Louis collaborateur (`ROADMAP.md`, D3 et D7). **Pas encore créé.** |
 | domaine | `collectifarticho.com`, enregistré chez Google Domains, **repris par Squarespace** ; payé par la SCOP |
 | DNS | serveurs `ns-cloud-d{1..4}.googledomains.com` ; A vers `185.199.10{8,9,10,11}.153` (GitHub Pages) |
 | mail | MX vers `aspmx.l.google.com` : **Google Workspace**, adresse de la SCOP sur ce domaine |
@@ -134,17 +134,19 @@ une erreur sur les MX coupe le mail de la SCOP.
 - **Sobriété.** Pas d'usine à gaz. Le moins de dépendances possible, chacune
   justifiée, versions épinglées. Le site doit pouvoir être repris dans cinq ans par
   quelqu'un qui ne connaît pas l'histoire.
-- **Rendu conservé.** Le CSS de l'ancien site est repris tel quel. La
-  comparaison avec l'ancien site (`outils/compare_html.py`, captures au besoin)
-  sert à vérifier qu'une étape ne change pas le rendu.
-- **La SCOP ne touche qu'à `content/`.** Tout le reste (gabarits, CSS, config) est
+- **Rendu conservé.** Le CSS de l'ancien site est repris tel quel, chemins
+  absolus compris. On vérifie **le rendu, pas le HTML** : pages types à l'œil côte
+  à côte avec l'ancien site, plus aucun lien mort (D9). L'identité du HTML au
+  caractère près n'est pas un objectif.
+- **La SCOP ne touche qu'à `content/` et `assets/photos/`.** Tout le reste (gabarits, CSS, config) est
   du code. Un champ saisi par un membre ne doit jamais pouvoir casser la mise en
   page.
 - **Le contenu appartient à la SCOP.** Il doit rester sous forme de fichiers
   lisibles (Markdown, YAML, images) dans le dépôt, sans base de données ni format
   propriétaire, pour qu'on puisse changer d'outil d'édition sans rien perdre.
-- **Python pour l'outillage, dans un venv** (`requirements.txt` épinglé). Hugo est
-  un binaire épinglé installé dans `.bin/` par script. **Pas de R.**
+- **Outillage minimal** (D9) : Python **sans dépendance** (bibliothèque standard),
+  ImageMagick pour les photos, Hugo épinglé dans le workflow et n'importe quel Hugo
+  récent en local. Ni venv, ni script d'installation. **Pas de R.**
 - **Photos : jamais d'original perdu.** Le dépôt ne garde que des masters
   plafonnés (D6) ; les originaux vivent dans le Drive et l'ancien dépôt archivé.
 - **Aucune ressaisie.** Le contenu existant est migré par script depuis
@@ -154,5 +156,5 @@ une erreur sur les MX coupe le mail de la SCOP.
 ## Outils disponibles sur le poste de Louis (vérifié le 2026-09-24)
 
 `Rscript`, `python3`, `node`, `chromium` (snap, utilisable en headless), ImageMagick
-(`compare`, `convert`), `dig`. **Hugo n'est pas installé** (étape 1 du plan). Pas de `whois`, pas de
+(`compare`, `convert`), `dig`. **Hugo n'est pas installé** (étape 0 du plan). Pas de `whois`, pas de
 Playwright.

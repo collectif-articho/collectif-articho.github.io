@@ -3,10 +3,11 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-25** : cadrage terminé, décisions D1 à D6 prises (§ 2), une
-> question ouverte (Q1). **Aucun code écrit.** Prochaine action : **étape 1** du
-> plan d'attaque (§ 4), outillage local. Rien n'attend Louis avant l'étape 5, qui
-> demande le compte GitHub `collectif-articho` (§ 2, D3).
+> **État au 2026-09-25** : cadrage terminé et revu, décisions D1 à D11 (§ 2),
+> aucune question ouverte. **Aucun code écrit.** Prochaine action : **étape 0**
+> (§ 4), essai de bout en bout. Elle **attend le compte GitHub `collectif-articho`**
+> (D3), demandé à la SCOP, et la création du dépôt `collectif-articho.github.io`
+> (D7).
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
@@ -56,7 +57,7 @@ sans élément nouveau ; si c'est le cas, ajouter une entrée plutôt que rééc
 Louis, après présentation informelle à la SCOP). Raisons : 0 €, pas de serveur à
 entretenir, design conservé, contenu en fichiers portables. Comparaison au § 3.
 
-**D2. Générateur : Hugo ; outillage : Python ; R abandonné** (2026-09-25). Hugo
+**D2. Générateur : Hugo ; outillage : Python ; R abandonné** (2026-09-25 ; outillage révisé par D9). Hugo
 est un exécutable Go unique, sans pip ni dépendances : on épingle sa version dans
 `.hugo-version`, un script l'installe dans `.bin/` du projet (ignoré par git, rôle
 équivalent d'un venv), et le workflow CI lit le même fichier. Il apporte sans code à
@@ -70,7 +71,7 @@ HTML, captures), dans un venv avec `requirements.txt` épinglé. **R n'est pas
 conservé**, sous aucune forme.
 
 **D3. Accès : compte GitHub `collectif-articho` pour la SCOP, Louis collaborateur**
-(2026-09-25). Pas d'invitation par e-mail ni de service d'authentification tiers,
+(2026-09-25 ; nom du dépôt révisé par D7). Pas d'invitation par e-mail ni de service d'authentification tiers,
 pas d'organisation.
 
 - **Compte** : `collectif-articho` (libre au 2026-09-25 ; `articho` et `arti-cho`
@@ -117,16 +118,55 @@ jamais commitées. Plafonner après coup, par une action GitHub, ne servirait à
 rien : l'original resterait dans l'historique git. Le plafonnement doit donc se
 faire **avant** le commit : à la migration, puis à l'envoi depuis le CMS (Q1).
 
+**D7. Dépôt `collectif-articho.github.io`, site servi à la racine** (2026-09-25,
+révise la partie « dépôt » de D3). GitHub publie un dépôt nommé `website` dans un
+sous-dossier (`collectif-articho.github.io/website/`), ce qui cassait tous les
+chemins absolus de l'ancien site (`/resources/…`) et obligeait à passer chaque
+chemin par `relURL` et à réécrire les `url()` du CSS. Un dépôt nommé
+`<compte>.github.io` est publié **à la racine** de `https://<compte>.github.io/` :
+les chemins absolus marchent tels quels, en test comme sur le domaine. C'est la
+convention GitHub pour « le site de ce compte ». Le reste de D3 est confirmé :
+**un seul compte `collectif-articho`** tenu par la SCOP, pas d'organisation, pas
+d'invitations par e-mail. Les conditions de GitHub interdisent le partage d'un
+identifiant entre plusieurs personnes ; choix assumé par Louis, en pratique une
+ou deux personnes font les modifications, et c'est ce que la SCOP sait gérer.
+
+**D8. Photos dans un dossier média commun, pas dans le dossier de la fiche**
+(2026-09-25). Vérifié dans la doc de Pages CMS : ses dossiers média sont des
+chemins fixes du dépôt, sans notion de chemin relatif à la fiche. Les « page
+bundles » de Hugo (`le-lopin/index.md` + `le-lopin/1.jpg`) ne sont donc pas
+alimentables depuis le CMS. Les photos vont dans `assets/photos/`, rangées par
+fiche à la migration ; la fiche liste leurs chemins ; les gabarits les
+redimensionnent avec `resources.Get`. Même doc : **Pages CMS ne réduit pas les
+photos à l'envoi**, ce qui tranche Q1 (voir D10).
+
+**D9. Outillage minimal, vérification à l'œil** (2026-09-25). Le rendu se vérifie
+visuellement sur 5 pages types côte à côte avec l'ancien site (une fiche, un
+listing, la Ligne de mobilier, l'accueil, une page texte), plus deux contrôles
+scriptés : aucun lien interne mort, et chaque titre du drive présent dans le site.
+62 pages sortent de 4 gabarits : si une fiche est juste, toutes le sont. Donc
+**pas de `compare_html.py`**, et l'identité au caractère près du HTML n'est pas un
+objectif. Dans le même esprit : migration en Python **sans dépendance** (bibliothèque
+standard) et photos traitées par `mogrify` (ImageMagick, déjà sur le poste), donc
+ni venv ni `requirements.txt` ; version de Hugo épinglée dans le workflow (méthode
+officielle de GitHub), sans script d'installation ni `.bin/`, n'importe quel Hugo
+récent en local. Révise les parties correspondantes de D2.
+
+**D10. Croissance du dépôt acceptée** (2026-09-25, tranche Q1). Les photos
+envoyées depuis le CMS entrent en pleine taille : de l'ordre de 100 à 250 Mo par
+an au rythme actuel. Acceptable plusieurs années (GitHub ne bloque qu'à 100 Mo par
+fichier). Le site publié reste léger : Hugo ne publie que les tailles réduites. Le
+mode d'emploi demandera d'envoyer des photos « taille moyenne » depuis le
+téléphone quand c'est possible. À réévaluer si le dépôt dépasse 2 Go.
+
+**D11. Une version par étape franchie** (2026-09-25). Chaque étape du plan (§ 4)
+franchie donne une version : `v0.1` à l'étape 0, jusqu'à `v1.0` à la bascule. Le
+`CHANGELOG.md` est titré par version et date, et le commit qui la clôt porte une
+étiquette git du même nom.
+
 ## Questions ouvertes
 
-**Q1. Le CMS réduit-il les photos à l'envoi ?** Les membres enverront des photos
-de téléphone de 3 à 20 Mo. Sans plafonnement à l'envoi, le dépôt grossit de
-l'ordre de 100 à 250 Mo par an au rythme actuel (estimation : 2 à 3 vagues, quelques
-projets de 5 à 10 photos), pour toujours. Pages CMS : capacité non vérifiée. Sveltia
-CMS sait le faire, mais demande une connexion par jeton ou une passerelle OAuth.
-**À trancher à l'étape 6**, avant d'ouvrir le CMS aux membres. Repli acceptable :
-accepter la croissance quelques années, GitHub ne pose de limite dure qu'à 100 Mo
-par fichier et recommande de rester sous quelques Go par dépôt.
+Aucune au 2026-09-25. Q1 est tranchée par D8 et D10.
 
 ---
 
@@ -154,27 +194,36 @@ les fichiers texte qu'iels trouvent trop compliqués.
 
 # 4. Plan d'attaque
 
-Chaque étape a un **critère de fin vérifiable**. Le site actuel reste en ligne,
-intact, jusqu'à l'étape 7. Les étapes 1 à 4 se font entièrement en local.
+Chaque étape a un **critère de fin vérifiable** et donne une version (D11). Le site
+actuel reste en ligne, intact, jusqu'à la bascule (étape 5).
+
+| étape | version | contenu | attend |
+|---|---|---|---|
+| 0 | v0.1 | essai de bout en bout : compte, dépôt, une fiche, Pages CMS | le compte `collectif-articho` |
+| 1 | v0.2 | squelette Hugo, CSS repris, gabarits générés | |
+| 2 | v0.3 | migration du contenu | |
+| 3 | v0.4 | pages fixes éditables, accueil compris | |
+| 4 | v0.5 | formulaires du CMS, mode d'emploi, démonstration à la SCOP | un membre |
+| 5 | v1.0 | bascule du domaine | un membre, pour les réglages |
+| 6 | v1.x | améliorations, un sujet par version | |
 
 ## Architecture cible
 
 ```
-collectif-articho-v2/
-├── hugo.toml                  config : URL, permalinks, version minimale de Hugo
-├── content/                   TOUT ce que la SCOP édite, et rien d'autre
-│   ├── _index.md              accueil : champs seulement (voir étape 4)
+collectif-articho.github.io/
+├── hugo.toml                  config : URL, permalinks
+├── content/                   textes : TOUT ce que la SCOP édite, avec assets/photos
+│   ├── _index.md              accueil : champs (étape 3)
 │   ├── a-propos.md  mentions-legales.md  conditions-generales.md   texte Markdown
 │   ├── contact.md  notre-offre.md                                  champs + texte
 │   ├── projets/
 │   │   ├── _index.md          onglet
 │   │   └── amenagements/
 │   │       ├── _index.md      sous-onglet : titre, ordre
-│   │       └── le-lopin/
-│   │           ├── index.md   fiche : champs + texte
-│   │           └── 1.jpg …    photos de la fiche
+│   │       └── le-lopin.md    fiche : champs + texte
 │   ├── mobiliers/  (agencements/, ligne-de-mobilier/)
 │   └── ateliers/   (ateliers-sur-mesures/)
+├── assets/photos/             photos des fiches, rangées par fiche (D8)
 ├── layouts/                   gabarits HTML, jamais touchés par la SCOP
 │   ├── _default/baseof.html   squelette commun (<head>, en-tête, pied)
 │   ├── index.html             accueil
@@ -182,49 +231,70 @@ collectif-articho-v2/
 │   └── partials/              header, footer, barres d'onglets
 ├── static/resources/          css, fonts, statics, js : recopiés de l'ancien site
 ├── .pages.yml                 formulaires du CMS
-├── .github/workflows/         construction et publication
+├── .github/workflows/         construction et publication, Hugo épinglé ici
 ├── migration/                 script de migration, exécuté une fois
-├── outils/                    comparaison HTML, captures
 └── docs/                      mode d'emploi pour la SCOP, archives
 ```
 
-**Règle de séparation** : la SCOP ne touche qu'à `content/`. Tout le reste est du
-code. C'est ce qui garantit le rendu quoi que saisissent les membres.
+**Règle de séparation** : la SCOP ne touche qu'à `content/` et `assets/photos/`.
+Tout le reste est du code. C'est ce qui garantit le rendu quoi que saisissent les
+membres.
 
-## Étape 1. Outillage local
+## Étape 0. Essai de bout en bout (v0.1)
 
-1. Hugo (D2) : version épinglée dans `.hugo-version` ; `outils/installer-hugo.sh`
-   télécharge le binaire officiel de cette version depuis les releases GitHub,
-   **vérifie sa somme de contrôle**, l'installe dans `.bin/` (ignoré par git).
-   Jamais de snap ni de paquet de distribution. Édition standard ou *extended*
-   (WebP) : trancher en lisant les notes de version au moment d'épingler.
-2. Python : `python3 -m venv .venv`, `requirements.txt` épinglé (Pillow, et le
-   strict nécessaire), `.venv/` ignoré par git.
-3. Squelette : `hugo.toml`, `layouts/_default/baseof.html`, `static/`,
-   `.gitignore` (`.bin/`, `.venv/`, `public/`, `resources/_gen/`).
-4. Recopier **sans modification** depuis `../collectif-articho/` : `resources/css`,
-   `resources/fonts`, `resources/statics`, `resources/js`, `components/`, les images
-   des pages fixes (`resources/images/{slideshow,articles,thumbnail}`,
-   `accueil.JPEG`, `team.jpg`, les fichiers au niveau onglet listés dans
-   `CLAUDE.md`), `CNAME`. Les `resources/images/<onglet>/<sous-onglet>/` ne sont
-   **pas** recopiées : elles viendront de la migration. Trier au passage les
-   fichiers inutilisés (ancien P3.5).
-5. `outils/compare_html.py` : construit le site, puis compare page par page avec
-   `../collectif-articho/` après normalisation (blancs, ordre des attributs,
-   chemins d'images ramenés au nom de fichier). Sortie : pages identiques,
-   différentes, manquantes, en trop.
+But : valider toute la chaîne sur **une seule fiche** avant d'investir, parce que
+c'est elle qui fixe le format de migration (D8).
 
-**Fin** : `hugo` construit sans erreur ; `outils/compare_html.py` tourne et liste
-toutes les pages comme manquantes.
+**Demande le compte `collectif-articho` (D3, D7).** Séance de réglages avec un
+membre, connecté au compte de la SCOP : créer le dépôt `collectif-articho.github.io`
+(public, GitHub Pages gratuit l'exige), inviter `lou-heraut` en collaborateur,
+régler Pages sur « GitHub Actions », installer l'application Pages CMS sur le dépôt.
 
-## Étape 2. Migration du contenu
+1. `git init` dans ce dossier, premier push vers le dépôt.
+2. Hugo minimal : `hugo.toml`, un gabarit de fiche brut, **une** fiche écrite à la
+   main (`le-lopin.md`) avec 3 photos dans `assets/photos/`.
+3. Workflow `.github/workflows/publier.yml` sur le modèle officiel de GitHub pour
+   Hugo, version épinglée : construction, publication Pages. Rien d'autre.
+4. `.pages.yml` minimal : une collection « Projets » et son dossier média.
+5. Depuis Pages CMS, connecté au compte de la SCOP : modifier la fiche, ajouter une
+   photo, publier. Noter où atterrit la photo, ce qu'écrit le CMS dans la fiche, et
+   le délai jusqu'à la mise en ligne.
 
-`migration/migrer.py`, Python dans le venv (Pillow pour les photos). Exécuté une
-fois, gardé pour la traçabilité.
+**Fin** : une modification faite dans Pages CMS apparaît sur
+`https://collectif-articho.github.io/` avec sa photo redimensionnée. Le format de
+fiche et de chemin de photo de l'étape 2 est fixé d'après ce qu'écrit le CMS.
+
+## Étape 1. Squelette et gabarits générés (v0.2)
+
+1. Recopier **sans modification** depuis `../collectif-articho/` : `resources/css`,
+   `resources/fonts`, `resources/statics`, `resources/js`, les images des pages
+   fixes (`resources/images/{slideshow,articles,thumbnail}`, `accueil.JPEG`,
+   `team.jpg`, les fichiers au niveau onglet listés dans `CLAUDE.md`), `CNAME`
+   (retiré tant que le domaine n'a pas basculé). Trier au passage les fichiers
+   inutilisés (ancien P3.5). Les chemins absolus (`/resources/…`) restent tels
+   quels (D7).
+2. `components/*.html` devient des partials Hugo (`header`, `footer`, barres
+   d'onglets), au lieu d'être chargés par `fetch()`. **L'onglet actif est calculé
+   dans le partial** : `checkURL()` et jQuery disparaissent ici.
+3. Gabarits pour : fiche projet (`default_projet.html`), listing de sous-onglet
+   (`default_projets.html`), listing de l'onglet Projets, page Ligne de mobilier
+   (`default_mobiliers.html`, carrousel compris, cas d'une seule photo traité).
+4. **Mêmes URL** : `uglyURLs = true` et permalinks préfixés par `/pages/`, donc
+   `/pages/projets/amenagements/le-lopin.html`.
+5. Photos redimensionnées par Hugo : une taille pour la page, une pour les
+   vignettes. Seules ces tailles sont publiées.
+
+**Fin** : `hugo` construit sans erreur sur les fiches de l'étape 0 et quelques
+fiches ajoutées à la main, une par gabarit.
+
+## Étape 2. Migration du contenu (v0.3)
+
+`migration/migrer.py`, Python sans dépendance, plus `mogrify` pour les photos
+(D9). Exécuté une fois, gardé pour la traçabilité.
 
 1. Parcourt `../collectif-articho/drive/`. Reprend les règles de l'ancien script
    (`CLAUDE.md`, § Pièges) : NFD, `trim`, `clé : valeur`, listes ` - ` des meubles.
-2. Écrit une fiche par dossier. Format retenu :
+2. Écrit une fiche par dossier, au format validé à l'étape 0. Format de départ :
 
    ```yaml
    ---
@@ -234,7 +304,9 @@ fois, gardé pour la traçabilité.
    infos:
      - { cle: "Commanditaire", valeur: "Croque Ta Ville" }
      - { cle: "Date", valeur: "2022" }
-   photos: [1.jpg, 2.jpg, 3.jpg]  # ordre d'affichage, la 1re est la principale
+   photos:                      # ordre d'affichage, la 1re est la principale
+     - photos/projets/amenagements/le-lopin/1.jpg
+     - photos/projets/amenagements/le-lopin/2.jpg
    ---
    Dans le cadre de l'appel à projet des Pariculteurs, …
 
@@ -242,50 +314,26 @@ fois, gardé pour la traçabilité.
    ```
 
    Meubles : `modalite`, `dimensions` (liste), `materiaux` (liste), `photos`.
-3. Nom du dossier de fiche = slug actuel (`to_link()` de l'ancien script), pour
-   garder les mêmes URL.
-4. Photos (D6) : noms assainis, orientation EXIF appliquée, plafond 3 000 px,
-   JPEG qualité 88, métadonnées de localisation GPS retirées. Les originaux
-   restent dans l'ancien dépôt et dans le Drive.
+3. Nom du fichier de fiche = slug actuel (`to_link()` de l'ancien script), pour
+   garder les mêmes URL. La fiche du TPMob porte
+   `aliases: [/pages/mobiliers/agencements/tpmobile.html]` : Hugo écrit lui-même
+   le stub de redirection du QR code.
+4. Photos (D6) : noms assainis, `mogrify -auto-orient -strip -resize '3000x3000>'
+   -quality 88` (orientation appliquée, métadonnées GPS retirées, plafond 3 000 px).
+   Les originaux restent dans l'ancien dépôt et dans le Drive.
 5. Rapport en fin d'exécution : fiches écrites, champs manquants, photos renommées,
    anomalies.
 
 **Fin** : 53 fiches projet et 5 meubles dans `content/`, rapport sans anomalie non
-expliquée, `content/` autour de 460 Mo.
+expliquée, `assets/photos/` autour de 460 Mo. Les deux contrôles de D9 passent
+(aucun lien mort, chaque titre du drive présent) et les pages types sont vérifiées
+à l'œil contre l'ancien site.
 
-## Étape 3. Gabarits générés, à l'identique
+## Étape 3. Pages fixes éditables (v0.4)
 
-1. Gabarits Hugo pour : fiche projet (`default_projet.html`), listing de
-   sous-onglet (`default_projets.html`), listing de l'onglet Projets, page Ligne de
-   mobilier (`default_mobiliers.html`, carrousel compris).
-2. **Mêmes URL** : `uglyURLs = true` et permalinks préfixés par `/pages/`, donc
-   `/pages/projets/amenagements/le-lopin.html`. Le stub du QR code devient un
-   contenu avec un gabarit « redirection ».
-3. **Chemins relatifs à la `baseURL`.** L'ancien site écrit ses chemins en absolu
-   depuis la racine (`/resources/…`), ce qui suppose d'être servi à la racine d'un
-   domaine. Les gabarits passent tous les chemins par `relURL`, et le workflow
-   donne la `baseURL` à Hugo (`hugo --baseURL …`, pratique standard du workflow
-   Pages de Hugo). Le même code sert alors l'adresse provisoire de GitHub, le
-   serveur local et le domaine final. Côté CSS, Hugo ne réécrit pas les fichiers
-   statiques : les 13 `url(/resources/…)` des feuilles de style deviennent
-   relatifs à la feuille (`../fonts/…`).
-4. **En-tête, pied de page et barres d'onglets en partials Hugo**, au lieu d'être
-   chargés par `fetch('/components/…')` dans `script.js` (chemins absolus en dur,
-   et contenu absent tant que le JavaScript n'a pas tourné). `checkURL()` reste
-   pour l'instant, appelé au chargement de la page.
-5. Photos : servies depuis le dossier de la fiche, redimensionnées par Hugo (une
-   taille pour la page, une pour les vignettes). C'est le seul écart assumé avec
-   l'ancien HTML, neutralisé par la normalisation des chemins dans la comparaison.
-
-Pour comparer malgré les points 3 et 4, `compare_html.py` normalise les deux côtés :
-préfixe de `baseURL` retiré, et dans l'ancien HTML les `<div id="header">` et
-consorts remplis avec le contenu de `components/`, comme le fait `fetch()`.
-
-**Fin** : `outils/compare_html.py` ne signale **aucune différence** sur les 62 pages
-générées (53 fiches, 8 listings, Ligne de mobilier), hors écarts listés et
-expliqués un par un dans le `CHANGELOG`.
-
-## Étape 4. Pages fixes éditables
+C'est l'argument qui compte pour la SCOP face à WordPress : **tout le site se
+modifie depuis les formulaires**, accueil compris, sans que personne puisse casser
+la mise en page.
 
 Principe (D5) : **le gabarit porte la mise en page, le fichier de contenu porte
 les emplacements.** Trois cas selon la page :
@@ -327,7 +375,7 @@ Points connus à traiter :
 
 - les styles en ligne des pages texte (`style="margin-top: 0rem;"` sur chaque
   `<p>`) ne survivent pas au Markdown : les remplacer par une règle CSS de la
-  page. Écart de HTML voulu, vérifié par capture ;
+  page ;
 - partenaires : certains noms contiennent un `/` (« Mission Locale Saint-Denis /
   Pierrefitte »), donc une liste de noms par groupe, pas un texte à découper ; la
   balise `<it>` actuelle n'existe pas en HTML, le rôle devient un champ ;
@@ -335,53 +383,39 @@ Points connus à traiter :
   de regroupement ou un cas dans le gabarit ;
 - pied de page : année `2025` écrite en dur, à calculer à la construction.
 
-**Fin** : toutes les pages de l'ancien site existent dans le nouveau ; pages à
-champs identiques au sens de `compare-html` ; pages Markdown validées par capture.
+**Fin** : toutes les pages de l'ancien site existent dans le nouveau, vérifiées à
+l'œil côte à côte ; aucun lien mort.
 
-## Étape 5. Mise en ligne de test
+## Étape 4. Formulaires du CMS et démonstration (v0.5)
 
-**Demande le compte `collectif-articho` (D3).** Séance de réglages avec un membre,
-connecté au compte de la SCOP : créer le dépôt `website` (public, GitHub Pages
-gratuit l'exige), inviter `lou-heraut` en collaborateur, régler Pages sur « GitHub
-Actions ».
-
-1. Pousser ce dossier vers le dépôt.
-2. Workflow `.github/workflows/publier.yml` : Hugo à version épinglée, construction,
-   publication Pages. Rien d'autre.
-3. Vérifier en ligne : toutes les pages rendent 200, aucun lien interne mort.
-
-**Fin** : le nouveau site est consultable à l'adresse de test, identique à
-l'ancien.
-
-## Étape 6. Formulaires du CMS
-
-1. Trancher Q1 (réduction des photos à l'envoi). Installer l'application Pages
-   CMS sur le dépôt (connecté au compte de la SCOP) ; écrire `.pages.yml` :
+1. Compléter `.pages.yml` :
 
    | formulaire | champs |
    |---|---|
    | Projet (un par sous-onglet) | titre, sous-titre, infos (liste clé/valeur), texte, photos ; champs obligatoires marqués |
    | Meuble | nom, modalité, dimensions (liste), matériaux (liste), photos |
-   | Accueil, Contact, Offre, pages d'onglet | les champs de l'étape 4 |
+   | Accueil, Contact, Offre, pages d'onglet | les champs de l'étape 3 |
    | Pages texte | titre, texte |
 
 2. Vérifier avec le compte de la SCOP : créer une fiche, ajouter et réordonner des
-   photos, publier, corriger, supprimer. Mesurer le délai jusqu'à la mise en ligne.
+   photos, publier, corriger, supprimer, modifier l'accueil.
 3. Vérifier ce que l'interface permet pour **annuler** ; si c'est insuffisant,
    documenter la procédure de retour arrière depuis GitHub.
-4. Écrire `docs/mode-emploi.md` pour les membres : une page, avec captures.
+4. Écrire `docs/mode-emploi.md` pour les membres : une page, avec captures, dont
+   la consigne sur la taille des photos (D10).
+5. Démonstration à la SCOP sur l'adresse de test.
 
-**Adresses stables** : l'URL d'une fiche est le nom de son dossier, fixé à la
+**Adresses stables** : l'URL d'une fiche est le nom de son fichier, fixé à la
 création. Renommer un titre ne la change plus, contrairement à l'ancien site.
 
 **Fin** : un membre de la SCOP fait une modification complète seul, avec le mode
 d'emploi.
 
-## Étape 7. Bascule
+## Étape 5. Bascule (v1.0)
 
 1. Retirer le domaine de l'ancien dépôt, l'ajouter au nouveau (`CNAME` et
-   réglage Pages). Les enregistrements DNS ne changent pas : ils pointent déjà vers
-   GitHub Pages.
+   réglage Pages, connecté au compte de la SCOP). Les enregistrements DNS ne
+   changent pas : ils pointent déjà vers GitHub Pages.
 2. Vérifier en ligne : pages, images, stub du QR code, liens internes.
 3. **Scanner le QR code papier.**
 4. Transférer l'ancien dépôt `lou-heraut/collectif-articho` au compte
@@ -391,11 +425,10 @@ d'emploi.
 **Fin** : `collectifarticho.com` est servi par le nouveau dépôt, le QR code
 fonctionne.
 
-## Étape 8. Nettoyage et améliorations
+## Étape 6. Améliorations (v1.x)
 
-Après la bascule, un commit par sujet, chacun vérifié contre l'ancien rendu :
+Après la bascule, une version par sujet, chacune vérifiée contre le rendu :
 
-- onglet actif calculé à la construction : `checkURL()` et jQuery disparaissent ;
 - métadonnées par page (`<title>`, description, Open Graph avec image absolue),
   `404.html`, `sitemap.xml` (natif) ;
 - Leaflet de la page contact : chargé depuis `unpkg.com` **sans version**, donc à
@@ -428,15 +461,15 @@ Référence : `../collectif-articho/ROADMAP.md`.
 
 | ancien point | dans la v2 |
 |---|---|
-| P1.2 métadonnées des pages projet | étape 8, une ligne de gabarit |
-| P1.3 page 404 maison | étape 8, natif |
-| P1.5 photos pleine résolution | étapes 2 et 3, D6 |
-| P2.2 validation du contenu entrant | étape 6, champs obligatoires |
+| P1.2 métadonnées des pages projet | étape 6, une ligne de gabarit |
+| P1.3 page 404 maison | étape 6, natif |
+| P1.5 photos pleine résolution | étapes 1 et 2, D6 |
+| P2.2 validation du contenu entrant | étape 4, champs obligatoires |
 | P2.3 titres injectés sans échappement | Hugo échappe par défaut |
 | P2.4 noms de photos non assainis | étape 2 |
-| P2.5 carrousel à une seule photo | étape 3, dans le gabarit |
-| P3.1 `sitemap.xml`, `robots.txt` | étape 8, natif |
-| P3.2 slugs dupliqués en 3 endroits | étape 8, navigation générée |
+| P2.5 carrousel à une seule photo | étape 1, dans le gabarit |
+| P3.1 `sitemap.xml`, `robots.txt` | étape 6, natif |
+| P3.2 slugs dupliqués en 3 endroits | étape 1, navigation en partials |
 | P3.3 1,4 Go d'images dans git | nouveau dépôt, photos plafonnées |
 | P3.4 hygiène dépôt | nouveau dépôt propre |
 | P3.5 fichiers inutilisés dans `resources/` | étape 1, à la copie |
