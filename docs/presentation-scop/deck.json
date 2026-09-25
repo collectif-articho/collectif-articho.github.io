@@ -1,0 +1,18 @@
+{
+  "v": 4,
+  "createdOnFiles": {"v": 1, "at": "2026-09-24T18:40:00Z"},
+  "title": "Mettre à jour le site ARTI/CHÔ",
+  "cover": "cover",
+  "order": ["cover", "aujourdhui", "besoins", "chiffres", "cms", "wordpress", "intermediaire", "formulaire", "bilan", "comparatif", "autres", "reco", "etapes"],
+  "sections": {
+    "s1": {"description": "Le point de départ : comment le site est mis à jour aujourd'hui et ce qu'on attend", "start": "cover"},
+    "s2": {"description": "Les deux options principales, WordPress et la solution intermédiaire", "start": "cms"},
+    "s3": {"description": "La comparaison, la recommandation et les prochaines étapes", "start": "comparatif"}
+  },
+  "faces": {
+    "faune-display": {"family": "Faune Display", "src": "/_blob/0defdfcd0954eb97d9c1725e486d6907"},
+    "faune-text": {"family": "Faune Text", "src": "/_blob/c9c4e9ed3be9867aef198c3b44395047"},
+    "faune-bold": {"family": "Faune Bold", "src": "/_blob/d2c7cd1da63acb9f7355a2256947f339"}
+  },
+  "designSystems": []
+}

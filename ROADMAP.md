@@ -1,10 +1,15 @@
 # Feuille de route
 
-Contexte technique dans `CLAUDE.md`. Ce qui est fait part dans `CHANGELOG.md`.
+Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
+`CHANGELOG.md`.
 
-> **État au 2026-09-24** : cadrage écrit, **décision de la SCOP en attente** entre
-> WordPress et la solution intermédiaire recommandée ici (option B). Rien n'est
-> implémenté. Une présentation destinée aux membres compare les options.
+> **État au 2026-09-25** : cadrage terminé, décisions D1 à D6 prises (§ 2).
+> **Aucun code écrit.** Prochaine action : **étape 1** du plan d'attaque (§ 4),
+> outillage local. Rien n'attend Louis avant l'étape 5, qui demande le compte
+> GitHub de la SCOP (§ 2, D3).
+
+**Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
+reprise de travail.
 
 ---
 
@@ -23,9 +28,8 @@ Toute mise à jour du site passe aujourd'hui par Louis :
 | pages fixes, navigation | Louis, HTML à la main | aucun membre ne fait de HTML ni de CSS |
 
 Les membres ont proposé WordPress. Le rythme réel : environ **5 vagues de mises à
-jour en deux ans** (historique git). L'outil sera donc ouvert deux ou trois fois par
-an, par des gens qui auront oublié entre deux fois. Il doit être évident sans
-formation.
+jour en deux ans** (historique git). L'outil sera ouvert deux ou trois fois par an,
+par des gens qui auront oublié entre deux fois. Il doit être évident sans formation.
 
 ## Cahier des besoins (validé par Louis le 2026-09-24)
 
@@ -37,283 +41,324 @@ formation.
 | B4 | **Louis n'intervient plus** pour les mises à jour courantes. |
 | B5 | **Aucun abonnement ni hébergement payant.** GitHub Pages, gratuit, convient. |
 | B6 | **Aucune ressaisie** du contenu existant. |
-| B7 | **Le rendu actuel est conservé.** Le CSS est très travaillé ; un nettoyage du code est bienvenu mais ne doit rien changer au rendu. Garde-fou : égalité du HTML produit ; toute retouche de style est proposée à Louis avant d'être faite. |
+| B7 | **Le rendu actuel est conservé.** Le CSS est très travaillé ; un nettoyage du code est bienvenu mais ne doit rien changer au rendu. |
 | B8 | **Sobre et pérenne** : peu de dépendances, code lisible, reprenable par un tiers. |
 | B9 | L'**URL du QR code imprimé** continue de fonctionner. |
 
 ---
 
-# 2. Ce qu'est un CMS, et pourquoi la question du compte GitHub
+# 2. Décisions
 
-Un **CMS** (système de gestion de contenu) est l'**interface d'administration** où
-l'on remplit des formulaires pour modifier un site. Deux familles, qui ne rangent
-pas le contenu au même endroit :
+Journal des arbitrages, du plus ancien au plus récent. Ne pas rouvrir une décision
+sans élément nouveau ; si c'est le cas, ajouter une entrée plutôt que réécrire.
 
-**CMS classique (WordPress).** Interface, base de données et serveur forment un
-tout. Le contenu vit dans une base de données MySQL, et un serveur PHP fabrique
-chaque page à chaque visite. Il faut donc un hébergement qui fait tourner PHP et
-MySQL, payant, et quelqu'un qui le met à jour.
+**D1. Option B : CMS « git » et générateur statique, pas WordPress** (2026-09-25,
+Louis, après présentation informelle à la SCOP). Raisons : 0 €, pas de serveur à
+entretenir, design conservé, contenu en fichiers portables. Comparaison au § 3.
 
-**CMS « git » (Pages CMS, Sveltia CMS, Decap CMS).** Seulement une interface. Le
-contenu reste des **fichiers** (Markdown et photos) rangés dans le dépôt GitHub.
-Quand un membre clique sur « Enregistrer », le CMS écrit ces fichiers dans le dépôt
-(un *commit*). GitHub reconstruit alors le site et le publie. Pas de base, pas de
-serveur à entretenir, et l'hébergement reste gratuit.
+**D2. Générateur : Hugo.** Un seul exécutable à version épinglée, redimensionnement
+des images natif, navigation générable depuis le contenu, standard documenté. R
+écarté pour la reprise par un tiers et les dépendances en CI.
 
-**D'où la question du compte GitHub.** Pour écrire dans le dépôt, le CMS doit avoir
-le droit de le faire. Le plus simple pour ces outils est que chaque personne se
-connecte avec **son** compte GitHub. Ce n'est pas une fatalité, trois façons de
-l'éviter :
+**D3. Accès : un compte GitHub au nom de la SCOP, plus celui de Louis**
+(2026-09-25). Pas d'invitation par e-mail ni de service d'authentification tiers.
+La SCOP partage un compte GitHub (identifiants, double authentification et codes de
+secours gardés par elle) ; Louis garde son compte `lou-heraut` pour le
+développement. Le CMS se contente de ces deux comptes. Le dépôt appartient à la
+SCOP, c'est aussi ce qui la rend indépendante.
 
-1. **Invitation par e-mail (Pages CMS).** Le propriétaire du dépôt invite des
-   collaborateur·ices par adresse e-mail ; iels se connectent par un lien reçu par
-   mail, **sans compte GitHub**, et Pages CMS écrit dans le dépôt en leur nom.
-   ⚠️ À confirmer en pratique au prototype : c'est le **point bloquant n°1**.
-2. **Un service d'authentification par e-mail** placé devant Decap ou Sveltia
-   (par exemple DecapBridge). Un service tiers de plus, à évaluer.
-3. **Un compte GitHub partagé** au nom de la SCOP, dont tout le monde a le mot de
-   passe. Fonctionne, mais GitHub impose la double authentification aux comptes qui
-   écrivent dans un dépôt, ce qui complique le partage. Solution de repli.
+Forme recommandée, **à confirmer par Louis** : une **organisation GitHub** gratuite
+dont les deux comptes sont propriétaires. Chacun a tous les droits sans partager de
+mot de passe. Variante minimale : dépôt sur le compte de la SCOP, Louis simple
+collaborateur ; il peut pousser mais n'a pas accès aux réglages (Pages, Actions,
+domaine).
+
+**D4. CMS : Pages CMS.** Avec une connexion par compte GitHub (D3), il n'y a rien à
+héberger : l'application tourne chez l'éditeur, on installe son application GitHub
+sur le dépôt et on décrit les formulaires dans `.pages.yml`. Sveltia et Decap
+demanderaient une passerelle OAuth à héberger. Le contenu restant des fichiers
+ordinaires, changer de CMS plus tard ne coûte qu'une configuration.
+
+**D5. Pages fixes : gabarit HTML et champs de contenu séparés** (2026-09-25). La
+mise en page, parfois technique (accueil surtout), reste dans des gabarits HTML
+écrits à la main. Les membres n'éditent que des « emplacements » : textes, photos,
+listes. Détail au § 4, étape 4.
+
+**D6. Tests visuels : libres, sans obstination** (2026-09-25). Claude peut utiliser
+Chromium headless et ImageMagick pour tester et régler le CSS. Si un réglage ne
+converge pas après deux ou trois essais, revenir vers Louis avec une question
+précise plutôt que d'insister. Voir `CLAUDE.md`, § Principes de travail.
 
 ---
 
-# 3. Les options
+# 3. Options étudiées (pour mémoire)
 
-## A. WordPress
+La présentation montrée à la SCOP est archivée dans `docs/presentation-scop/`.
 
-Faisable, mais c'est **un transfert de charge, pas une suppression**.
+| | A. WordPress | **B. CMS git + Hugo** ✅ | C. Kirby/Grav | D. Drive automatisé | E. Wix, Webflow… |
+|---|---|---|---|---|---|
+| saisie | éditeur visuel | formulaires | formulaires | fichiers `.txt` | éditeur visuel |
+| structure imposée | avec extensions (ACF) | oui | oui | non | selon l'outil |
+| pages fixes | tout, mise en page comprise | textes et photos | oui | non | tout |
+| annuler | révisions intégrées | historique git, depuis GitHub | selon config | historique Drive | intégré |
+| coût mensuel | hébergement (≈ 5 à 10 €, plus en formule gérée) | 0 € | hébergement PHP (+ licence Kirby) | 0 € | abonnement |
+| entretien | élevé (mises à jour, sécurité) | quasi nul | moyen | moyen | nul |
+| design actuel | à reconstruire en thème PHP | porté tel quel | à porter | tel quel | à refaire |
+| Louis nécessaire | pour l'entretien | pour le design seulement | pour l'entretien | non | non |
 
-- **Ressaisie** : pas un vrai obstacle, un script peut importer les 59 projets.
-- **Structure** : il faut un type de contenu « Projet » avec des champs (extension
-  ACF ou équivalent) et un **thème sur mesure en PHP** pour reproduire le design.
-  C'est un vrai projet de développement, et le CSS actuel serait à réintégrer dans
-  la logique de thème WordPress.
-- **Entretien** : mises à jour du cœur, des extensions et du thème, sécurité
-  (WordPress est la cible la plus attaquée du web), sauvegardes. Quelqu'un doit
-  s'en charger, donc très probablement Louis.
-- **Coût** : hébergement mutualisé de l'ordre de 5 à 10 € par mois, ou formule
-  WordPress.com autorisant les extensions, de l'ordre de plusieurs dizaines d'euros
-  par mois. Ordres de grandeur à revérifier. Aujourd'hui : 0 €.
-- **Points forts réels** : éditeur visuel très connu, historique des révisions page
-  par page, prestataires faciles à trouver.
+Sur A : la ressaisie n'est pas un argument (un script importe les projets) ; ses
+vrais coûts sont le thème sur mesure, l'hébergement et l'entretien de sécurité, qui
+retomberaient sur Louis. Sur D : Louis sort de la boucle, mais les membres gardent
+les fichiers texte qu'iels trouvent trop compliqués.
 
-Pertinent pour un site fait de nombreuses pages libres ou d'un blog. Ce site-ci est
-l'inverse : une soixantaine de fiches très structurées, une dizaine de pages fixes,
-des mises à jour rares.
+---
 
-## B. CMS git + générateur de site statique ✅ recommandée
+# 4. Plan d'attaque
+
+Chaque étape a un **critère de fin vérifiable**. Le site actuel reste en ligne,
+intact, jusqu'à l'étape 7. Les étapes 1 à 4 se font entièrement en local.
+
+## Architecture cible
 
 ```
-membre de la SCOP                  GitHub (gratuit)                       visiteur
-┌─────────────────────┐  commit  ┌──────────────────────────────┐  ┌─────────────────────┐
-│ Pages CMS (web)     │────────> │ content/projets/…/index.md   │  │ collectifarticho.com│
-│ formulaire « Projet »│         │ + photos                     │  │ GitHub Pages        │
-│  titre, sous-titre  │          │            │                 │  └─────────────────────┘
-│  catégorie (liste)  │          │  GitHub Actions : Hugo       │            ▲
-│  infos, texte       │          │  + réduction des photos ─────┼────────────┘
-│  photos             │          └──────────────────────────────┘  en ligne en 1 à 2 min
-└─────────────────────┘
+collectif-articho-v2/
+├── hugo.toml                  config : URL, permalinks, version minimale de Hugo
+├── content/                   TOUT ce que la SCOP édite, et rien d'autre
+│   ├── _index.md              accueil : champs seulement (voir étape 4)
+│   ├── a-propos.md  mentions-legales.md  conditions-generales.md   texte Markdown
+│   ├── contact.md  notre-offre.md                                  champs + texte
+│   ├── projets/
+│   │   ├── _index.md          onglet
+│   │   └── amenagements/
+│   │       ├── _index.md      sous-onglet : titre, ordre
+│   │       └── le-lopin/
+│   │           ├── index.md   fiche : champs + texte
+│   │           └── 1.jpg …    photos de la fiche
+│   ├── mobiliers/  (agencements/, ligne-de-mobilier/)
+│   └── ateliers/   (ateliers-sur-mesures/)
+├── layouts/                   gabarits HTML, jamais touchés par la SCOP
+│   ├── _default/baseof.html   squelette commun (<head>, en-tête, pied)
+│   ├── index.html             accueil
+│   ├── projets/…              fiche, listing
+│   └── partials/              header, footer, barres d'onglets
+├── static/resources/          css, fonts, statics, js : recopiés de l'ancien site
+├── .pages.yml                 formulaires du CMS
+├── .github/workflows/         construction et publication
+├── migration/                 script de migration, exécuté une fois
+├── outils/                    comparaison HTML, captures
+└── docs/                      mode d'emploi pour la SCOP, archives
 ```
 
-- **Saisie** : formulaires web définis par nous (titre, sous-titre, catégorie en
-  liste déroulante, infos, texte, photos). Structure imposée par construction.
-- **Pages fixes** : chaque page devient un fichier Markdown avec quelques champs
-  (textes, photos du diaporama, articles de presse). La mise en page reste dans les
-  gabarits, les membres ne touchent qu'au contenu. C'est exactement B2.
-- **Publication** : directe, chaque enregistrement part en ligne en une à deux
-  minutes.
-- **Annuler** : corriger se fait en rouvrant la fiche. Chaque enregistrement est un
-  commit, donc **tout l'historique est conservé** et toute version passée est
-  récupérable ; mais le retour arrière se fait depuis GitHub, pas depuis le CMS.
-  C'est le point faible face aux révisions de WordPress, à regarder au prototype.
-- **Coût** : 0 €. GitHub Pages, GitHub Actions (dépôt public) et Pages CMS sont
-  gratuits.
-- **Entretien** : rien côté serveur. Reste, rarement, une évolution de gabarit.
-- **Portabilité** : le contenu est fait de fichiers ordinaires. Si Pages CMS
-  disparaît, Sveltia ou Decap lisent les mêmes fichiers avec une autre
-  configuration. Aucun enfermement.
+**Règle de séparation** : la SCOP ne touche qu'à `content/`. Tout le reste est du
+code. C'est ce qui garantit le rendu quoi que saisissent les membres.
 
-### Choix du générateur
+## Étape 1. Outillage local
 
-| | B1 : garder R | B2 : Hugo ✅ |
+1. Installer Hugo : binaire officiel (édition *extended*, pour le WebP) dans
+   `~/.local/bin`, version notée dans `hugo.toml` et dans le workflow. Pas de snap
+   ni de paquet de distribution, souvent en retard.
+2. Squelette : `hugo.toml`, `layouts/_default/baseof.html`, `static/`.
+3. Recopier **sans modification** depuis `../collectif-articho/` : `resources/css`,
+   `resources/fonts`, `resources/statics`, `resources/js`, `components/`, les images
+   des pages fixes (`resources/images/{slideshow,articles,thumbnail}`,
+   `accueil.JPEG`, `team.jpg`, les fichiers au niveau onglet listés dans
+   `CLAUDE.md`), `CNAME`. Les `resources/images/<onglet>/<sous-onglet>/` ne sont
+   **pas** recopiées : elles viendront de la migration. Trier au passage les
+   fichiers inutilisés (ancien P3.5).
+4. `outils/compare-html` : construit le site, puis compare page par page avec
+   `../collectif-articho/` après normalisation (blancs, ordre des attributs,
+   chemins d'images ramenés au nom de fichier). Sortie : pages identiques,
+   différentes, manquantes, en trop.
+
+**Fin** : `hugo` construit sans erreur ; `outils/compare-html` tourne et liste
+toutes les pages comme manquantes.
+
+## Étape 2. Migration du contenu
+
+`migration/migrer.py`, Python sans dépendance hors bibliothèque standard, plus
+ImageMagick en ligne de commande. Exécuté une fois, gardé pour la traçabilité.
+
+1. Parcourt `../collectif-articho/drive/`. Reprend les règles de l'ancien script
+   (`CLAUDE.md`, § Pièges) : NFD, `trim`, `clé : valeur`, listes ` - ` des meubles.
+2. Écrit une fiche par dossier. Format retenu :
+
+   ```yaml
+   ---
+   title: "LE LOPIN"
+   sous_titre: "Aménagement extérieur de l'école du CEPROC"
+   weight: 5                    # ordre, tiré du préfixe NN_ du dossier drive
+   infos:
+     - { cle: "Commanditaire", valeur: "Croque Ta Ville" }
+     - { cle: "Date", valeur: "2022" }
+   photos: [1.jpg, 2.jpg, 3.jpg]  # ordre d'affichage, la 1re est la principale
+   ---
+   Dans le cadre de l'appel à projet des Pariculteurs, …
+
+   Deuxième paragraphe…
+   ```
+
+   Meubles : `modalite`, `dimensions` (liste), `materiaux` (liste), `photos`.
+3. Nom du dossier de fiche = slug actuel (`to_link()` de l'ancien script), pour
+   garder les mêmes URL.
+4. Photos : noms assainis, dimension maximale plafonnée (de l'ordre de 2 500 px),
+   qualité JPEG 85. Les originaux restent dans l'ancien dépôt et dans le Drive.
+5. Rapport en fin d'exécution : fiches écrites, champs manquants, photos renommées,
+   anomalies.
+
+**Fin** : 53 fiches projet et 5 meubles dans `content/`, rapport sans anomalie non
+expliquée, `content/` à quelques centaines de Mo au plus.
+
+## Étape 3. Gabarits générés, à l'identique
+
+1. Gabarits Hugo pour : fiche projet (`default_projet.html`), listing de
+   sous-onglet (`default_projets.html`), listing de l'onglet Projets, page Ligne de
+   mobilier (`default_mobiliers.html`, carrousel compris).
+2. **Mêmes URL** : `uglyURLs = true` et permalinks préfixés par `/pages/`, donc
+   `/pages/projets/amenagements/le-lopin.html`. Le stub du QR code devient un
+   contenu avec un gabarit « redirection ».
+3. En-tête, pied de page et `script.js` **inchangés** à cette étape : le HTML des
+   pages reste celui de l'ancien site, `fetch()` compris.
+4. Photos : servies depuis le dossier de la fiche, redimensionnées par Hugo (une
+   taille pour la page, une pour les vignettes). C'est le seul écart assumé avec
+   l'ancien HTML, neutralisé par la normalisation des chemins dans la comparaison.
+
+**Fin** : `outils/compare-html` ne signale **aucune différence** sur les 62 pages
+générées (53 fiches, 8 listings, Ligne de mobilier), hors écarts listés et
+expliqués un par un dans le `CHANGELOG`.
+
+## Étape 4. Pages fixes éditables
+
+Principe (D5) : **le gabarit porte la mise en page, le fichier de contenu porte
+les emplacements.** Trois cas selon la page :
+
+| page | modèle | ce que la SCOP édite |
 |---|---|---|
-| travail | adapter `make_projet.R` pour lire du Markdown, le lancer dans GitHub Actions | porter 3 gabarits et les pages fixes |
-| dépendances | R + paquets (`yaml`, `magick`) dans le CI | **un seul exécutable**, version épinglée, rien d'autre |
-| photos | à coder avec `magick` | redimensionnement **natif** |
-| navigation | reste codée à la main en 3 endroits | générée depuis le contenu |
-| reprise par un tiers | R est rare pour ce genre de travail | Hugo est un standard documenté |
+| **accueil** | gabarit dédié, champs seulement | diaporama (liste de photos) ; accroche ; 4 valeurs ; 3 offres (titre, sous-titre, lien) ; blocs de texte en Markdown ; photo d'accueil, photo d'équipe ; presse (nom, image, lien) ; soutiens (logo, lien) ; partenaires (groupes de noms) |
+| **contact** | gabarit dédié, champs | e-mail, réseaux (nom, lien, icône), adresses (nom, adresse) ; la carte reste dans le gabarit |
+| **notre-offre** | gabarit, champs et texte | plaquette PDF, texte |
+| **ateliers**, **mobiliers** | gabarit de page d'onglet | 2 cartes (titre, sous-titre, image, lien) |
+| **à propos**, **mentions légales**, **conditions générales** | gabarit « texte », corps en Markdown | le texte, avec gras et italique |
 
-**Recommandation : Hugo.** Plus sobre en dépendances que R en CI, et il règle au
-passage une bonne partie de l'ancien backlog (voir § 5). Pas de Node, pas de
-`node_modules`, pas de framework JavaScript.
+Concrètement, pour l'accueil, le gabarit `layouts/index.html` contient tout le HTML
+actuel, et à la place de chaque contenu une boucle ou un champ :
 
-### Choix du CMS
+```html
+<div id="slideshow">
+  {{ range .Params.diaporama }}
+  <figure><img loading="lazy" src="{{ . }}"></figure>
+  {{ end }}
+</div>
+…
+<div id="container_article">
+  {{ range .Params.presse }}
+  <a class="article" href="{{ .lien }}" target="_blank">
+    <div class="circle"></div>
+    <img loading="lazy" src="{{ .image }}">
+    <h4>{{ .nom }}</h4>
+  </a>
+  {{ end }}
+</div>
+```
 
-| | Pages CMS ✅ | Sveltia CMS | Decap CMS |
-|---|---|---|---|
-| où il tourne | application hébergée par l'éditeur | page `/admin` du site | page `/admin` du site |
-| connexion sans compte GitHub | **invitation par e-mail** | via un service tiers | via un service tiers |
-| installation | un fichier `.pages.yml` | fichier de config, plus une passerelle d'authentification à héberger | idem |
-| photos | envoyées telles quelles | **redimensionnées à l'envoi** | envoyées telles quelles |
-| maturité | projet jeune, petite équipe | jeune, successeur de Decap | ancien, évolue peu |
+Un champ de texte long passe par `markdownify` et s'insère au bon endroit. Les
+membres écrivent `**gras**`, jamais de HTML ; le CSS et la structure ne dépendent
+jamais de ce qu'iels saisissent.
 
-**Recommandation : Pages CMS**, pour la connexion par e-mail et l'installation
-réduite à un fichier. Le redimensionnement se fait de toute façon à la construction
-par Hugo.
+Points connus à traiter :
 
-## C. CMS « à plat » en PHP (Kirby, Grav)
+- les styles en ligne des pages texte (`style="margin-top: 0rem;"` sur chaque
+  `<p>`) ne survivent pas au Markdown : les remplacer par une règle CSS de la
+  page. Écart de HTML voulu, vérifié par capture (D6) ;
+- partenaires : certains noms contiennent un `/` (« Mission Locale Saint-Denis /
+  Pierrefitte »), donc une liste de noms par groupe, pas un texte à découper ; la
+  balise `<it>` actuelle n'existe pas en HTML, le rôle devient un champ ;
+- soutiens : les deux derniers logos sont empilés verticalement, prévoir un champ
+  de regroupement ou un cas dans le gabarit ;
+- pied de page : année `2025` écrite en dur, à calculer à la construction.
 
-Même philosophie que le Drive actuel (un dossier par page, du texte et des photos),
-avec une vraie interface d'administration. Mais il faut un **hébergement PHP
-payant** et le tenir à jour, et Kirby demande une licence payante. Intéressant si
-l'on quittait GitHub Pages, ce qui n'est pas le cas.
+**Fin** : toutes les pages de l'ancien site existent dans le nouveau ; pages à
+champs identiques au sens de `compare-html` ; pages Markdown validées par capture.
 
-## D. Garder le Drive et automatiser
+## Étape 5. Mise en ligne de test
 
-Une action GitHub récupère le dossier Drive (ou une feuille Google Sheets, une ligne
-par projet) et reconstruit le site. Louis sort de la boucle, mais **les membres
-gardent les fichiers texte**, précisément ce qu'iels trouvent trop compliqué. Et
-l'accès automatisé au Drive demande un compte de service Google à configurer. Repli
-seulement.
+**Demande le compte GitHub de la SCOP (D3).** Nommer le dépôt
+`<compte-ou-organisation>.github.io` : GitHub Pages le sert **à la racine**
+(`https://<nom>.github.io/`). Un dépôt au nom quelconque serait servi sous
+`/<nom-du-dépôt>/` et casserait tous les chemins absolus du site.
 
-## E. Constructeurs de sites (Webflow, Squarespace, Wix)
+1. Dépôt public (GitHub Pages gratuit l'exige), poussé depuis ce dossier.
+2. Workflow `.github/workflows/publier.yml` : Hugo à version épinglée, construction,
+   publication Pages. Rien d'autre.
+3. Vérifier en ligne : toutes les pages rendent 200, aucun lien interne mort.
 
-Aucun entretien, mais un abonnement, un design à refaire dans leur outil et un
-contenu enfermé chez eux. Écarté par B5 et B7.
+**Fin** : le nouveau site est consultable à l'adresse de test, identique à
+l'ancien.
 
-## Synthèse
+## Étape 6. Formulaires du CMS
 
-| | A. WordPress | **B. CMS git + Hugo** | C. Kirby/Grav | D. Drive automatisé |
-|---|---|---|---|---|
-| saisie par les membres | éditeur visuel | **formulaires** | formulaires | fichiers `.txt` |
-| structure imposée | avec extensions | **oui** | oui | non |
-| pages fixes modifiables | oui, librement | **oui, le contenu** | oui | non |
-| annuler | révisions intégrées | historique git | selon config | historique Drive |
-| coût mensuel | hébergement | **0 €** | hébergement | 0 € |
-| entretien | élevé | **très faible** | moyen | moyen |
-| rendu actuel conservé | à reconstruire en thème | **porté tel quel** | à porter | tel quel |
-| Louis encore nécessaire | pour l'entretien | **non, sauf design** | pour l'entretien | non |
+1. Installer l'application Pages CMS sur le dépôt ; écrire `.pages.yml` :
 
----
+   | formulaire | champs |
+   |---|---|
+   | Projet (un par sous-onglet) | titre, sous-titre, infos (liste clé/valeur), texte, photos ; champs obligatoires marqués |
+   | Meuble | nom, modalité, dimensions (liste), matériaux (liste), photos |
+   | Accueil, Contact, Offre, pages d'onglet | les champs de l'étape 4 |
+   | Pages texte | titre, texte |
 
-# 4. Plan d'implémentation (option B)
+2. Vérifier avec le compte de la SCOP : créer une fiche, ajouter et réordonner des
+   photos, publier, corriger, supprimer. Mesurer le délai jusqu'à la mise en ligne.
+3. Vérifier ce que l'interface permet pour **annuler** ; si c'est insuffisant,
+   documenter la procédure de retour arrière depuis GitHub.
+4. Écrire `docs/mode-emploi.md` pour les membres : une page, avec captures.
 
-Chaque phase est livrable et vérifiable seule. Le site actuel reste en ligne,
-intact, jusqu'à la bascule de la phase 5.
+**Adresses stables** : l'URL d'une fiche est le nom de son dossier, fixé à la
+création. Renommer un titre ne la change plus, contrairement à l'ancien site.
 
-## Phase 0. Décision et accès
+**Fin** : un membre de la SCOP fait une modification complète seul, avec le mode
+d'emploi.
 
-1. Présenter les options aux membres, obtenir la décision.
-2. Lister les personnes qui éditeront et leurs adresses e-mail.
-3. Créer une **organisation GitHub de la SCOP** (gratuite), avec au moins deux
-   administrateur·ices dont Louis. Le nouveau dépôt y vivra, pour que le site ne
-   dépende plus d'un compte personnel.
+## Étape 7. Bascule
 
-## Phase 1. Prototype de démonstration
+1. Retirer le domaine de l'ancien dépôt, l'ajouter au nouveau (`CNAME` et
+   réglage Pages). Les enregistrements DNS ne changent pas : ils pointent déjà vers
+   GitHub Pages.
+2. Vérifier en ligne : pages, images, stub du QR code, liens internes.
+3. **Scanner le QR code papier.**
+4. Transférer l'ancien dépôt au compte de la SCOP et l'**archiver** (lecture seule,
+   historique complet conservé).
 
-Petit, rapide, jetable si la décision est négative.
+**Fin** : `collectifarticho.com` est servi par le nouveau dépôt, le QR code
+fonctionne.
 
-1. Squelette Hugo minimal, 3 ou 4 projets migrés, gabarit projet porté.
-2. Pages CMS branché dessus avec le formulaire « Projet ».
-3. **Vérifier le point bloquant** : un membre invité par e-mail, sans compte
-   GitHub, crée une fiche, ajoute des photos, publie, corrige.
-4. Vérifier aussi l'annulation depuis l'interface.
+## Étape 8. Nettoyage et améliorations
 
-Si l'invitation par e-mail ne fonctionne pas comme attendu, réévaluer entre les
-solutions du § 2 avant d'aller plus loin.
+Après la bascule, un commit par sujet, chacun vérifié (D6) :
 
-## Phase 2. Migration du contenu, portage à l'identique
+- en-tête, pied de page et barres d'onglets en partials Hugo au lieu de `fetch()`,
+  onglet actif calculé à la construction : `checkURL()` et jQuery disparaissent ;
+- métadonnées par page (`<title>`, description, Open Graph avec image absolue),
+  `404.html`, `sitemap.xml` (natif) ;
+- Leaflet de la page contact : chargé depuis `unpkg.com` **sans version**, donc à
+  la merci d'une version majeure ; épingler ou héberger ;
+- CSS : règles mortes, doublons, styles en ligne de `index.html` rapatriés ;
+- `srcset` pour servir la bonne taille d'image selon l'écran.
 
-**Objectif : le nouveau site produit exactement le même HTML que l'ancien.** Tant
-que c'est vrai, le rendu est identique par construction, sans rien avoir à regarder.
+## Hors périmètre : domaine et mail
 
-1. **Script de migration** (`migration/`, exécuté une fois) : lit
-   `../collectif-articho/drive/` et écrit `content/<onglet>/<sous-onglet>/<slug>/`
-   avec un `index.md` (champs structurés en tête, texte en dessous) et les photos.
-   Il reprend les règles de l'ancien script : NFD, `trim`, `clé : valeur`, listes
-   séparées par ` - `. Il assainit les noms de photos.
-2. **Photos réduites à la migration** : les originaux restent dans l'ancien dépôt et
-   dans le Drive ; le nouveau dépôt ne garde que des versions plafonnées (de l'ordre
-   de 2 500 px de large). Le dépôt passe d'environ 1,4 Go à quelques centaines de Mo
-   au plus, sans perte visible.
-3. **Gabarits Hugo** reproduisant `default_projet.html`, `default_projets.html`,
-   `default_mobiliers.html` et la page d'onglet Projets.
-4. **Mêmes URL qu'aujourd'hui** (`/pages/projets/amenagements/le-lopin.html`) :
-   aucune redirection nouvelle, et le stub du QR code est repris tel quel.
-5. **Test d'égalité** : un script compare, page par page, le HTML de l'ancien site
-   et celui du nouveau, après normalisation des blancs. Sortie attendue : aucune
-   différence, ou une liste d'écarts expliqués un par un.
+Le domaine est chez Squarespace (ex-Google Domains), le mail passe par Google
+Workspace (MX `aspmx.l.google.com`). Les deux sont jugés trop chers. Migrer vers
+un registraire et un hébergeur de mail plus simples est un **sujet séparé** :
+transfert du domaine, recréation des boîtes, déplacement des messages, sans jamais
+couper les MX. À traiter **après** la bascule, jamais en même temps.
 
-Les ressources statiques (`resources/css`, `fonts`, `statics`, `js`, `components`)
-sont recopiées **sans modification** à cette étape.
+## À signaler à la SCOP (contenu, pas code)
 
-## Phase 3. Pages fixes éditables
-
-1. `index.html` et les pages de `pages/` deviennent des fichiers de contenu, avec
-   des gabarits dédiés. Les textes libres passent en Markdown, les listes (photos
-   du diaporama, articles de presse, logos) en champs répétables.
-2. Même test d'égalité HTML qu'en phase 2. Les rares écarts inévitables (blancs,
-   ordre d'attributs) sont listés et justifiés un par un à Louis.
-
-## Phase 4. Formulaires du CMS
-
-Un fichier `.pages.yml` décrit les formulaires, avec des champs obligatoires, ce qui
-remplace toute validation à la main (ancien P2.2) :
-
-| formulaire | champs |
-|---|---|
-| Projet | titre, sous-titre, catégorie (liste fixe), infos (liste clé/valeur), texte, photos (la 1ʳᵉ est la principale) |
-| Meuble | nom, modalité, dimensions (liste), matériaux (liste), photos |
-| Atelier | comme Projet |
-| Accueil | textes, photos du diaporama, articles de presse, soutiens |
-| Page fixe | titre, texte, photos |
-
-**Adresses stables.** L'adresse d'une page est fixée à sa création (nom du dossier)
-et ne suit plus les changements de titre. Le problème permanent de l'ancien site,
-où chaque renommage de titre cassait l'URL, disparaît.
-
-Écrire aussi un **mode d'emploi d'une page** pour les membres, avec captures.
-
-## Phase 5. Mise en ligne et bascule
-
-1. **GitHub Actions** : construction par Hugo (version épinglée) et publication sur
-   GitHub Pages à chaque commit. Environ une à deux minutes.
-2. Le nouveau dépôt reprend le domaine (`CNAME`), l'ancien est **archivé** en
-   lecture seule, avec son historique complet.
-3. Vérifications en ligne : toutes les pages rendent 200, le stub du QR code
-   redirige, aucun lien interne mort (le script de l'ancien `CLAUDE.md` se réutilise
-   tel quel).
-4. **Scanner le QR code papier.**
-
-## Phase 6. Nettoyage du code, sous contrôle visuel
-
-Seulement après la bascule, quand le site tourne. Rien n'y est obligatoire.
-
-**Règle : aucune retouche de style sans l'accord de Louis.** Chaque changement
-touchant au CSS ou à la structure HTML est d'abord décrit à Louis en prose (quoi,
-où, pourquoi, effet attendu) ; il valide, ajuste ou le fait lui-même. Les captures
-automatiques (Chromium headless, `compare` d'ImageMagick) peuvent servir de
-contrôle ponctuel, pas d'outil de réglage : l'expérience a montré qu'elles sont
-lentes et peu fiables pour du CSS fin. Les changements purement structurels (pas
-une règle CSS modifiée) se vérifient d'abord par le test d'égalité HTML.
-
-Chantiers possibles, un commit chacun, chacun validé par Louis :
-
-- en-tête, pied de page et barres d'onglets inclus à la construction au lieu d'être
-  chargés par `fetch()`, onglet actif calculé par Hugo : `checkURL()` et jQuery
-  disparaissent ;
-- dédoublonnage et rangement du CSS, suppression des règles mortes ;
-- styles en ligne (`style="…"`) de `index.html` rapatriés dans le CSS ;
-- vignettes et photos servies en taille adaptée (`srcset`).
-
-## Chantier annexe, hors périmètre : domaine et mail
-
-Le domaine est chez Squarespace (ex-Google Domains) et le mail de la SCOP passe par
-Google Workspace (MX `aspmx.l.google.com`). Les deux sont jugés trop chers. Migrer
-vers un registraire et un hébergeur de mail plus simples (français de préférence)
-est possible, mais c'est un **sujet séparé** : il faut transférer le domaine,
-recréer les boîtes mail, déplacer les messages, et surtout ne jamais couper les MX
-pendant l'opération. À traiter **après** la bascule du site, jamais en même temps.
+- **Mentions légales périmées** : elles disent le site « hébergé bénévolement sur
+  le serveur de Louis Héraut », alors qu'il est chez GitHub (GitHub Inc., à
+  nommer comme hébergeur, c'est une obligation légale) ; elles parlent encore de
+  CAVAPU qui « se transforme en SCOP ».
+- Page d'accueil : la transformation en SCOP est racontée dans deux paragraphes
+  successifs qui se recoupent.
 
 ---
 
@@ -321,20 +366,19 @@ pendant l'opération. À traiter **après** la bascule du site, jamais en même 
 
 Référence : `../collectif-articho/ROADMAP.md`.
 
-| ancien point | avec l'option B |
+| ancien point | dans la v2 |
 |---|---|
-| P1.2 métadonnées des pages projet | une ligne dans le gabarit Hugo |
-| P1.3 page 404 maison | `layouts/404.html`, natif |
-| P1.5 photos pleine résolution | réduction à la migration, puis par Hugo |
-| P2.2 validation du contenu entrant | champs obligatoires du CMS |
+| P1.2 métadonnées des pages projet | étape 8, une ligne de gabarit |
+| P1.3 page 404 maison | étape 8, natif |
+| P1.5 photos pleine résolution | étapes 2 et 3 |
+| P2.2 validation du contenu entrant | étape 6, champs obligatoires |
 | P2.3 titres injectés sans échappement | Hugo échappe par défaut |
-| P2.4 noms de photos non assainis | assainis à la migration |
-| P2.5 carrousel à une seule photo | corrigé dans le gabarit |
-| P3.1 `sitemap.xml`, `robots.txt` | natifs dans Hugo |
-| P3.2 slugs dupliqués en 3 endroits | navigation générée (phase 6) |
-| P3.3 1,4 Go d'images dans git | nouveau dépôt avec photos réduites |
+| P2.4 noms de photos non assainis | étape 2 |
+| P2.5 carrousel à une seule photo | étape 3, dans le gabarit |
+| P3.1 `sitemap.xml`, `robots.txt` | étape 8, natif |
+| P3.2 slugs dupliqués en 3 endroits | étape 8, navigation générée |
+| P3.3 1,4 Go d'images dans git | nouveau dépôt, photos plafonnées |
 | P3.4 hygiène dépôt | nouveau dépôt propre |
-| P3.5 fichiers inutilisés dans `resources/` | à trier au moment de la copie |
+| P3.5 fichiers inutilisés dans `resources/` | étape 1, à la copie |
 
-Tant que la décision n'est pas prise, ne rien investir de plus dans
-`make_projet.R`, sauf urgence en production.
+Ne rien investir de plus dans `make_projet.R`, sauf urgence en production.

@@ -6,9 +6,23 @@ n'est pas de refaire le site : c'est de permettre aux membres de le mettre à jo
 **seul·es**, sans passer par Louis, en gardant le rendu actuel.
 
 Ce dossier est **autonome** : tout le contexte utile est écrit ici, sans supposer
-de mémoire d'une session précédente. Les besoins, les options étudiées, la décision
-et le plan d'implémentation sont dans `ROADMAP.md`. Ce qui est fait part dans
-`CHANGELOG.md`.
+de mémoire d'une session précédente. Les besoins, les décisions et le plan d'attaque
+sont dans `ROADMAP.md`. Ce qui est fait part dans `CHANGELOG.md`.
+
+## Reprendre le travail
+
+1. Lire le bandeau **État** en tête de `ROADMAP.md` : il dit où on en est et quelle
+   est la prochaine action.
+2. Lire le journal des décisions (`ROADMAP.md`, § 2). Ne pas rouvrir une décision
+   sans élément nouveau.
+3. Lire les dernières entrées de `CHANGELOG.md` et `git log --oneline | head`.
+4. Travailler étape par étape du plan d'attaque (§ 4) ; chaque étape a un critère
+   de fin, ne pas passer à la suivante tant qu'il n'est pas atteint.
+
+**Tenir la traçabilité à chaque étape franchie**, dans le même commit que le code :
+entrée au `CHANGELOG.md` (quoi, pourquoi, écarts constatés), bandeau État de
+`ROADMAP.md` mis à jour, nouvelle décision ajoutée au § 2 si un arbitrage a été
+fait avec Louis. Un fait qui n'est écrit que dans une conversation est perdu.
 
 ## Conventions de rédaction
 
@@ -85,11 +99,25 @@ décrit en détail son fonctionnement ; l'essentiel est résumé ci-dessous.
   `resources/images/mobiliers/ligne-de-mobilier-intro.jpg`,
   `resources/images/ateliers/plaquette_ARTICHO.pdf`.
 
+## Charte graphique
+
+Relevée dans `resources/css/` de l'ancien site, reprise pour la présentation à la
+SCOP, à réutiliser pour tout document destiné aux membres (mode d'emploi…).
+
+| rôle | valeur |
+|---|---|
+| bleu (titres, fonds forts) | `#213589` |
+| orange (accents) | `#FEC37E`, `#FEA945` |
+| crème (fond clair) | `#FFF7ED` |
+| quasi-noir (texte) | `#151206` |
+| polices | Faune, en local : `faune.display-black.otf` (titres), `faune.text-regular.otf`, `faune.text-bold.otf`, plus italiques et thin |
+
 ## Hébergement et comptes
 
 | | |
 |---|---|
 | hébergeur | **GitHub Pages**, gratuit, à conserver |
+| comptes | aujourd'hui dépôt sur `lou-heraut` (compte perso de Louis) ; cible : compte GitHub de la SCOP plus celui de Louis, idéalement dans une organisation (`ROADMAP.md`, D3). **Pas encore créé.** |
 | domaine | `collectifarticho.com`, enregistré chez Google Domains, **repris par Squarespace** ; payé par la SCOP |
 | DNS | serveurs `ns-cloud-d{1..4}.googledomains.com` ; A vers `185.199.10{8,9,10,11}.153` (GitHub Pages) |
 | mail | MX vers `aspmx.l.google.com` : **Google Workspace**, adresse de la SCOP sur ce domaine |
@@ -107,15 +135,17 @@ une erreur sur les MX coupe le mail de la SCOP.
 - **Sobriété.** Pas d'usine à gaz. Le moins de dépendances possible, chacune
   justifiée, versions épinglées. Le site doit pouvoir être repris dans cinq ans par
   quelqu'un qui ne connaît pas l'histoire.
-- **Le style ne se touche pas sans Louis.** Claude voit mal un rendu et gère mal
-  les retouches fines de CSS ; Louis l'a constaté et ne compte que modestement sur
-  les captures d'écran automatiques (Chromium headless et ImageMagick, lentes et peu
-  fiables pour du réglage précis). Règle : **toute modification de style est
-  d'abord proposée à Louis en prose** (quoi, où, pourquoi, effet attendu), et c'est
-  lui qui valide ou fait. Le vrai garde-fou est l'**égalité du HTML produit** avec
-  l'ancien site : tant qu'elle tient et que le CSS est recopié tel quel, le rendu
-  est identique par construction. Les captures ne servent qu'à un contrôle
-  ponctuel, jamais à piloter un réglage.
+- **Style : tester librement, sans s'obstiner** (décision D6). Claude peut
+  utiliser Chromium headless et ImageMagick pour capturer, comparer et régler le
+  CSS. Mais si un réglage ne converge pas après deux ou trois essais, **revenir vers
+  Louis avec une question précise** (quoi, où, ce qui a été essayé) plutôt que d'y
+  passer du temps : il connaît l'intention derrière chaque règle. Le premier
+  garde-fou reste l'**égalité du HTML produit** avec l'ancien site : tant qu'elle
+  tient et que le CSS est recopié tel quel, le rendu est identique par
+  construction.
+- **La SCOP ne touche qu'à `content/`.** Tout le reste (gabarits, CSS, config) est
+  du code. Un champ saisi par un membre ne doit jamais pouvoir casser la mise en
+  page.
 - **Le contenu appartient à la SCOP.** Il doit rester sous forme de fichiers
   lisibles (Markdown, YAML, images) dans le dépôt, sans base de données ni format
   propriétaire, pour qu'on puisse changer d'outil d'édition sans rien perdre.
@@ -126,5 +156,5 @@ une erreur sur les MX coupe le mail de la SCOP.
 ## Outils disponibles sur le poste de Louis (vérifié le 2026-09-24)
 
 `Rscript`, `python3`, `node`, `chromium` (snap, utilisable en headless), ImageMagick
-(`compare`, `convert`), `dig`. **Hugo n'est pas installé.** Pas de `whois`, pas de
+(`compare`, `convert`), `dig`. **Hugo n'est pas installé** (étape 1 du plan). Pas de `whois`, pas de
 Playwright.
