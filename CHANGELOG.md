@@ -2,6 +2,20 @@
 
 Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
+## v0.1 (en cours), 2026-09-25
+
+- Compte GitHub `collectif-articho` et dépôt `collectif-articho.github.io` créés
+  par la SCOP ; Pages sur « GitHub Actions », Pages CMS installé, Louis
+  collaborateur.
+- Essai Hugo : fiche du Lopin aux mêmes URL que l'ancien site, gabarit repris de
+  `default_projet.html`, CSS et polices recopiés tels quels, trois photos
+  plafonnées à 3 000 px (7,1 Mo devenus 2,2 Mo ; servies à environ 700 Ko après
+  redimensionnement par Hugo, masters non publiés). Workflow de publication,
+  Hugo 0.166.0 épinglé. Publié et vérifié en ligne.
+- Écart constaté : `uglyURLs` ne s'applique pas aux sections
+  (`amenagements/index.html` au lieu de `amenagements.html`), à traiter à
+  l'étape 1.
+
 ## 2026-09-25, revue du plan
 
 - Revue du plan pour l'alléger, décisions D7 à D11 dans `ROADMAP.md` :

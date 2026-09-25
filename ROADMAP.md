@@ -5,10 +5,10 @@ Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part 
 
 > **État au 2026-09-25** : **étape 0 en cours.** Compte `collectif-articho` créé,
 > dépôt `collectif-articho.github.io` public, Pages sur « GitHub Actions », Pages
-> CMS installé, Louis collaborateur. Essai écrit en local (config Hugo, fiche du
-> Lopin, gabarit de fiche, workflow, `.pages.yml`), construit sans erreur avec
-> Hugo 0.166.0. Prochaine action : premier push, vérifier la publication, puis le
-> test dans Pages CMS (§ 4, étape 0, point 5).
+> CMS installé, Louis collaborateur. Essai poussé et **publié** : la fiche du Lopin
+> répond sur https://collectif-articho.github.io/pages/projets/amenagements/le-lopin.html
+> (workflow en moins d'une minute). Prochaine action : le test dans Pages CMS
+> (§ 4, étape 0, point 5), qui fixera le format de fiche de la migration.
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
