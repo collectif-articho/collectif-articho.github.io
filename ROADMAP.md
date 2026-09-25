@@ -102,6 +102,11 @@ mise en page, parfois technique (accueil surtout), reste dans des gabarits HTML
 écrits à la main. Les membres n'éditent que des « emplacements » : textes, photos,
 listes. Détail au § 4, étape 4.
 
+**D6. Tests visuels : libres, sans obstination** (2026-09-25). Claude peut utiliser
+Chromium headless et ImageMagick pour tester et régler le CSS. Si un réglage ne
+converge pas après deux ou trois essais, revenir vers Louis avec une question
+précise plutôt que d'insister. Voir `CLAUDE.md`, § Principes de travail.
+
 **D7. Photos : masters plafonnés à 3 000 px dans le dépôt** (2026-09-25). À la
 migration, chaque photo est réduite à 3 000 px sur le plus grand côté, JPEG
 qualité 88. Mesuré sur un échantillon de 24 photos (surtout des 4 032 × 3 024 de
@@ -115,11 +120,6 @@ servies aux visiteurs (page, vignette) sont calculées par Hugo à la constructi
 jamais commitées. Plafonner après coup, par une action GitHub, ne servirait à
 rien : l'original resterait dans l'historique git. Le plafonnement doit donc se
 faire **avant** le commit : à la migration, puis à l'envoi depuis le CMS (Q1).
-
-**D6. Tests visuels : libres, sans obstination** (2026-09-25). Claude peut utiliser
-Chromium headless et ImageMagick pour tester et régler le CSS. Si un réglage ne
-converge pas après deux ou trois essais, revenir vers Louis avec une question
-précise plutôt que d'insister. Voir `CLAUDE.md`, § Principes de travail.
 
 ## Questions ouvertes
 
