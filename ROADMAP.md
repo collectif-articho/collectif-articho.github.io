@@ -6,9 +6,10 @@ Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part 
 > **État au 2026-09-25** : **étape 0 en cours.** Compte `collectif-articho` créé,
 > dépôt `collectif-articho.github.io` public, Pages sur « GitHub Actions », Pages
 > CMS installé, Louis collaborateur. Essai poussé et **publié** : la fiche du Lopin
-> répond sur https://collectif-articho.github.io/pages/projets/amenagements/le-lopin.html
-> (workflow en moins d'une minute). Prochaine action : le test dans Pages CMS
-> (§ 4, étape 0, point 5), qui fixera le format de fiche de la migration.
+> répond sur https://collectif-articho.github.io/pages/projets/amenagements/le-lopin.html.
+> **Bloqué** : Pages CMS refuse les photos de plus de 4,5 Mo (erreur 413, limite
+> de son hébergeur). Question ouverte Q2 (§ 2) : passer à Sveltia CMS. Prochaine
+> action : décision de Louis sur Q2, puis second essai.
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
@@ -167,7 +168,22 @@ franchie donne une version : `v0.1` à l'étape 0, jusqu'à `v1.0` à la bascule
 
 ## Questions ouvertes
 
-Aucune au 2026-09-25. Q1 est tranchée par D8 et D10.
+Q1 est tranchée par D8 et D10.
+
+**Q2. Garder Pages CMS ou passer à Sveltia CMS ?** (ouverte le 2026-09-25, à
+trancher avec Louis). Constaté à l'étape 0 : l'envoi d'une photo lourde depuis
+Pages CMS échoue en `Failed to upload file: 413`. Cause vérifiée : l'application
+hébergée passe les envois par des fonctions Vercel (`server: Vercel`), limitées à
+**4,5 Mo** par requête ; ticket ouvert chez Pages CMS (#284), sans réponse. Les
+photos de téléphone (3 à 20 Mo) ne passeraient donc pas, ce qui bloque B1.
+Recommandation : **Sveltia CMS**, page statique `/admin/` servie par le site
+lui-même, qui écrit directement dans GitHub depuis le navigateur et **réduit les
+photos avant l'envoi** (WebP, taille maximale réglable), ce qui règle aussi D10.
+Contrepartie : connexion par jeton GitHub limité au dépôt, collé une fois par
+appareil et renouvelé à expiration (ou « Sign in with GitHub » via un
+authentificateur sur Cloudflare Workers, gratuit mais à déployer). Le contenu,
+les gabarits et `assets/photos/` ne changent pas. Prochaine action proposée : un
+second essai de l'étape 0 avec Sveltia sur la même fiche.
 
 ---
 

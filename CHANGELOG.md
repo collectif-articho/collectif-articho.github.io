@@ -15,6 +15,10 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 - Écart constaté : `uglyURLs` ne s'applique pas aux sections
   (`amenagements/index.html` au lieu de `amenagements.html`), à traiter à
   l'étape 1.
+- Test de Pages CMS par Louis avec son compte collaborateur : l'envoi d'une
+  photo lourde échoue en `413`. Cause : limite de 4,5 Mo par requête des
+  fonctions Vercel qui hébergent Pages CMS. Question Q2 ouverte dans
+  `ROADMAP.md` (passage à Sveltia CMS).
 
 ## 2026-09-25, revue du plan
 
