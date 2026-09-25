@@ -77,10 +77,23 @@ pas d'organisation.
   sont pris). Cohérent avec le domaine, l'Instagram `collectif.articho` et l'ancien
   dépôt. Créé par la SCOP avec l'adresse `contact@collectifarticho.com` ;
   identifiants, double authentification et codes de secours gardés par elle.
-- **Dépôt** : `collectif-articho.github.io`, public. Ce nom est imposé par GitHub
-  pour qu'un site soit servi **à la racine** (`https://collectif-articho.github.io/`)
-  avant la bascule du domaine ; tout autre nom serait servi sous `/<dépôt>/` et
-  casserait les chemins absolus du site.
+- **Dépôt** : nom définitif **`website`**, public. Le nom du dépôt ne compte plus
+  une fois le domaine posé : un site avec domaine personnalisé est servi à la racine
+  du domaine, quel que soit le nom du dépôt. La contrainte ne porte que sur la
+  **période de test** (étapes 5 et 6) : sans domaine, GitHub sert un dépôt
+  quelconque sous `https://collectif-articho.github.io/<dépôt>/`, ce qui casse les
+  chemins absolus du site (`/resources/…`, et les `fetch('/components/…')` de
+  `script.js`). Trois façons d'y répondre ont été pesées (2026-09-25) :
+  1. **retenue** : créer le dépôt sous le nom `collectif-articho.github.io`, que
+     GitHub sert à la racine, puis le **renommer `website`** à la bascule, une fois
+     le domaine posé. Aucun DNS à toucher, aucun compromis dans le code, un clic de
+     renommage (GitHub redirige l'ancien nom) ;
+  2. nommer `website` dès le départ et poser un sous-domaine de test
+     (`test.collectifarticho.com`, un enregistrement CNAME chez Squarespace, sans
+     toucher aux MX). Propre aussi, mais demande d'intervenir dans le compte DNS ;
+  3. rendre tous les chemins relatifs à une `baseURL` : modifie les gabarits et
+     `script.js` pour une période de test, et casse la comparaison HTML avec
+     l'ancien site. Écartée.
 - **Louis** : collaborateur avec son compte `lou-heraut`. Vérifié dans la doc
   GitHub, un collaborateur d'un dépôt personnel peut pousser, fusionner, publier
   des releases, mais **pas** toucher aux réglages (Pages, Actions, domaine,
@@ -332,8 +345,8 @@ champs identiques au sens de `compare-html` ; pages Markdown validées par captu
 
 **Demande le compte `collectif-articho` (D3).** Séance de réglages avec un membre,
 connecté au compte de la SCOP : créer le dépôt `collectif-articho.github.io`
-(public, GitHub Pages gratuit l'exige), inviter `lou-heraut` en collaborateur,
-régler Pages sur « GitHub Actions ».
+(nom provisoire, voir D3 ; public, GitHub Pages gratuit l'exige), inviter
+`lou-heraut` en collaborateur, régler Pages sur « GitHub Actions ».
 
 1. Pousser ce dossier vers le dépôt.
 2. Workflow `.github/workflows/publier.yml` : Hugo à version épinglée, construction,
@@ -374,7 +387,9 @@ d'emploi.
    GitHub Pages.
 2. Vérifier en ligne : pages, images, stub du QR code, liens internes.
 3. **Scanner le QR code papier.**
-4. Transférer l'ancien dépôt `lou-heraut/collectif-articho` au compte
+4. Renommer le dépôt `collectif-articho.github.io` en `website` (D3), puis
+   revérifier que le site répond et que Pages CMS voit toujours le dépôt.
+5. Transférer l'ancien dépôt `lou-heraut/collectif-articho` au compte
    `collectif-articho` et l'**archiver** (lecture seule, historique complet et
    photos originales conservés).
 

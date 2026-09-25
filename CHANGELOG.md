@@ -18,6 +18,8 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
   droits d'un collaborateur vérifiés dans la doc GitHub), D7 ajoutée (photos
   plafonnées à 3 000 px, taille mesurée sur échantillon), Q1 ouverte (réduction
   des photos à l'envoi depuis le CMS).
+- D3 amendée : dépôt nommé `website` à terme, créé sous le nom
+  `collectif-articho.github.io` pour la période de test et renommé à la bascule.
 
 ## 2026-09-24
 
