@@ -32,8 +32,7 @@ IA et ça agace les gens qui lisent. Reformuler la phrase (deux-points, virgule,
 parenthèse ou point) plutôt que de substituer un autre signe. Le demi-cadratin
 (`–`) et le trait d'union sont libres.
 
-Tout est rédigé en français. Quand un arbitrage revient à Louis, exposer les options
-en prose avec une recommandation claire, pas sous forme de questions à choix figés.
+Tout est rédigé en français.
 
 ## Relation avec le site actuel
 
@@ -135,14 +134,9 @@ une erreur sur les MX coupe le mail de la SCOP.
 - **Sobriété.** Pas d'usine à gaz. Le moins de dépendances possible, chacune
   justifiée, versions épinglées. Le site doit pouvoir être repris dans cinq ans par
   quelqu'un qui ne connaît pas l'histoire.
-- **Style : tester librement, sans s'obstiner** (décision D6). Claude peut
-  utiliser Chromium headless et ImageMagick pour capturer, comparer et régler le
-  CSS. Mais si un réglage ne converge pas après deux ou trois essais, **revenir vers
-  Louis avec une question précise** (quoi, où, ce qui a été essayé) plutôt que d'y
-  passer du temps : il connaît l'intention derrière chaque règle. Le premier
-  garde-fou reste l'**égalité du HTML produit** avec l'ancien site : tant qu'elle
-  tient et que le CSS est recopié tel quel, le rendu est identique par
-  construction.
+- **Rendu conservé.** Le CSS de l'ancien site est repris tel quel. La
+  comparaison avec l'ancien site (`outils/compare_html.py`, captures au besoin)
+  sert à vérifier qu'une étape ne change pas le rendu.
 - **La SCOP ne touche qu'à `content/`.** Tout le reste (gabarits, CSS, config) est
   du code. Un champ saisi par un membre ne doit jamais pouvoir casser la mise en
   page.
@@ -152,7 +146,7 @@ une erreur sur les MX coupe le mail de la SCOP.
 - **Python pour l'outillage, dans un venv** (`requirements.txt` épinglé). Hugo est
   un binaire épinglé installé dans `.bin/` par script. **Pas de R.**
 - **Photos : jamais d'original perdu.** Le dépôt ne garde que des masters
-  plafonnés (D7) ; les originaux vivent dans le Drive et l'ancien dépôt archivé.
+  plafonnés (D6) ; les originaux vivent dans le Drive et l'ancien dépôt archivé.
 - **Aucune ressaisie.** Le contenu existant est migré par script depuis
   `../collectif-articho/drive/`.
 - **Commits** en français, message au présent, sans cadratin.

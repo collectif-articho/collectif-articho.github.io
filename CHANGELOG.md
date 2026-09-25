@@ -4,23 +4,18 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
 ## 2026-09-25
 
-- Convergence avec Louis, décisions D1 à D6 consignées dans `ROADMAP.md` : option B
-  retenue, Hugo, accès par un compte GitHub de la SCOP plus celui de Louis, Pages
-  CMS, pages fixes en gabarit + champs, tests visuels libres sans obstination.
-- `ROADMAP.md` réécrite autour d'un plan d'attaque en 8 étapes, chacune avec un
-  critère de fin ; inventaire des emplacements éditables des pages fixes ; points
-  de contenu à signaler à la SCOP (mentions légales périmées).
-- `CLAUDE.md` : procédure de reprise, règle de traçabilité, charte graphique.
-- Présentation à la SCOP archivée dans `docs/presentation-scop/`.
-- Précisions dans la foulée : D2 étendue (Python en venv pour l'outillage, Hugo
-  épinglé dans `.bin/`, R abandonné), D3 tranchée (compte `collectif-articho`,
-  dépôt `collectif-articho.github.io`, Louis collaborateur, pas d'organisation ;
-  droits d'un collaborateur vérifiés dans la doc GitHub), D7 ajoutée (photos
-  plafonnées à 3 000 px, taille mesurée sur échantillon), Q1 ouverte (réduction
-  des photos à l'envoi depuis le CMS).
-- D3 amendée : dépôt `collectif-articho/website`. Le site ne supposera plus d'être
-  servi à la racine (chemins via `relURL`, en-tête et pied en partials, étape 3),
-  donc l'adresse provisoire de GitHub fonctionne quel que soit le nom du dépôt.
+- Décisions D1 à D6 consignées dans `ROADMAP.md` : option B (CMS git et Hugo),
+  outillage en Python dans un venv et abandon de R, compte GitHub
+  `collectif-articho` avec dépôt `website` et Louis collaborateur, Pages CMS,
+  pages fixes en gabarit plus champs, photos plafonnées à 3 000 px (originaux
+  conservés dans le Drive et l'ancien dépôt). Question ouverte Q1 : réduction des
+  photos à l'envoi depuis le CMS.
+- Plan d'attaque en 8 étapes à critères de fin ; inventaire des emplacements
+  éditables des pages fixes ; points de contenu à signaler à la SCOP.
+- Chemins du site relatifs à la `baseURL` (étape 3) : le site fonctionne à
+  l'adresse provisoire de GitHub comme sur le domaine.
+- `CLAUDE.md` : procédure de reprise, charte graphique. Présentation à la SCOP
+  archivée dans `docs/presentation-scop/`.
 
 ## 2026-09-24
 

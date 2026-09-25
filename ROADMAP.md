@@ -3,7 +3,7 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-25** : cadrage terminé, décisions D1 à D7 prises (§ 2), une
+> **État au 2026-09-25** : cadrage terminé, décisions D1 à D6 prises (§ 2), une
 > question ouverte (Q1). **Aucun code écrit.** Prochaine action : **étape 1** du
 > plan d'attaque (§ 4), outillage local. Rien n'attend Louis avant l'étape 5, qui
 > demande le compte GitHub `collectif-articho` (§ 2, D3).
@@ -103,12 +103,7 @@ mise en page, parfois technique (accueil surtout), reste dans des gabarits HTML
 écrits à la main. Les membres n'éditent que des « emplacements » : textes, photos,
 listes. Détail au § 4, étape 4.
 
-**D6. Tests visuels : libres, sans obstination** (2026-09-25). Claude peut utiliser
-Chromium headless et ImageMagick pour tester et régler le CSS. Si un réglage ne
-converge pas après deux ou trois essais, revenir vers Louis avec une question
-précise plutôt que d'insister. Voir `CLAUDE.md`, § Principes de travail.
-
-**D7. Photos : masters plafonnés à 3 000 px dans le dépôt** (2026-09-25). À la
+**D6. Photos : masters plafonnés à 3 000 px dans le dépôt** (2026-09-25). À la
 migration, chaque photo est réduite à 3 000 px sur le plus grand côté, JPEG
 qualité 88. Mesuré sur un échantillon de 24 photos (surtout des 4 032 × 3 024 de
 téléphone) : 78 Mo à l'origine, 30 Mo après, soit environ **460 Mo** pour les
@@ -249,7 +244,7 @@ fois, gardé pour la traçabilité.
    Meubles : `modalite`, `dimensions` (liste), `materiaux` (liste), `photos`.
 3. Nom du dossier de fiche = slug actuel (`to_link()` de l'ancien script), pour
    garder les mêmes URL.
-4. Photos (D7) : noms assainis, orientation EXIF appliquée, plafond 3 000 px,
+4. Photos (D6) : noms assainis, orientation EXIF appliquée, plafond 3 000 px,
    JPEG qualité 88, métadonnées de localisation GPS retirées. Les originaux
    restent dans l'ancien dépôt et dans le Drive.
 5. Rapport en fin d'exécution : fiches écrites, champs manquants, photos renommées,
@@ -271,7 +266,9 @@ expliquée, `content/` autour de 460 Mo.
    domaine. Les gabarits passent tous les chemins par `relURL`, et le workflow
    donne la `baseURL` à Hugo (`hugo --baseURL …`, pratique standard du workflow
    Pages de Hugo). Le même code sert alors l'adresse provisoire de GitHub, le
-   serveur local et le domaine final.
+   serveur local et le domaine final. Côté CSS, Hugo ne réécrit pas les fichiers
+   statiques : les 13 `url(/resources/…)` des feuilles de style deviennent
+   relatifs à la feuille (`../fonts/…`).
 4. **En-tête, pied de page et barres d'onglets en partials Hugo**, au lieu d'être
    chargés par `fetch('/components/…')` dans `script.js` (chemins absolus en dur,
    et contenu absent tant que le JavaScript n'a pas tourné). `checkURL()` reste
@@ -330,7 +327,7 @@ Points connus à traiter :
 
 - les styles en ligne des pages texte (`style="margin-top: 0rem;"` sur chaque
   `<p>`) ne survivent pas au Markdown : les remplacer par une règle CSS de la
-  page. Écart de HTML voulu, vérifié par capture (D6) ;
+  page. Écart de HTML voulu, vérifié par capture ;
 - partenaires : certains noms contiennent un `/` (« Mission Locale Saint-Denis /
   Pierrefitte »), donc une liste de noms par groupe, pas un texte à découper ; la
   balise `<it>` actuelle n'existe pas en HTML, le rôle devient un champ ;
@@ -396,7 +393,7 @@ fonctionne.
 
 ## Étape 8. Nettoyage et améliorations
 
-Après la bascule, un commit par sujet, chacun vérifié (D6) :
+Après la bascule, un commit par sujet, chacun vérifié contre l'ancien rendu :
 
 - onglet actif calculé à la construction : `checkURL()` et jQuery disparaissent ;
 - métadonnées par page (`<title>`, description, Open Graph avec image absolue),
@@ -433,7 +430,7 @@ Référence : `../collectif-articho/ROADMAP.md`.
 |---|---|
 | P1.2 métadonnées des pages projet | étape 8, une ligne de gabarit |
 | P1.3 page 404 maison | étape 8, natif |
-| P1.5 photos pleine résolution | étapes 2 et 3, D7 |
+| P1.5 photos pleine résolution | étapes 2 et 3, D6 |
 | P2.2 validation du contenu entrant | étape 6, champs obligatoires |
 | P2.3 titres injectés sans échappement | Hugo échappe par défaut |
 | P2.4 noms de photos non assainis | étape 2 |
