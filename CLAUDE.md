@@ -117,7 +117,7 @@ SCOP, à réutiliser pour tout document destiné aux membres (mode d'emploi…).
 | | |
 |---|---|
 | hébergeur | **GitHub Pages**, gratuit, à conserver |
-| comptes | aujourd'hui dépôt sur `lou-heraut` (compte perso de Louis) ; cible : compte GitHub de la SCOP plus celui de Louis, idéalement dans une organisation (`ROADMAP.md`, D3). **Pas encore créé.** |
+| comptes | aujourd'hui dépôt sur `lou-heraut` (compte perso de Louis) ; cible : compte `collectif-articho` de la SCOP, dépôt `collectif-articho.github.io`, Louis collaborateur (`ROADMAP.md`, D3). **Pas encore créé.** |
 | domaine | `collectifarticho.com`, enregistré chez Google Domains, **repris par Squarespace** ; payé par la SCOP |
 | DNS | serveurs `ns-cloud-d{1..4}.googledomains.com` ; A vers `185.199.10{8,9,10,11}.153` (GitHub Pages) |
 | mail | MX vers `aspmx.l.google.com` : **Google Workspace**, adresse de la SCOP sur ce domaine |
@@ -149,6 +149,10 @@ une erreur sur les MX coupe le mail de la SCOP.
 - **Le contenu appartient à la SCOP.** Il doit rester sous forme de fichiers
   lisibles (Markdown, YAML, images) dans le dépôt, sans base de données ni format
   propriétaire, pour qu'on puisse changer d'outil d'édition sans rien perdre.
+- **Python pour l'outillage, dans un venv** (`requirements.txt` épinglé). Hugo est
+  un binaire épinglé installé dans `.bin/` par script. **Pas de R.**
+- **Photos : jamais d'original perdu.** Le dépôt ne garde que des masters
+  plafonnés (D7) ; les originaux vivent dans le Drive et l'ancien dépôt archivé.
 - **Aucune ressaisie.** Le contenu existant est migré par script depuis
   `../collectif-articho/drive/`.
 - **Commits** en français, message au présent, sans cadratin.

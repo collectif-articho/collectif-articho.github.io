@@ -12,6 +12,12 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
   de contenu à signaler à la SCOP (mentions légales périmées).
 - `CLAUDE.md` : procédure de reprise, règle de traçabilité, charte graphique.
 - Présentation à la SCOP archivée dans `docs/presentation-scop/`.
+- Précisions dans la foulée : D2 étendue (Python en venv pour l'outillage, Hugo
+  épinglé dans `.bin/`, R abandonné), D3 tranchée (compte `collectif-articho`,
+  dépôt `collectif-articho.github.io`, Louis collaborateur, pas d'organisation ;
+  droits d'un collaborateur vérifiés dans la doc GitHub), D7 ajoutée (photos
+  plafonnées à 3 000 px, taille mesurée sur échantillon), Q1 ouverte (réduction
+  des photos à l'envoi depuis le CMS).
 
 ## 2026-09-24
 
