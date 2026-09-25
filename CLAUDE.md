@@ -117,7 +117,7 @@ SCOP, à réutiliser pour tout document destiné aux membres (mode d'emploi…).
 | | |
 |---|---|
 | hébergeur | **GitHub Pages**, gratuit, à conserver |
-| comptes | aujourd'hui dépôt sur `lou-heraut` (compte perso de Louis) ; cible : compte `collectif-articho` de la SCOP, dépôt `website` (nommé `collectif-articho.github.io` jusqu'à la bascule), Louis collaborateur (`ROADMAP.md`, D3). **Pas encore créé.** |
+| comptes | aujourd'hui dépôt sur `lou-heraut` (compte perso de Louis) ; cible : compte `collectif-articho` de la SCOP, dépôt `collectif-articho/website`, Louis collaborateur (`ROADMAP.md`, D3). **Pas encore créé.** |
 | domaine | `collectifarticho.com`, enregistré chez Google Domains, **repris par Squarespace** ; payé par la SCOP |
 | DNS | serveurs `ns-cloud-d{1..4}.googledomains.com` ; A vers `185.199.10{8,9,10,11}.153` (GitHub Pages) |
 | mail | MX vers `aspmx.l.google.com` : **Google Workspace**, adresse de la SCOP sur ce domaine |

@@ -77,23 +77,11 @@ pas d'organisation.
   sont pris). Cohérent avec le domaine, l'Instagram `collectif.articho` et l'ancien
   dépôt. Créé par la SCOP avec l'adresse `contact@collectifarticho.com` ;
   identifiants, double authentification et codes de secours gardés par elle.
-- **Dépôt** : nom définitif **`website`**, public. Le nom du dépôt ne compte plus
-  une fois le domaine posé : un site avec domaine personnalisé est servi à la racine
-  du domaine, quel que soit le nom du dépôt. La contrainte ne porte que sur la
-  **période de test** (étapes 5 et 6) : sans domaine, GitHub sert un dépôt
-  quelconque sous `https://collectif-articho.github.io/<dépôt>/`, ce qui casse les
-  chemins absolus du site (`/resources/…`, et les `fetch('/components/…')` de
-  `script.js`). Trois façons d'y répondre ont été pesées (2026-09-25) :
-  1. **retenue** : créer le dépôt sous le nom `collectif-articho.github.io`, que
-     GitHub sert à la racine, puis le **renommer `website`** à la bascule, une fois
-     le domaine posé. Aucun DNS à toucher, aucun compromis dans le code, un clic de
-     renommage (GitHub redirige l'ancien nom) ;
-  2. nommer `website` dès le départ et poser un sous-domaine de test
-     (`test.collectifarticho.com`, un enregistrement CNAME chez Squarespace, sans
-     toucher aux MX). Propre aussi, mais demande d'intervenir dans le compte DNS ;
-  3. rendre tous les chemins relatifs à une `baseURL` : modifie les gabarits et
-     `script.js` pour une période de test, et casse la comparaison HTML avec
-     l'ancien site. Écartée.
+- **Dépôt** : `collectif-articho/website`, public. Le nom du dépôt n'a aucune
+  importance pour le site : en ligne, seul compte le domaine. Pendant les tests,
+  GitHub sert le site à une adresse provisoire
+  (`https://collectif-articho.github.io/website/`) ; ce qui la rend utilisable,
+  c'est que **le site ne suppose pas d'être à la racine** (étape 3, chemins).
 - **Louis** : collaborateur avec son compte `lou-heraut`. Vérifié dans la doc
   GitHub, un collaborateur d'un dépôt personnel peut pousser, fusionner, publier
   des releases, mais **pas** toucher aux réglages (Pages, Actions, domaine,
@@ -278,11 +266,23 @@ expliquée, `content/` autour de 460 Mo.
 2. **Mêmes URL** : `uglyURLs = true` et permalinks préfixés par `/pages/`, donc
    `/pages/projets/amenagements/le-lopin.html`. Le stub du QR code devient un
    contenu avec un gabarit « redirection ».
-3. En-tête, pied de page et `script.js` **inchangés** à cette étape : le HTML des
-   pages reste celui de l'ancien site, `fetch()` compris.
-4. Photos : servies depuis le dossier de la fiche, redimensionnées par Hugo (une
+3. **Chemins relatifs à la `baseURL`.** L'ancien site écrit ses chemins en absolu
+   depuis la racine (`/resources/…`), ce qui suppose d'être servi à la racine d'un
+   domaine. Les gabarits passent tous les chemins par `relURL`, et le workflow
+   donne la `baseURL` à Hugo (`hugo --baseURL …`, pratique standard du workflow
+   Pages de Hugo). Le même code sert alors l'adresse provisoire de GitHub, le
+   serveur local et le domaine final.
+4. **En-tête, pied de page et barres d'onglets en partials Hugo**, au lieu d'être
+   chargés par `fetch('/components/…')` dans `script.js` (chemins absolus en dur,
+   et contenu absent tant que le JavaScript n'a pas tourné). `checkURL()` reste
+   pour l'instant, appelé au chargement de la page.
+5. Photos : servies depuis le dossier de la fiche, redimensionnées par Hugo (une
    taille pour la page, une pour les vignettes). C'est le seul écart assumé avec
    l'ancien HTML, neutralisé par la normalisation des chemins dans la comparaison.
+
+Pour comparer malgré les points 3 et 4, `compare_html.py` normalise les deux côtés :
+préfixe de `baseURL` retiré, et dans l'ancien HTML les `<div id="header">` et
+consorts remplis avec le contenu de `components/`, comme le fait `fetch()`.
 
 **Fin** : `outils/compare_html.py` ne signale **aucune différence** sur les 62 pages
 générées (53 fiches, 8 listings, Ligne de mobilier), hors écarts listés et
@@ -344,9 +344,9 @@ champs identiques au sens de `compare-html` ; pages Markdown validées par captu
 ## Étape 5. Mise en ligne de test
 
 **Demande le compte `collectif-articho` (D3).** Séance de réglages avec un membre,
-connecté au compte de la SCOP : créer le dépôt `collectif-articho.github.io`
-(nom provisoire, voir D3 ; public, GitHub Pages gratuit l'exige), inviter
-`lou-heraut` en collaborateur, régler Pages sur « GitHub Actions ».
+connecté au compte de la SCOP : créer le dépôt `website` (public, GitHub Pages
+gratuit l'exige), inviter `lou-heraut` en collaborateur, régler Pages sur « GitHub
+Actions ».
 
 1. Pousser ce dossier vers le dépôt.
 2. Workflow `.github/workflows/publier.yml` : Hugo à version épinglée, construction,
@@ -387,9 +387,7 @@ d'emploi.
    GitHub Pages.
 2. Vérifier en ligne : pages, images, stub du QR code, liens internes.
 3. **Scanner le QR code papier.**
-4. Renommer le dépôt `collectif-articho.github.io` en `website` (D3), puis
-   revérifier que le site répond et que Pages CMS voit toujours le dépôt.
-5. Transférer l'ancien dépôt `lou-heraut/collectif-articho` au compte
+4. Transférer l'ancien dépôt `lou-heraut/collectif-articho` au compte
    `collectif-articho` et l'**archiver** (lecture seule, historique complet et
    photos originales conservés).
 
@@ -400,8 +398,7 @@ fonctionne.
 
 Après la bascule, un commit par sujet, chacun vérifié (D6) :
 
-- en-tête, pied de page et barres d'onglets en partials Hugo au lieu de `fetch()`,
-  onglet actif calculé à la construction : `checkURL()` et jQuery disparaissent ;
+- onglet actif calculé à la construction : `checkURL()` et jQuery disparaissent ;
 - métadonnées par page (`<title>`, description, Open Graph avec image absolue),
   `404.html`, `sitemap.xml` (natif) ;
 - Leaflet de la page contact : chargé depuis `unpkg.com` **sans version**, donc à
