@@ -41,8 +41,8 @@ Tout est rédigé en français.
 Le site en production vit dans le dossier voisin **`../collectif-articho/`**
 (dépôt `git@github.com:lou-heraut/collectif-articho.git`, branche `main`, publié
 par GitHub Pages). **Ne pas modifier ce dossier** depuis ici : il sert de
-**référence**, à la fois comme source du contenu à migrer et comme étalon du rendu
-à reproduire. Sa propre documentation (`CLAUDE.md`, `ROADMAP.md`, `CHANGELOG.md`)
+**référence** : il a été la source du contenu migré (fait en `v0.3`) et reste
+l'étalon du rendu à reproduire, jusqu'à la bascule. Sa propre documentation (`CLAUDE.md`, `ROADMAP.md`, `CHANGELOG.md`)
 décrit en détail son fonctionnement ; l'essentiel est résumé ci-dessous.
 
 ### Comment fonctionne l'ancien site
@@ -82,6 +82,9 @@ décrit en détail son fonctionnement ; l'essentiel est résumé ci-dessous.
   main, c'est un actif à préserver.**
 
 ### Pièges connus, à ne pas redécouvrir
+
+Tous traités par la migration (`v0.3`) ; gardés pour mémoire, et parce que le
+drive de la SCOP continue d'exister.
 
 - **Unicode mélangé.** Le Drive macOS livre les accents en NFD (décomposés) pour
   23 noms de dossiers sur 25, et en NFC ailleurs. Tout slug dérivé d'un texte doit
@@ -142,7 +145,7 @@ une erreur sur les MX coupe le mail de la SCOP.
   absolus compris. On vérifie **le rendu, pas le HTML** : pages types à l'œil côte
   à côte avec l'ancien site, plus aucun lien mort (D9). L'identité du HTML au
   caractère près n'est pas un objectif.
-- **La SCOP ne touche qu'à `content/` et `assets/photos/`.** Tout le reste (gabarits, CSS, config) est
+- **La SCOP ne touche qu'à `content/`, `assets/photos/` et `static/documents/`, par le CMS.** Tout le reste (gabarits, CSS, config) est
   du code. Un champ saisi par un membre ne doit jamais pouvoir casser la mise en
   page.
 - **Le contenu appartient à la SCOP.** Il doit rester sous forme de fichiers
@@ -153,8 +156,9 @@ une erreur sur les MX coupe le mail de la SCOP.
   récent en local. Ni venv, ni script d'installation. **Pas de R.**
 - **Photos : jamais d'original perdu.** Le dépôt ne garde que des masters
   plafonnés (D6) ; les originaux vivent dans le Drive et l'ancien dépôt archivé.
-- **Aucune ressaisie.** Le contenu existant est migré par script depuis
-  `../collectif-articho/drive/`.
+- **Aucune ressaisie.** Le contenu existant a été migré par script depuis
+  `../collectif-articho/drive/` (`v0.3`) ; les pages fixes ont été transcrites une
+  fois depuis l'ancien HTML (`v0.4`).
 - **Commits** en français, message au présent, sans cadratin.
 
 ## Outils disponibles sur le poste de Louis (vérifié le 2026-09-26)
@@ -202,17 +206,22 @@ Appris en séance, à respecter sans le lui redemander :
   préparer des consignes pas à pas, clic par clic, et dire ce qui peut être ignoré.
 - Louis peut faire les tests d'édition avec son propre compte `lou-heraut`
   (collaborateur), sans attendre la SCOP.
+- Il a donné **carte blanche pour avancer le plan en autonomie** (2026-09-26,
+  « keep it clean, keep it simple »), en consignant au fur et à mesure ; il fait
+  ses retours d'ergonomie ensuite. Lui signaler clairement ce qui a été trouvé en
+  route (exemple : la carte du contact cassée en production) et ce qui n'a pas pu
+  être vérifié.
 
 ## Le nouveau site : état technique et pièges constatés
 
-Ce qui existe au 2026-09-26 (`v0.4`) :
+Ce qui existe au 2026-09-26 (`v0.4` publiée, `v0.5` en cours) :
 
 ```
 hugo.toml                  URL (/pages/…, uglyURLs), MENU PRINCIPAL (en-tête et
                              barres d'onglets en sont tirés), hardWraps
 content/<onglet>/<rubrique>/
     _index.md              la rubrique : titre, ordre, url: /pages/….html
-    <slug>.md              une fiche (format : ROADMAP, étape 2 ; champs D13)
+    <slug>.md              une fiche (format ci-dessous ; champs D13)
 content/mobiliers/ligne-de-mobilier/_index.md
                            textes de la page et `cascade` : pas de page par meuble
 content/_index.md          accueil : tous ses textes et listes en champs (D5)
@@ -231,9 +240,60 @@ layouts/_partials/         header, footer, tab_bar (menus), actif (onglet actif)
 static/resources/          css, fonts, statics, js repris de l'ancien site
 static/pages/…/tpmobile.html   redirection du QR code (D14)
 static/admin/              Sveltia CMS : index.html (version épinglée), config.yml
-migration/migrer.py        migration unique depuis ../collectif-articho (relançable)
+migration/migrer.py        migration FAITE, NE PLUS LANCER (écraserait les fiches)
 outils/verifier.py         liens morts, pages et titres de l'ancien site absents
+docs/mode-emploi.md        pour les membres de la SCOP
 ```
+
+### Commandes courantes
+
+```sh
+./hugo --gc                   # construire dans public/ (Hugo : voir « Outils »)
+./hugo server                 # aperçu sur http://localhost:1313, rechargé à chaud
+python3 outils/verifier.py    # après chaque construction : doit dire « Aucun problème »
+git pull --rebase             # AVANT de travailler : le CMS commite sur main
+```
+
+Toujours `git pull` avant de modifier : la SCOP (et Louis) commitent depuis le CMS,
+directement sur `main`. Déployer, c'est pousser `main` ; le workflow publie en une
+à deux minutes.
+
+**`migration/migrer.py` ne doit plus être lancé.** Il réécrit toutes les fiches
+et leurs dossiers de photos depuis l'ancien drive : il effacerait tout ce que la
+SCOP a créé ou modifié depuis le CMS. Il est gardé pour la traçabilité.
+
+### Format des contenus
+
+Fiche projet (`content/<onglet>/<rubrique>/<slug>.md`, D13) ; le nom du fichier
+fait l'URL, `/pages/<onglet>/<rubrique>/<slug>.html` :
+
+```yaml
+---
+title: "LE LOPIN"
+sous_titre: "Aménagement extérieur de l’école du CEPROC"
+weight: 5                      # ordre dans la rubrique ; vide = en fin de liste
+commanditaire: "Croque Ta Ville"
+date_projet: "2022"            # pas `date`, réservé par Hugo
+localisation: "Paris 19e arrondissement (75)"
+intervention: "conception et réalisation"
+materiaux_reemployes: "bois d’ossature"
+materiaux_neufs: "polycarbonate alvéolaire"
+autres_infos:                  # intitulés rares, affichés après les six champs
+  - intitule: "Collaboration"
+    valeur: "…"
+photos:                        # la 1re est la principale et la vignette
+  - "/photos/projets/amenagements/le-lopin/1.jpg"   # = assets/photos/…
+---
+Texte en Markdown, un paragraphe par bloc.
+```
+
+Meuble (`content/mobiliers/ligne-de-mobilier/<slug>.md`, pas de page à lui) :
+`title`, `weight`, `modalite`, `dimensions`, `materiaux` (listes de lignes),
+`photos`. Pages fixes : leurs champs sont ceux de leur formulaire dans
+`static/admin/config.yml`, collection `pages`.
+
+**Ajouter un champ** : le gabarit, le formulaire (`static/admin/config.yml`) et,
+si besoin, `docs/mode-emploi.md`, dans le même commit.
 
 Pièges déjà rencontrés :
 
@@ -245,9 +305,6 @@ Pièges déjà rencontrés :
   dossier `amenagements.html/`).
 - **`cascade`** s'applique aussi à la section elle-même : le `build: render:
   never` des meubles est limité par `target: kind: page`.
-- **Une fiche ne contient que des champs décrits dans `static/admin/config.yml`**
-  (D14) : un CMS peut retirer à l'enregistrement les champs inconnus. Tout champ
-  ajouté aux gabarits s'ajoute aussi au formulaire, dans le même commit.
 - `date` est réservé par Hugo (date de la page) : l'information « Date » est
   `date_projet`. `languageCode` est déprécié : `locale`.
 - Les photos de `assets/` ne sont publiées **que dans les tailles demandées** par
@@ -284,7 +341,7 @@ Pièges déjà rencontrés :
 - `pkill -f motif` ou `pgrep -f motif` dans une commande Bash se trouvent
   eux-mêmes (le motif est dans la ligne de commande) : écrire `http.serve[r]`.
 
-Vérifier une publication : le workflow dure moins d'une minute ; suivre avec
+Vérifier une publication : le workflow dure une à deux minutes ; suivre avec
 `gh run list -R collectif-articho/collectif-articho.github.io`, puis `curl -I`
 sur les pages. Si le push est refusé (`fetch first`), c'est que le CMS a commité
 entre-temps : `git pull --rebase`, puis lire ce qu'il a écrit.

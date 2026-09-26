@@ -17,6 +17,12 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 - `docs/mode-emploi.md` : une page pour les membres (connexion par jeton, ajouter
   une fiche, photos sur connexion lente, pages du site, erreurs, renouvellement du
   jeton). Captures d'écran à ajouter après le test de Louis.
+- Passage de relais consigné : `ROADMAP.md` § 4 réécrit (étapes faites résumées,
+  reste détaillé, à faire à la bascule), D14 complétée (Sveltia conserve les
+  champs inconnus) ; `CLAUDE.md` gagne le format des contenus et les commandes
+  courantes ; `migration/migrer.py` refuse désormais de tourner sans
+  `--ecraser-le-contenu`, puisqu'il effacerait les modifications faites depuis
+  le CMS.
 
 ## v0.4, 2026-09-26
 

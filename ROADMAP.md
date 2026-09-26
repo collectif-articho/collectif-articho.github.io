@@ -3,15 +3,22 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-26** : **`v0.4` publiée, étape 4 en cours.** Le nouveau site
-> reproduit l'ancien page par page sur https://collectif-articho.github.io/, avec
-> toutes les fiches migrées et toutes les pages éditables. Formulaires Sveltia et
-> `docs/mode-emploi.md` écrits. **Prochaine action, Louis** : se connecter à
-> https://collectif-articho.github.io/admin/ (jeton classic de test) et parcourir
-> la liste « À tester par Louis » de l'étape 4 (§ 4). **Puis, séance avec la
-> SCOP** : jeton fine-grained définitif, désinstaller l'application Pages CMS,
-> démonstration, un membre fait une modification seul (fin de l'étape 4, `v0.5`).
-> Ensuite l'étape 5, bascule du domaine.
+> **État au 2026-09-26, fin de session** : **`v0.4` publiée, étape 4 en cours.**
+> Le nouveau site reproduit l'ancien page par page sur
+> https://collectif-articho.github.io/, avec toutes les fiches migrées et toutes
+> les pages éditables depuis https://collectif-articho.github.io/admin/ (Sveltia).
+> Formulaires et `docs/mode-emploi.md` écrits, **pas encore essayés une fois
+> connecté**.
+>
+> **Prochaine action, Louis** : parcourir la liste « À tester par Louis » (§ 4,
+> étape 4) avec un jeton classic de test. **Pour Claude à la reprise** : `git
+> pull`, lire les commits du CMS faits entre-temps, corriger d'après les retours
+> de Louis, puis préparer la séance avec la SCOP (même section). Ensuite l'étape
+> 5, bascule du domaine.
+>
+> **En suspens hors de ce dépôt** : l'ancien dépôt `../collectif-articho` a deux
+> commits de documentation non poussés (il est gelé ; les pousser ne change rien
+> au site publié).
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
@@ -194,8 +201,11 @@ migration. Clé `date_projet` et non `date`, que Hugo réserve à la date de la 
 du QR code imprimé (`/pages/mobiliers/agencements/tpmobile.html`) est un fichier
 HTML dans `static/`, pas un champ `aliases` de la fiche TPMob : un CMS peut
 retirer à l'enregistrement les champs que son formulaire ne décrit pas, et une
-simple correction de la fiche casserait le QR code. Règle générale : **une fiche
-ne contient que des champs décrits dans `static/admin/config.yml`.**
+simple correction de la fiche casserait le QR code. *Complément du 2026-09-26 :
+vérifié ensuite dans le code de Sveltia (`serialize.js`), il conserve les champs
+inconnus ; la crainte était infondée. La redirection reste en fichier fixe, plus
+simple, et indépendante de la fiche (elle survit à sa suppression). Des champs de
+structure (`url`, `layout`, `cascade`) peuvent vivre à côté des champs éditables.*
 
 ## Questions ouvertes
 
@@ -338,239 +348,84 @@ les fichiers texte qu'iels trouvent trop compliqués.
 # 4. Plan d'attaque
 
 Chaque étape a un **critère de fin vérifiable** et donne une version (D11). Le site
-actuel reste en ligne, intact, jusqu'à la bascule (étape 5).
+actuel reste en ligne, intact, jusqu'à la bascule (étape 5). L'architecture du
+code et le format des contenus sont décrits dans `CLAUDE.md` (§ Le nouveau site).
 
-| étape | version | contenu | attend |
+| étape | version | contenu | état |
 |---|---|---|---|
-| 0 | v0.1 | essai de bout en bout : compte, dépôt, une fiche, Pages CMS | le compte `collectif-articho` |
-| 1 | v0.2 | squelette Hugo, CSS repris, gabarits générés | |
-| 2 | v0.3 | migration du contenu | |
-| 3 | v0.4 | pages fixes éditables, accueil compris | |
-| 4 | v0.5 | formulaires du CMS, mode d'emploi, démonstration à la SCOP | un membre |
-| 5 | v1.0 | bascule du domaine | un membre, pour les réglages |
-| 6 | v1.x | améliorations, un sujet par version | |
+| 0 | v0.1 | essai de bout en bout : compte, dépôt, une fiche, CMS | ✅ 2026-09-26 |
+| 1 | v0.2 | squelette Hugo, CSS repris, gabarits générés | ✅ 2026-09-26 |
+| 2 | v0.3 | migration du contenu | ✅ 2026-09-26 |
+| 3 | v0.4 | pages fixes éditables, accueil compris | ✅ 2026-09-26 |
+| 4 | v0.5 | formulaires du CMS, mode d'emploi, démonstration à la SCOP | 🟠 en cours : attend Louis puis la SCOP |
+| 5 | v1.0 | bascule du domaine | à faire, avec un membre pour les réglages |
+| 6 | v1.x | améliorations, un sujet par version | à faire |
 
-## Architecture cible
+**Règle de séparation** : la SCOP ne touche qu'à `content/`, `assets/photos/` et
+`static/documents/`, et seulement par le CMS. Tout le reste est du code. C'est ce
+qui garantit le rendu quoi que saisissent les membres.
 
-```
-collectif-articho.github.io/
-├── hugo.toml                  config : URL, permalinks
-├── content/                   textes : TOUT ce que la SCOP édite, avec assets/photos
-│   ├── _index.md              accueil : champs (étape 3)
-│   ├── a-propos.md  mentions-legales.md  conditions-generales.md   texte Markdown
-│   ├── contact.md  notre-offre.md                                  champs + texte
-│   ├── projets/
-│   │   ├── _index.md          onglet
-│   │   └── amenagements/
-│   │       ├── _index.md      sous-onglet : titre, ordre
-│   │       └── le-lopin.md    fiche : champs + texte
-│   ├── mobiliers/  (agencements/, ligne-de-mobilier/)
-│   └── ateliers/   (ateliers-sur-mesures/)
-├── assets/photos/             photos des fiches, rangées par fiche (D8)
-├── layouts/                   gabarits HTML, jamais touchés par la SCOP
-│   ├── _default/baseof.html   squelette commun (<head>, en-tête, pied)
-│   ├── index.html             accueil
-│   ├── projets/…              fiche, listing
-│   └── partials/              header, footer, barres d'onglets
-├── static/resources/          css, fonts, statics, js : recopiés de l'ancien site
-├── .pages.yml                 formulaires du CMS
-├── .github/workflows/         construction et publication, Hugo épinglé ici
-├── migration/                 script de migration, exécuté une fois
-└── docs/                      mode d'emploi pour la SCOP, archives
-```
+## Étapes 0 à 3 : faites
 
-**Règle de séparation** : la SCOP ne touche qu'à `content/` et `assets/photos/`.
-Tout le reste est du code. C'est ce qui garantit le rendu quoi que saisissent les
-membres.
+Le détail de ce qui a été fait, des écarts constatés et de leurs raisons est dans
+`CHANGELOG.md`, versions `v0.1` à `v0.4`. En bref :
 
-## Étape 0. Essai de bout en bout (v0.1)
+- **Étape 0** : compte et dépôt créés par la SCOP, publication par GitHub Actions,
+  CMS choisi après deux essais (Pages CMS refuse les photos de plus de 4,5 Mo,
+  Sveltia les réduit dans le navigateur : Q2, D12).
+- **Étape 1** : gabarits Hugo aux mêmes URL que l'ancien site, navigation tirée
+  d'un menu unique dans `hugo.toml`, onglet actif calculé à la construction.
+- **Étape 2** : `migration/migrer.py` a produit les 53 fiches, les 5 meubles et
+  leurs photos depuis `../collectif-articho/drive/`. **Ne plus le relancer** : il
+  réécrit toutes les fiches et effacerait ce que la SCOP a modifié depuis le CMS.
+- **Étape 3** : accueil, contact, notre offre, pages d'onglet et pages texte en
+  contenu éditable ; transcrits une fois à la main depuis l'ancien HTML.
 
-> Points 1 à 3 faits et publiés le 2026-09-25. Points 4 et 5 bloqués par le 413 de
-> Pages CMS : voir Q2 (§ 2), qui décrit le second essai avec Sveltia CMS.
-
-But : valider toute la chaîne sur **une seule fiche** avant d'investir, parce que
-c'est elle qui fixe le format de migration (D8).
-
-**Demande le compte `collectif-articho` (D3, D7).** Séance de réglages avec un
-membre, connecté au compte de la SCOP : créer le dépôt `collectif-articho.github.io`
-(public, GitHub Pages gratuit l'exige), inviter `lou-heraut` en collaborateur,
-régler Pages sur « GitHub Actions », installer l'application Pages CMS sur le dépôt.
-
-1. `git init` dans ce dossier, premier push vers le dépôt.
-2. Hugo minimal : `hugo.toml`, un gabarit de fiche brut, **une** fiche écrite à la
-   main (`le-lopin.md`) avec 3 photos dans `assets/photos/`.
-3. Workflow `.github/workflows/publier.yml` sur le modèle officiel de GitHub pour
-   Hugo, version épinglée : construction, publication Pages. Rien d'autre.
-4. `.pages.yml` minimal : une collection « Projets » et son dossier média.
-5. Depuis Pages CMS, connecté au compte de la SCOP : modifier la fiche, ajouter une
-   photo, publier. Noter où atterrit la photo, ce qu'écrit le CMS dans la fiche, et
-   le délai jusqu'à la mise en ligne.
-
-**Fin** : une modification faite dans Pages CMS apparaît sur
-`https://collectif-articho.github.io/` avec sa photo redimensionnée. Le format de
-fiche et de chemin de photo de l'étape 2 est fixé d'après ce qu'écrit le CMS.
-
-## Étape 1. Squelette et gabarits générés (v0.2)
-
-1. Recopier **sans modification** depuis `../collectif-articho/` : `resources/css`,
-   `resources/fonts`, `resources/statics`, `resources/js`, les images des pages
-   fixes (`resources/images/{slideshow,articles,thumbnail}`, `accueil.JPEG`,
-   `team.jpg`, les fichiers au niveau onglet listés dans `CLAUDE.md`), `CNAME`
-   (retiré tant que le domaine n'a pas basculé). Trier au passage les fichiers
-   inutilisés (ancien P3.5). Les chemins absolus (`/resources/…`) restent tels
-   quels (D7).
-2. `components/*.html` devient des partials Hugo (`header`, `footer`, barres
-   d'onglets), au lieu d'être chargés par `fetch()`. **L'onglet actif est calculé
-   dans le partial** : `checkURL()` et jQuery disparaissent ici.
-3. Gabarits pour : fiche projet (`default_projet.html`), listing de sous-onglet
-   (`default_projets.html`), listing de l'onglet Projets, page Ligne de mobilier
-   (`default_mobiliers.html`, carrousel compris, cas d'une seule photo traité).
-4. **Mêmes URL** : `uglyURLs = true` et permalinks préfixés par `/pages/`, donc
-   `/pages/projets/amenagements/le-lopin.html`. Constaté à l'étape 0 : `uglyURLs`
-   ne s'applique pas aux sections, qui sortent en `amenagements/index.html` au lieu
-   de `amenagements.html`. Un permalink finissant par `.html` crée un dossier
-   `amenagements.html/`, donc à écarter ; piste à essayer : `url:` dans le
-   `_index.md` de chaque section.
-5. Photos redimensionnées par Hugo : une taille pour la page, une pour les
-   vignettes. Seules ces tailles sont publiées.
-
-**Fin** : `hugo` construit sans erreur sur les fiches de l'étape 0 et quelques
-fiches ajoutées à la main, une par gabarit.
-
-## Étape 2. Migration du contenu (v0.3)
-
-`migration/migrer.py`, Python sans dépendance, plus `mogrify` pour les photos
-(D9). Exécuté une fois, gardé pour la traçabilité.
-
-1. Parcourt `../collectif-articho/drive/`. Reprend les règles de l'ancien script
-   (`CLAUDE.md`, § Pièges) : NFD, `trim`, `clé : valeur`, listes ` - ` des meubles.
-2. Écrit une fiche par dossier. Format réel (D13, photos par fiche) :
-
-   ```yaml
-   ---
-   title: "LE LOPIN"
-   sous_titre: "Aménagement extérieur de l’école du CEPROC"
-   weight: 5                    # ordre, tiré du préfixe NN_ du dossier drive
-   commanditaire: "Croque Ta Ville"
-   date_projet: "2022"          # pas `date`, réservé par Hugo
-   localisation: "Paris 19e arrondissement (75)"
-   intervention: "conception et réalisation"
-   materiaux_reemployes: "bois d’ossature"
-   materiaux_neufs: "polycarbonate alvéolaire"
-   autres_infos:                # intitulés rares seulement
-     - intitule: "Collaboration"
-       valeur: "…"
-   photos:                      # ordre d'affichage, la 1re est la principale
-     - "/photos/projets/amenagements/le-lopin/1.jpg"
-   ---
-   Dans le cadre de l’appel à projet des Pariculteurs, …
-   ```
-
-   Meubles : `modalite`, `dimensions` (liste), `materiaux` (liste), `photos`.
-3. Nom du fichier de fiche = slug de l'URL publiée (`urls.tsv`), pour garder les
-   mêmes URL. Redirection du QR code en fichier fixe dans `static/` (D14).
-4. Photos (D6) : noms assainis, `mogrify -auto-orient -strip -resize '3000x3000>'
-   -quality 88` (orientation appliquée, métadonnées GPS retirées, plafond 3 000 px).
-   Les originaux restent dans l'ancien dépôt et dans le Drive.
-5. Rapport en fin d'exécution : fiches écrites, champs manquants, photos renommées,
-   anomalies.
-
-**Fin** : 53 fiches projet et 5 meubles dans `content/`, rapport sans anomalie non
-expliquée, `assets/photos/` autour de 460 Mo. Les deux contrôles de D9 passent
-(aucun lien mort, chaque titre du drive présent) et les pages types sont vérifiées
-à l'œil contre l'ancien site.
-
-## Étape 3. Pages fixes éditables (v0.4)
-
-C'est l'argument qui compte pour la SCOP face à WordPress : **tout le site se
-modifie depuis les formulaires**, accueil compris, sans que personne puisse casser
-la mise en page.
-
-Principe (D5) : **le gabarit porte la mise en page, le fichier de contenu porte
-les emplacements.** Trois cas selon la page :
-
-| page | modèle | ce que la SCOP édite |
-|---|---|---|
-| **accueil** | gabarit dédié, champs seulement | diaporama (liste de photos) ; accroche ; 4 valeurs ; 3 offres (titre, sous-titre, lien) ; blocs de texte en Markdown ; photo d'accueil, photo d'équipe ; presse (nom, image, lien) ; soutiens (logo, lien) ; partenaires (groupes de noms) |
-| **contact** | gabarit dédié, champs | e-mail, réseaux (nom, lien, icône), adresses (nom, adresse) ; la carte reste dans le gabarit |
-| **notre-offre** | gabarit, champs et texte | plaquette PDF, texte |
-| **ateliers**, **mobiliers** | gabarit de page d'onglet | 2 cartes (titre, sous-titre, image, lien) |
-| **à propos**, **mentions légales**, **conditions générales** | gabarit « texte », corps en Markdown | le texte, avec gras et italique |
-
-Concrètement, pour l'accueil, le gabarit `layouts/index.html` contient tout le HTML
-actuel, et à la place de chaque contenu une boucle ou un champ :
-
-```html
-<div id="slideshow">
-  {{ range .Params.diaporama }}
-  <figure><img loading="lazy" src="{{ . }}"></figure>
-  {{ end }}
-</div>
-…
-<div id="container_article">
-  {{ range .Params.presse }}
-  <a class="article" href="{{ .lien }}" target="_blank">
-    <div class="circle"></div>
-    <img loading="lazy" src="{{ .image }}">
-    <h4>{{ .nom }}</h4>
-  </a>
-  {{ end }}
-</div>
-```
-
-Un champ de texte long passe par `markdownify` et s'insère au bon endroit. Les
-membres écrivent `**gras**`, jamais de HTML ; le CSS et la structure ne dépendent
-jamais de ce qu'iels saisissent.
-
-Points connus à traiter :
-
-- les styles en ligne des pages texte (`style="margin-top: 0rem;"` sur chaque
-  `<p>`) ne survivent pas au Markdown : les remplacer par une règle CSS de la
-  page ;
-- partenaires : certains noms contiennent un `/` (« Mission Locale Saint-Denis /
-  Pierrefitte »), donc une liste de noms par groupe, pas un texte à découper ; la
-  balise `<it>` actuelle n'existe pas en HTML, le rôle devient un champ ;
-- soutiens : les deux derniers logos sont empilés verticalement, prévoir un champ
-  de regroupement ou un cas dans le gabarit ;
-- pied de page : année `2025` écrite en dur, à calculer à la construction.
-
-**Fin** : toutes les pages de l'ancien site existent dans le nouveau, vérifiées à
-l'œil côte à côte ; aucun lien mort.
+Chaque étape a été vérifiée à l'œil contre l'ancien site (captures côte à côte)
+et par `python3 outils/verifier.py` (aucun lien mort, toutes les pages et tous
+les titres de l'ancien site présents).
 
 ## Étape 4. Formulaires du CMS et démonstration (v0.5)
 
-1. Compléter `.pages.yml` :
+**Fait** : formulaires Sveltia pour les 8 rubriques et pour les pages fixes
+(collection « Pages du site »), aides sous les champs, aperçu retiré, pas
+d'images dans les textes ; `docs/mode-emploi.md`. Sveltia charge la config sans
+erreur (écran de connexion), mais **aucun formulaire n'a encore été essayé une
+fois connecté**.
 
-   | formulaire | champs |
-   |---|---|
-   | Projet (un par sous-onglet) | titre, sous-titre, infos (liste clé/valeur), texte, photos ; champs obligatoires marqués |
-   | Meuble | nom, modalité, dimensions (liste), matériaux (liste), photos |
-   | Accueil, Contact, Offre, pages d'onglet | les champs de l'étape 3 |
-   | Pages texte | titre, texte |
-
-2. Vérifier avec le compte de la SCOP : créer une fiche, ajouter et réordonner des
-   photos, publier, corriger, supprimer, modifier l'accueil.
-3. Vérifier ce que l'interface permet pour **annuler** ; si c'est insuffisant,
-   documenter la procédure de retour arrière depuis GitHub.
-4. Écrire `docs/mode-emploi.md` pour les membres : une page, avec captures, dont
-   la consigne sur la taille des photos (D10).
-5. Démonstration à la SCOP sur l'adresse de test.
-
-**À tester par Louis** (avant la séance avec la SCOP), à
-https://collectif-articho.github.io/admin/ :
+**À tester par Louis**, avant la séance avec la SCOP, sur
+https://collectif-articho.github.io/admin/ avec un jeton classic de test (`repo`,
+7 jours ; procédure sous Q2) :
 
 - chaque collection s'ouvre et liste ses fiches avec titre et sous-titre ;
-- ouvrir une fiche migrée : tous les champs sont remplis, l'enregistrer sans rien
+- ouvrir une fiche migrée : tous les champs sont remplis ; l'enregistrer sans rien
   changer ne produit pas de commit, ou un commit sans différence visible ;
 - créer une fiche avec deux photos, la retrouver sur le site, la supprimer ;
 - « Pages du site » : ouvrir l'accueil, changer un mot, vérifier sur le site ;
 - noter tout libellé ou aide peu clair : c'est ce qui compte pour la SCOP.
 
+Après son test : `git pull`, lire ce que le CMS a écrit, corriger la config si
+besoin, prendre les captures d'écran du mode d'emploi.
+
+**Séance avec la SCOP**, connecté au compte `collectif-articho` :
+
+1. Créer le jeton **fine-grained** définitif : dépôt `collectif-articho.github.io`
+   seul, *Contents : Read and write*, expiration un an ; le ranger avec les mots
+   de passe de la SCOP en notant sa date d'expiration (procédure en fin de
+   `docs/mode-emploi.md`).
+2. Désinstaller l'application Pages CMS (*Settings*, *Applications*), essayée à
+   l'étape 0 et écartée.
+3. Démonstration à partir du mode d'emploi.
+4. Un membre fait seul une modification complète : fiche avec photos, puis un mot
+   de l'accueil.
+
 **Adresses stables** : l'URL d'une fiche est le nom de son fichier, fixé à la
 création. Renommer un titre ne la change plus, contrairement à l'ancien site.
 
 **Fin** : un membre de la SCOP fait une modification complète seul, avec le mode
-d'emploi.
+d'emploi. Retours d'ergonomie de la SCOP et de Louis consignés (Louis a trouvé
+l'interface de Sveltia moins claire que celle de Pages CMS, « bleu vieillot » :
+regarder ses réglages d'apparence, thème sombre compris).
 
 ## Étape 5. Bascule (v1.0)
 
@@ -582,6 +437,14 @@ d'emploi.
 4. Transférer l'ancien dépôt `lou-heraut/collectif-articho` au compte
    `collectif-articho` et l'**archiver** (lecture seule, historique complet et
    photos originales conservés).
+
+Aussi, dans le même commit que la bascule :
+
+- `static/CNAME` contenant `collectifarticho.com` (Hugo le recopie à la racine) ;
+- `site_url` de `static/admin/config.yml` et `baseURL` de `hugo.toml` : le
+  domaine (le workflow passe déjà la bonne `baseURL` à Hugo, `hugo.toml` ne sert
+  qu'en local) ;
+- adresse de l'administration dans `docs/mode-emploi.md`.
 
 **Fin** : `collectifarticho.com` est servi par le nouveau dépôt, le QR code
 fonctionne.
@@ -596,7 +459,11 @@ Après la bascule, une version par sujet, chacune vérifiée contre le rendu :
 - fond de carte du contact : OpenStreetMap depuis l'étape 3 (CARTO exige une clé).
   Si le rendu coloré ne plaît pas, un filtre CSS (niveaux de gris) suffit ;
 - CSS : règles mortes, doublons, styles en ligne de `index.html` rapatriés ;
-- `srcset` pour servir la bonne taille d'image selon l'écran.
+- `srcset` pour servir la bonne taille d'image selon l'écran ;
+- ergonomie du CMS d'après les retours de la SCOP (libellés, ordre des champs,
+  apparence) ;
+- surveiller la taille du dépôt (D10 : réévaluer au-delà de 2 Go ; `.git` à 417 Mo au
+  2026-09-26).
 
 ## Hors périmètre : domaine et mail
 

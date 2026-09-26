@@ -5,10 +5,11 @@ Lit ../collectif-articho/drive/ et les pages qu'il publie, écrit les fiches dan
 content/ et leurs photos dans assets/photos/. Bibliothèque standard seulement ;
 les photos sont réduites par `mogrify` (ImageMagick).
 
-    python3 migration/migrer.py        # depuis la racine du dépôt
+    python3 migration/migrer.py --ecraser-le-contenu   # depuis la racine du dépôt
 
-Relançable : les fiches et dossiers de photos migrés sont réécrits, les
-_index.md des rubriques ne sont jamais touchés. Rapport en fin d'exécution.
+MIGRATION FAITE (v0.3, 2026-09-26) : NE PLUS LANCER. Le script réécrit toutes
+les fiches et leurs dossiers de photos ; il effacerait ce que la SCOP a créé ou
+modifié depuis le CMS. Gardé pour la traçabilité.
 """
 
 import html
@@ -16,6 +17,7 @@ import json
 import re
 import shutil
 import subprocess
+import sys
 import unicodedata
 from pathlib import Path
 
@@ -254,6 +256,9 @@ def ordre_meubles():
 
 
 def main():
+    if "--ecraser-le-contenu" not in sys.argv:
+        sys.exit("Migration déjà faite (v0.3) : la relancer effacerait les fiches modifiées\n"
+                 "depuis le CMS. Ajouter --ecraser-le-contenu pour forcer, en connaissance de cause.")
     urls = {}
     for ligne in (ANCIEN / "urls.tsv").read_text(encoding="utf-8").splitlines()[1:]:
         dossier, url = ligne.split("\t")
