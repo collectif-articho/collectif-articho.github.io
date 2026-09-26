@@ -2,6 +2,22 @@
 
 Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
+## v0.5 (en cours), 2026-09-26
+
+Étape 4, formulaires du CMS et mode d'emploi.
+
+- Collection Sveltia « Pages du site » : un formulaire par page fixe (accueil,
+  contact, notre offre, onglets Mobiliers et Ateliers, textes de la Ligne de
+  mobilier, pages texte), avec une aide sous les champs qui en ont besoin.
+- Insertion d'images désactivée dans les textes Markdown (`editor_components:
+  []`) : une image glissée dans un texte ne serait ni réduite ni rangée ; les
+  photos passent par les champs Photos.
+- Config chargée sans erreur par Sveltia (écran de connexion en local) ; les
+  formulaires restent à essayer une fois connecté.
+- `docs/mode-emploi.md` : une page pour les membres (connexion par jeton, ajouter
+  une fiche, photos sur connexion lente, pages du site, erreurs, renouvellement du
+  jeton). Captures d'écran à ajouter après le test de Louis.
+
 ## v0.4, 2026-09-26
 
 Étape 3, pages fixes éditables (D5) : la mise en page reste dans les gabarits,
@@ -14,7 +30,7 @@ depuis le HTML de l'ancien site.
   texte, un nom par ligne, rôle entre parenthèses). Métadonnées reprises, image
   de partage en URL absolue.
 - **Contact** : e-mail, réseaux, adresses. Le pied de page lit ses réseaux sur
-  cette page (une seule source). Leaflet épinglé en 1.9.4 (ancien P8).
+  cette page (une seule source). Leaflet épinglé en 1.9.4.
 - **Notre offre** : plaquette PDF (`static/documents/`) et texte.
 - **Onglets Mobiliers et Ateliers** : cartes (titre, sous-titre, image, lien).
 - **Pages texte** (À propos, Mentions légales, Conditions générales) : Markdown.

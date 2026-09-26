@@ -90,7 +90,7 @@ collections:
         min: 1
         hint: "La première est la grande photo en haut de la fiche et la vignette des listes. Glisser pour changer l'ordre."
         field: { name: photo, label: Photo, widget: image }
-      - { name: body, label: Texte, widget: markdown, required: false }
+      - { name: body, label: Texte, widget: markdown, required: false, editor_components: [] }
       - name: weight
         label: Ordre dans la rubrique
         widget: number
@@ -229,3 +229,171 @@ collections:
         value_type: int
         required: false
         hint: "1 pour le placer en premier, 2 en deuxième… Vide : en fin de liste."
+
+  # Pages fixes : un formulaire par fichier. La mise en page est dans les
+  # gabarits (D5) ; les champs de structure (url, layout…) ne sont pas dans les
+  # formulaires et sont conservés par Sveltia à l'enregistrement.
+  - name: pages
+    label: Pages du site
+    editor: { preview: false }
+    files:
+      - name: accueil
+        label: Accueil
+        file: content/_index.md
+        media_folder: /assets/photos/pages/accueil
+        public_folder: /photos/pages/accueil
+        fields:
+          - name: diaporama
+            label: Diaporama
+            label_singular: photo
+            widget: list
+            hint: "Les grandes photos qui défilent en haut de la page. Glisser pour changer l'ordre."
+            field: { name: photo, label: Photo, widget: image }
+          - { name: titre, label: Titre, widget: string }
+          - { name: accroche, label: Accroche, widget: string, hint: "La ligne sous le titre." }
+          - name: valeurs
+            label: Les 4 activités
+            label_singular: activité
+            widget: list
+            min: 4
+            max: 4
+            hint: "Affichées sous le titre, chacune avec un dessin d'artichaut."
+            field: { name: valeur, label: Activité, widget: string }
+          - name: offres
+            label: Boutons
+            label_singular: bouton
+            widget: list
+            hint: "Les grands boutons entre deux traits. Lien : une page du site (/pages/…) ou mailto:adresse pour un e-mail."
+            summary: "{{fields.titre}} · {{fields.sous_titre}}"
+            fields:
+              - { name: titre, label: Titre, widget: string }
+              - { name: sous_titre, label: Sous-titre, widget: string }
+              - { name: lien, label: Lien, widget: string }
+          - { name: texte_intro, label: Texte de présentation, widget: markdown, editor_components: [] }
+          - { name: photo_accueil, label: Photo sous le texte de présentation, widget: image }
+          - { name: texte_axes, label: Texte des 3 axes, widget: markdown, editor_components: [] }
+          - { name: photo_equipe, label: Photo de l'équipe, widget: image }
+          - { name: texte_fin, label: Texte sous la photo de l'équipe, widget: markdown, editor_components: [] }
+          - name: presse
+            label: Ils parlent de nous
+            label_singular: article
+            widget: list
+            summary: "{{fields.nom}}"
+            fields:
+              - { name: nom, label: Nom du média, widget: string }
+              - { name: image, label: Image, widget: image }
+              - { name: lien, label: Lien vers l'article, widget: string }
+          - name: soutiens
+            label: Soutiens
+            label_singular: soutien
+            widget: list
+            hint: "Un logo et, si besoin, un lien."
+            fields:
+              - { name: logo, label: Logo, widget: image }
+              - { name: lien, label: Lien, widget: string, required: false }
+          - name: soutiens_empiles
+            label: Soutiens empilés en fin de liste
+            label_singular: soutien
+            widget: list
+            required: false
+            hint: "Logos très larges, affichés l'un au-dessus de l'autre après les soutiens."
+            fields:
+              - { name: logo, label: Logo, widget: image }
+              - { name: lien, label: Lien, widget: string, required: false }
+          - name: partenaires
+            label: Partenaires
+            label_singular: groupe de partenaires
+            widget: list
+            hint: "Un groupe par paragraphe. Dans un groupe, un nom par ligne ; un rôle se note entre parenthèses : Marion Bouchard (Architecte)."
+            field: { name: groupe, label: Groupe, widget: text }
+
+      - name: contact
+        label: Contact
+        file: content/contact.md
+        fields:
+          - { name: email, label: E-mail, widget: string }
+          - name: reseaux
+            label: Réseaux sociaux
+            label_singular: réseau
+            widget: list
+            hint: "Affichés sur la page Contact et dans le pied de page de tout le site."
+            summary: "{{fields.nom}}"
+            fields:
+              - { name: nom, label: Nom, widget: string }
+              - { name: lien, label: Lien, widget: string }
+              - { name: icone, label: Icône, widget: select, options: [instagram, facebook, linkedin] }
+          - { name: texte_adresses, label: Texte avant les adresses, widget: string }
+          - name: adresses
+            label: Adresses
+            label_singular: adresse
+            widget: list
+            hint: "Les points de la carte ne suivent pas : prévenir Louis si une adresse change."
+            summary: "{{fields.nom}}"
+            fields:
+              - { name: nom, label: Nom du lieu, widget: string }
+              - { name: adresse, label: Adresse, widget: text }
+
+      - name: notre-offre
+        label: Notre offre
+        file: content/notre-offre.md
+        media_folder: /static/documents
+        public_folder: /documents
+        fields:
+          - { name: plaquette, label: Plaquette (PDF), widget: file }
+          - { name: body, label: Texte, widget: markdown, editor_components: [] }
+
+      - name: onglet-mobiliers
+        label: Onglet Mobiliers
+        file: content/mobiliers/_index.md
+        media_folder: /assets/photos/pages/mobiliers
+        public_folder: /photos/pages/mobiliers
+        fields: &cartes
+          - name: cartes
+            label: Cartes
+            label_singular: carte
+            widget: list
+            summary: "{{fields.titre}}"
+            fields:
+              - { name: titre, label: Titre, widget: string }
+              - { name: sous_titre, label: Sous-titre, widget: text, required: false }
+              - { name: image, label: Photo, widget: image }
+              - { name: lien, label: Lien, widget: string, hint: "Une page du site, par exemple /pages/mobiliers/agencements.html" }
+
+      - name: onglet-ateliers
+        label: Onglet Ateliers
+        file: content/ateliers/_index.md
+        media_folder: /assets/photos/pages/ateliers
+        public_folder: /photos/pages/ateliers
+        fields: *cartes
+
+      - name: ligne-de-mobilier-textes
+        label: Ligne de mobilier, textes de la page
+        file: content/mobiliers/ligne-de-mobilier/_index.md
+        media_folder: /assets/photos/mobiliers/ligne-de-mobilier
+        public_folder: /photos/mobiliers/ligne-de-mobilier
+        fields:
+          - { name: texte_avant, label: Texte avant les meubles, widget: markdown, editor_components: [] }
+          - { name: texte_apres, label: Texte après les meubles, widget: markdown, editor_components: [] }
+          - { name: photo, label: Photo, widget: image, required: false }
+          - { name: texte_fin, label: Texte sous la photo, widget: markdown, editor_components: [] }
+
+      - name: a-propos
+        label: À propos
+        file: content/a-propos.md
+        fields: &texte
+          - { name: title, label: Titre, widget: string }
+          - name: body
+            label: Texte
+            widget: markdown
+            editor_components: []
+            hint: "Intertitres : « Titre 2 » pour une partie, « Titre 3 » pour une sous-partie."
+
+      - name: mentions-legales
+        label: Mentions légales
+        file: content/mentions-legales.md
+        fields: *texte
+
+      - name: conditions-generales
+        label: Conditions générales
+        file: content/conditions-generales.md
+        fields: *texte

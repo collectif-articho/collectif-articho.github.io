@@ -3,15 +3,15 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-26** : **`v0.4`** : étapes 0 à 3 faites. Le nouveau site
-> reproduit l'ancien page par page (vérifié à l'œil et par
-> `python3 outils/verifier.py`), avec toutes les fiches migrées et les pages fixes
-> en contenu éditable. **En cours : étape 4**, formulaires Sveltia des pages fixes
-> et mode d'emploi. Louis a donné carte blanche pour avancer en autonomie
-> (« keep it clean, keep it simple »), retours d'ergonomie ensuite.
-> **Reste côté SCOP**, à caser dans une séance : désinstaller l'application Pages
-> CMS (compte `collectif-articho`, *Settings*, *Applications*), créer le jeton
-> fine-grained définitif (Q2).
+> **État au 2026-09-26** : **`v0.4` publiée, étape 4 en cours.** Le nouveau site
+> reproduit l'ancien page par page sur https://collectif-articho.github.io/, avec
+> toutes les fiches migrées et toutes les pages éditables. Formulaires Sveltia et
+> `docs/mode-emploi.md` écrits. **Prochaine action, Louis** : se connecter à
+> https://collectif-articho.github.io/admin/ (jeton classic de test) et parcourir
+> la liste « À tester par Louis » de l'étape 4 (§ 4). **Puis, séance avec la
+> SCOP** : jeton fine-grained définitif, désinstaller l'application Pages CMS,
+> démonstration, un membre fait une modification seul (fin de l'étape 4, `v0.5`).
+> Ensuite l'étape 5, bascule du domaine.
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
@@ -555,6 +555,16 @@ l'œil côte à côte ; aucun lien mort.
 4. Écrire `docs/mode-emploi.md` pour les membres : une page, avec captures, dont
    la consigne sur la taille des photos (D10).
 5. Démonstration à la SCOP sur l'adresse de test.
+
+**À tester par Louis** (avant la séance avec la SCOP), à
+https://collectif-articho.github.io/admin/ :
+
+- chaque collection s'ouvre et liste ses fiches avec titre et sous-titre ;
+- ouvrir une fiche migrée : tous les champs sont remplis, l'enregistrer sans rien
+  changer ne produit pas de commit, ou un commit sans différence visible ;
+- créer une fiche avec deux photos, la retrouver sur le site, la supprimer ;
+- « Pages du site » : ouvrir l'accueil, changer un mot, vérifier sur le site ;
+- noter tout libellé ou aide peu clair : c'est ce qui compte pour la SCOP.
 
 **Adresses stables** : l'URL d'une fiche est le nom de son fichier, fixé à la
 création. Renommer un titre ne la change plus, contrairement à l'ancien site.
