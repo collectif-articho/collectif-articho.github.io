@@ -1,20 +1,17 @@
-{{/* Barre d'onglets d'une page de listing : les sous-rubriques de l'onglet
-     courant, tirées du menu principal. */}}
+{{/* Barre d'onglets : les sous-rubriques de l'onglet courant, tirées du menu. */}}
 {{ $page := . }}
-{{ range site.Menus.main }}
-  {{ if and .HasChildren (partial "actif.html" (dict "entree" . "page" $page)) }}
-  {{ $onglet := . }}
-  <div class="tab_bar" id="{{ .Identifier }}_tab">
-      {{ if .Params.tout }}
-      <a id="{{ .Identifier }}_subtab-{{ .Identifier }}" class="tab{{ if partial "actif.html" (dict "entree" . "page" $page "exact" true) }} selected{{ end }}" href="{{ .URL }}">
-          <span>Tout</span>
-      </a>
-      {{ end }}
-      {{ range .Children }}
-      <a id="{{ $onglet.Identifier }}_subtab-{{ .Identifier }}" class="tab{{ if partial "actif.html" (dict "entree" . "page" $page) }} selected{{ end }}" href="{{ .URL }}">
-          <span>{{ .Name }}</span>
-      </a>
-      {{ end }}
-  </div>
-  {{ end }}
+{{ with partial "onglet.html" . }}
+{{ $onglet := . }}
+<div class="tab_bar" id="{{ .Identifier }}_tab">
+    {{ if .Params.tout }}
+    <a id="{{ .Identifier }}_subtab-{{ .Identifier }}" class="tab{{ if partial "actif.html" (dict "entree" . "page" $page "exact" true) }} selected{{ end }}" href="{{ .URL }}">
+        <span>Tout</span>
+    </a>
+    {{ end }}
+    {{ range .Children }}
+    <a id="{{ $onglet.Identifier }}_subtab-{{ .Identifier }}" class="tab{{ if partial "actif.html" (dict "entree" . "page" $page) }} selected{{ end }}" href="{{ .URL }}">
+        <span>{{ .Name }}</span>
+    </a>
+    {{ end }}
+</div>
 {{ end }}

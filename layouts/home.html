@@ -1,7 +1,121 @@
-{{/* Accueil provisoire, remplacé à l'étape 3. */}}
+{{/* Accueil, repris de index.html de l'ancien site. La mise en page est ici, le
+     contenu dans content/_index.md (D5), modifiable depuis le CMS. */}}
+{{ define "head" }}
+        <meta name="description" content="Le collectif ARTI/CHÔ (Collectif d'artisan.e.s designers constructeur.trice.s ultra cho) défend une pratique collaborative des espaces et des communs. Leur sudio de création est situé au 6b / 6-10 Quai de Seine 93200 SAINT-DENIS et leur atelier de menuiserie au 121 rue du Parc 93130 NOISY-LE-SEC. Le collectif d'artisans et artisanes à pour axes d'activités : l'aménagement d’espaces, les chantiers pédagogiques et ateliers de sensibilisation, les démarches expérimentales et les lignes de mobiliers. Il est possbile de leur demander des devis pour des projets sur mesure, des animations et ateliers ou de consulter le catalogue de ligne de mobiliers uniques. La région d'Île de France et la région de la Seine Saint-Denis sont des partenaires majeurs de ce collectif qui a trouvé une visibilité dans les médias comme le Parisien, Bellastock ou encore in Seine Saint-Denis.">
+        <meta name="keywords" content="ARTI/CHÔ, collectif, articho, collectifarticho, artisan, designers, constructeur, devis, aménagement d’espaces, chantiers pédagogiques, ateliers de sensibilisation, démarches expérimentales, lignes de mobiliers, bois, réemploi, OSB, contreplaqué, meuble, projets, sur mesure, Seine Saint-Denis, Paris, Île de France, collaboratif, graphisme, scénographie, paysagisme, savoir-faire manuels, écologique, éthique, alternative">
+        <meta name="robots" content="index, follow">
+        <meta property="og:title" content="ARTI/CHÔ">
+        <meta property="og:image" content="{{ "resources/images/thumbnail/thumbnail.png" | absURL }}">
+        <meta property="og:description" content="Collectif d'artisan.e.s designers constructeur.trice.s ultra cho">
+{{ end }}
+
 {{ define "main" }}
+{{ $p := .Params }}
+<div id="slideshow">
+    {{ range $p.diaporama }}
+    <figure>
+        <img loading="lazy" src="{{ (partial "photo.html" (dict "chemin" . "taille" "2000x2000")).RelPermalink }}">
+    </figure>
+    {{ end }}
+</div>
+
 <div class="container">
-    <h1 class="text_center">ARTI/CHÔ</h1>
-    <h2 class="text_center">Site en construction</h2>
+
+    <h1 class="text_center" style="line-height: 105%;">{{ $p.titre }}</h1>
+    <p class="text_center" style="font-size: 1.2rem; max-width: none; margin: 0;">
+        {{ $p.accroche }}
+    </p>
+
+    <div id="container_valeur">
+        {{ range $i, $valeur := $p.valeurs }}
+        <div class="valeur">
+            <img id="valeur_img_{{ add $i 1 }}" loading="lazy" src="/resources/statics/articho/articho_yellow_outlined.svg">
+            <h4>{{ $valeur }}</h4>
+        </div>
+        {{ end }}
+    </div>
+
+    <hr>
+
+    <div id="container_offre">
+        {{ range $p.offres }}
+        <a class="offre" href="{{ .lien }}">
+            <h2 style="line-height: 120%;">{{ .titre }}</h2>
+            <span>{{ .sous_titre }}</span>
+        </a>
+        {{ end }}
+    </div>
+
+    <hr>
+
+    {{ $.RenderString (dict "display" "block") ($p.texte_intro | default "") }}
+
+    <div id="container_accueil">
+        <div id="accueil_background">
+            {{ with $p.photo_accueil }}<img src="{{ (partial "photo.html" (dict "chemin" . "taille" "2000x2000")).RelPermalink }}">{{ end }}
+        </div>
+        <div id="articho_letter">
+            <img src="/resources/statics/articho/Artich5.svg">
+        </div>
+    </div>
+
+    {{ $.RenderString (dict "display" "block") ($p.texte_axes | default "") }}
+
+    <div id="container_team">
+        {{ with $p.photo_equipe }}<img loading="lazy" src="{{ (partial "photo.html" (dict "chemin" . "taille" "2000x2000")).RelPermalink }}">{{ end }}
+    </div>
+
+    {{ $.RenderString (dict "display" "block") ($p.texte_fin | default "") }}
+
+    <hr>
+
+    <h1 class="text_center">ILS PARLENT DE NOUS</h1>
+
+    <div id="container_article">
+        {{ range $p.presse }}
+        <a class="article" href="{{ .lien }}" target="_blank">
+            <div class="circle"></div>
+            <img loading="lazy" src="{{ (partial "photo.html" (dict "chemin" .image "taille" "800x800")).RelPermalink }}">
+            <h4>{{ .nom }}</h4>
+        </a>
+        {{ end }}
+    </div>
+
+    <hr>
+
+    <h1 class="text_center">SOUTIENS</h1>
+
+    <div id="container_soutiens">
+        {{ range $p.soutiens }}{{ partial "soutien.html" . }}{{ end }}
+        {{ with $p.soutiens_empiles }}
+        <div class="soutiens bunch vertical justify">
+            {{ range . }}{{ partial "soutien.html" . }}{{ end }}
+        </div>
+        {{ end }}
+    </div>
+
+    <hr>
+
+    <h1 class="text_center">PARTENAIRES</h1>
+
+    {{/* Un groupe = un paragraphe, un nom par ligne ; un rôle se note entre
+         parenthèses en fin de ligne : « Marion Bouchard (Architecte) ». */}}
+    <div id="container_partenaires">
+        {{ range $p.partenaires }}
+        {{ $noms := slice }}
+        {{ range split (strings.TrimSpace .) "\n" }}
+            {{ with strings.TrimSpace . }}
+                {{ $nom := htmlEscape . }}
+                {{ with findRESubmatch `^(.*?)\s*\(([^)]*)\)$` . 1 }}
+                    {{ $nom = printf "%s <em>%s</em>" (index . 0 1 | htmlEscape) (index . 0 2 | htmlEscape) }}
+                {{ end }}
+                {{ $noms = $noms | append $nom }}
+            {{ end }}
+        {{ end }}
+        {{ $texte := delimit $noms " <span>/</span> " }}
+        <p>{{ $texte | safeHTML }}{{ if not (findRE `[.!?…]$` $texte) }}.{{ end }}</p>
+        {{ end }}
+    </div>
+
 </div>
 {{ end }}

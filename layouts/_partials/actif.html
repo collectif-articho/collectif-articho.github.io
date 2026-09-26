@@ -1,10 +1,15 @@
 {{/* Vrai si l'entrée de menu désigne la page courante ou une de ses
      ancêtres : /pages/projets.html est actif sur /pages/projets/…
+     Une entrée qui a des enfants est aussi active quand l'un d'eux l'est
+     (Notre offre, sous Ateliers, n'est pas sous /pages/ateliers/).
      Avec exact = true, seule la page elle-même compte (onglet « Tout »). */}}
 {{ $url := .entree.URL }}
 {{ $ici := .page.RelPermalink }}
 {{ $actif := eq $ici $url }}
 {{ if not .exact }}
   {{ $actif = or $actif (strings.HasPrefix $ici (printf "%s/" (strings.TrimSuffix ".html" $url))) }}
+  {{ range .entree.Children }}
+    {{ $actif = or $actif (partial "actif.html" (dict "entree" . "page" $.page)) }}
+  {{ end }}
 {{ end }}
 {{ return $actif }}

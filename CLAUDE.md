@@ -205,7 +205,7 @@ Appris en séance, à respecter sans le lui redemander :
 
 ## Le nouveau site : état technique et pièges constatés
 
-Ce qui existe au 2026-09-26 (`v0.3`) :
+Ce qui existe au 2026-09-26 (`v0.4`) :
 
 ```
 hugo.toml                  URL (/pages/…, uglyURLs), MENU PRINCIPAL (en-tête et
@@ -215,10 +215,17 @@ content/<onglet>/<rubrique>/
     <slug>.md              une fiche (format : ROADMAP, étape 2 ; champs D13)
 content/mobiliers/ligne-de-mobilier/_index.md
                            textes de la page et `cascade` : pas de page par meuble
+content/_index.md          accueil : tous ses textes et listes en champs (D5)
+content/contact.md  notre-offre.md  a-propos.md  mentions-legales.md
+    conditions-generales.md        pages fixes : `url:` et `layout:` en tête
+content/{mobiliers,ateliers}/_index.md   pages d'onglet : `cartes`
 assets/photos/<onglet>/<rubrique>/<slug>/   photos d'une fiche (D8)
+assets/photos/pages/       photos des pages fixes (accueil, onglets)
+static/documents/          plaquette PDF
 layouts/baseof.html        squelette : <head>, #header, #footer
-layouts/page.html          fiche ; section.html : listings ; home.html : PROVISOIRE
-layouts/ligne-de-mobilier.html
+layouts/page.html          fiche ; section.html : listings ; home.html : accueil
+layouts/ligne-de-mobilier.html  onglet.html  offre.html  texte.html  contact.html
+                           un gabarit par type de page fixe, choisi par `layout:`
 layouts/_partials/         header, footer, tab_bar (menus), actif (onglet actif),
                            photo (redimensionne, erreur si absente), vignette
 static/resources/          css, fonts, statics, js repris de l'ancien site
@@ -248,6 +255,16 @@ Pièges déjà rencontrés :
   si une photo listée est absente.
 - Le langage de gabarit de Hugo aplatit les `slice` imbriquées avec `append` :
   préférer une `slice` de `dict`.
+- **`projets.css` ne se charge pas partout** : sa règle `p { max-width: 50vw }`
+  change les paragraphes. Chaque gabarit déclare ses feuilles dans son bloc
+  `head` ; l'accueil, le contact et les pages texte ne la chargent pas.
+- Le Markdown produit `strong`/`em`, l'ancien HTML `b`/`i` : le CSS les traite
+  ensemble (polices Faune Bold et Italic). Les blocs de texte Markdown sont en
+  `display: contents`, pour que leurs enfants restent des enfants directs de
+  `.container` (colonne flex centrée).
+- **Sveltia conserve les champs qu'il ne connaît pas** à l'enregistrement
+  (vérifié dans son code, `serialize.js`). Des champs de structure (`url`,
+  `layout`, `cascade`) peuvent donc vivre à côté des champs éditables.
 - Le workflow met en cache les images redimensionnées ; en local, le premier
   `hugo` complet prend environ 30 s, les suivants 3 s.
 - **Captures d'écran** : `chromium` est un snap, il ne peut pas écrire dans
@@ -260,6 +277,12 @@ Pièges déjà rencontrés :
 
   Servir l'ancien site (`python3 -m http.server 8001` dans `../collectif-articho`)
   et le nouveau (`python3 -m http.server 8002` dans `public/`) pour comparer.
+  Relancer le second après un `rm -rf public`. L'accueil a des blocs en hauteur
+  d'écran (`vh`) : une fenêtre très haute les étire au lieu de montrer le bas de
+  page, et une ancre (`#…`) donne une capture blanche ; comparer alors le HTML
+  normalisé de ces sections.
+- `pkill -f motif` ou `pgrep -f motif` dans une commande Bash se trouvent
+  eux-mêmes (le motif est dans la ligne de commande) : écrire `http.serve[r]`.
 
 Vérifier une publication : le workflow dure moins d'une minute ; suivre avec
 `gh run list -R collectif-articho/collectif-articho.github.io`, puis `curl -I`

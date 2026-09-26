@@ -3,13 +3,12 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-26** : **`v0.3`** : étapes 0, 1 et 2 faites. Le site généré
-> par Hugo reproduit l'ancien (vérifié à l'œil, captures côte à côte), avec les 53
-> fiches et 5 meubles migrés et les formulaires Sveltia à jour. **En cours : étape
-> 3**, pages fixes éditables (accueil, contact, notre offre, onglets Mobiliers et
-> Ateliers, pages texte) ; ce sont les seuls liens morts restants
-> (`python3 outils/verifier.py`). Louis a donné carte blanche pour avancer en
-> autonomie (« keep it clean, keep it simple »), retours d'ergonomie ensuite.
+> **État au 2026-09-26** : **`v0.4`** : étapes 0 à 3 faites. Le nouveau site
+> reproduit l'ancien page par page (vérifié à l'œil et par
+> `python3 outils/verifier.py`), avec toutes les fiches migrées et les pages fixes
+> en contenu éditable. **En cours : étape 4**, formulaires Sveltia des pages fixes
+> et mode d'emploi. Louis a donné carte blanche pour avancer en autonomie
+> (« keep it clean, keep it simple »), retours d'ergonomie ensuite.
 > **Reste côté SCOP**, à caser dans une séance : désinstaller l'application Pages
 > CMS (compte `collectif-articho`, *Settings*, *Applications*), créer le jeton
 > fine-grained définitif (Q2).
@@ -583,8 +582,9 @@ Après la bascule, une version par sujet, chacune vérifiée contre le rendu :
 
 - métadonnées par page (`<title>`, description, Open Graph avec image absolue),
   `404.html`, `sitemap.xml` (natif) ;
-- Leaflet de la page contact : chargé depuis `unpkg.com` **sans version**, donc à
-  la merci d'une version majeure ; épingler ou héberger ;
+- ~~Leaflet de la page contact sans version~~ : épinglé en 1.9.4 à l'étape 3 ;
+- fond de carte du contact : OpenStreetMap depuis l'étape 3 (CARTO exige une clé).
+  Si le rendu coloré ne plaît pas, un filtre CSS (niveaux de gris) suffit ;
 - CSS : règles mortes, doublons, styles en ligne de `index.html` rapatriés ;
 - `srcset` pour servir la bonne taille d'image selon l'écran.
 
@@ -604,6 +604,10 @@ couper les MX. À traiter **après** la bascule, jamais en même temps.
   CAVAPU qui « se transforme en SCOP ».
 - Page d'accueil : la transformation en SCOP est racontée dans deux paragraphes
   successifs qui se recoupent.
+- **La carte de la page Contact est cassée sur le site actuel** (« API KEY
+  REQUIRED » : le fournisseur CARTO exige désormais une clé). Réparé dans le
+  nouveau site ; l'ancien reste tel quel jusqu'à la bascule, sauf si Louis
+  préfère le corriger avant (une ligne dans `pages/contact.html`).
 - **Prix des meubles** : le drive en contient (Tabouret tapissé 285 € HT,
   Luminaire 350 €, Tabouret 265 € HT, les tables « sur demande ») mais l'ancien
   site ne les a jamais affichés (« Prix sur demande » partout) et ils n'ont pas

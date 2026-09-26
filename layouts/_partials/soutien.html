@@ -1,0 +1,5 @@
+{{/* Logo d'un soutien, avec son lien s'il en a un. */}}
+{{ $logo := (partial "photo.html" (dict "chemin" .logo "taille" "800x800")).RelPermalink }}
+<a class="soutiens"{{ with .lien }} href="{{ . }}" target="_blank"{{ end }}>
+    <img src="{{ $logo }}">
+</a>

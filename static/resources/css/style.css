@@ -59,13 +59,14 @@ body {
     font-size: 1rem;
 }
 
-i {
+/* em et strong : ce que produit le Markdown saisi dans le CMS. */
+i, em {
     font-style: normal;
     font-weight: normal;
     font-family: 'Faune-Italic', sans-serif;
 }
 
-b {
+b, strong {
     font-style: normal;
     font-weight: normal;
     font-family: 'Faune-Bold', sans-serif;
@@ -528,7 +529,8 @@ a:hover .circle {
     color: #fec37e;
     font-family: 'Faune-Regular', sans-serif;
 }
-#container_partenaires it {
+#container_partenaires it,
+#container_partenaires em {
     margin-left: 0.2rem;
     color: #fec37e;
     font-family: 'Faune-Italic', sans-serif;
@@ -587,3 +589,26 @@ a:hover .circle {
 
 
 
+
+/* Textes saisis dans le CMS (pages texte, Notre offre). Le bloc s'efface pour
+   que titres et paragraphes restent des enfants directs de .container, comme
+   dans l'ancien HTML ; les titres reprennent la classe .hp et les marges qui y
+   étaient écrites en ligne. */
+.page_texte,
+.texte_offre {
+    display: contents;
+}
+.page_texte h2,
+.page_texte h3 {
+    max-width: 32rem;
+    width: 100%;
+}
+.page_texte h2 {
+    margin-top: 1rem;
+}
+.page_texte h3 {
+    margin-top: 0.5rem;
+}
+.page_texte p {
+    margin-top: 0;
+}

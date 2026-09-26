@@ -1,0 +1,82 @@
+{{/* Contact : carte, e-mail, réseaux, adresses. Reprise de pages/contact.html
+     de l'ancien site. Les points de la carte restent ici. */}}
+{{ define "head" }}
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <link rel="stylesheet" href="/resources/css/contact.css">
+{{ end }}
+
+{{ define "main" }}
+<div class="container">
+    <div id="container_map_contact">
+        <div id="container_map_contributer">
+            <div id="container_map">
+                <div id="map"></div>
+            </div>
+            <div id="map_contributer">
+                <h4>
+                    © <a style="color: inherit;" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors
+                </h4>
+            </div>
+        </div>
+
+        <div id="container_contact">
+            <h1>{{ .Title }}</h1>
+
+            {{ with .Params.email }}
+            <a class="bunch contact_bunch" href="mailto:{{ . }}">
+                <div class="contact_img">
+                    <img class="bigger-svg" src="/resources/statics/social/icon_blue-email.svg">
+                </div>
+                <div>
+                    <h3>Email</h3>
+                    {{ . }}
+                </div>
+            </a>
+            {{ end }}
+
+            {{ range .Params.reseaux }}
+            <a class="bunch contact_bunch" href="{{ .lien }}" target="_blank">
+                <div class="contact_img">
+                    <img class="bigger-svg" src="/resources/statics/social/icon_blue-{{ .icone }}.svg">
+                </div>
+                <div>
+                    <h3>{{ .nom }}</h3>
+                    {{ .lien }}
+                </div>
+            </a>
+            {{ end }}
+
+            <h3>Site</h3>
+            <span>{{ .Params.texte_adresses }}</span>
+            {{ range .Params.adresses }}
+            <h5>{{ .nom }}</h5>
+            <span>{{ .adresse }}</span>
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+<script>
+ var map = L.map('map');
+ map.removeControl(map.zoomControl);
+ // Fonds OpenStreetMap : ceux de CARTO exigent désormais une clé d'API
+ // (« API KEY REQUIRED » sur l'ancien site, constaté le 2026-09-26).
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+     attribution: false,
+     maxZoom: 19
+ }).addTo(map);
+ var customIcon = L.divIcon({
+     className: 'custom-icon',
+     html: '<img src="/resources/statics/articho/articho.svg">',
+     iconSize: [40, 40],
+     iconAnchor: [20, 20],
+ });
+ var points = [
+     [48.89791126893694, 2.4422093678536965],  // atelier, Noisy-le-Sec
+     [48.93814555127031, 2.342863469706487]    // studio, Saint-Denis
+ ];
+ points.forEach(function (p) { L.marker(p, { icon: customIcon }).addTo(map); });
+ map.fitBounds(points);
+</script>
+{{ end }}

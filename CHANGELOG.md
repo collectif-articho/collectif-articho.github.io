@@ -2,6 +2,41 @@
 
 Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
+## v0.4, 2026-09-26
+
+Étape 3, pages fixes éditables (D5) : la mise en page reste dans les gabarits,
+le contenu passe dans des fichiers de `content/`, transcrits une fois à la main
+depuis le HTML de l'ancien site.
+
+- **Accueil** (`content/_index.md`) : diaporama, titre et accroche, 4 valeurs,
+  3 offres, trois blocs de texte en Markdown, photo d'accueil et d'équipe,
+  presse, soutiens (dont les deux logos empilés), partenaires (un groupe = un
+  texte, un nom par ligne, rôle entre parenthèses). Métadonnées reprises, image
+  de partage en URL absolue.
+- **Contact** : e-mail, réseaux, adresses. Le pied de page lit ses réseaux sur
+  cette page (une seule source). Leaflet épinglé en 1.9.4 (ancien P8).
+- **Notre offre** : plaquette PDF (`static/documents/`) et texte.
+- **Onglets Mobiliers et Ateliers** : cartes (titre, sous-titre, image, lien).
+- **Pages texte** (À propos, Mentions légales, Conditions générales) : Markdown.
+- Images des pages fixes dans `assets/photos/pages/` : 30 Mo au lieu d'environ
+  85 (vignettes de presse de 3 040 px et 9 Mo ramenées à 1 200 px).
+- `projets.css` n'est plus chargé partout : l'accueil, le contact et les pages
+  texte ne le chargeaient pas, et sa règle `p { max-width: 50vw }` changeait
+  leurs paragraphes.
+- CSS : `strong`/`em` (produits par le Markdown) reçoivent les polices de `b`/`i`
+  (Faune Bold et Italic), faute de quoi le gras était simulé ; blocs de texte en
+  `display: contents` pour garder la disposition de `.container` ; phrase
+  d'annonce de la liste de Notre offre alignée sur la liste.
+- **Carte du contact réparée** : les fonds CARTO exigent désormais une clé d'API
+  et l'ancien site n'affiche plus que « API KEY REQUIRED » (constaté en
+  production). Fonds OpenStreetMap, sans clé ; rendu plus coloré qu'avant.
+- Écarts voulus, relevés en comparant le HTML : noms d'images assainis, lien
+  HORIZONS direct au lieu d'une redirection Google, logos de soutiens sans lien
+  qui ne rouvrent plus l'accueil dans un onglet, apostrophes typographiques.
+- Vérifié à l'œil (accueil, contact, notre offre, à propos, mentions légales,
+  onglets) et par `outils/verifier.py` : aucun lien mort, toutes les pages de
+  l'ancien site présentes.
+
 ## v0.3, 2026-09-26
 
 Étape 2, migration du contenu, par `migration/migrer.py` (bibliothèque standard

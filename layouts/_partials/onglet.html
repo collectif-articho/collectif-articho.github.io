@@ -1,0 +1,9 @@
+{{/* Entrée du menu principal de l'onglet courant (Projets, Mobiliers,
+     Ateliers), ou rien hors de ces onglets. */}}
+{{ $onglet := false }}
+{{ range site.Menus.main }}
+  {{ if and .HasChildren (partial "actif.html" (dict "entree" . "page" $)) }}
+    {{ $onglet = . }}
+  {{ end }}
+{{ end }}
+{{ return $onglet }}

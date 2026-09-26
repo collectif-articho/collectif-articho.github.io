@@ -1,5 +1,9 @@
 {{/* Fiche projet, reprise de pages/default_projet.html de l'ancien site.
      Informations : les champs nommés (D13) dans cet ordre, puis les autres. */}}
+{{ define "head" }}
+        <link rel="stylesheet" href="/resources/css/projets.css">
+{{ end }}
+
 {{ define "main" }}
 {{ $photos := slice }}
 {{ range .Params.photos }}

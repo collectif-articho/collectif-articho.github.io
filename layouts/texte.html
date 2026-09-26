@@ -1,0 +1,11 @@
+{{/* Page de texte (À propos, Mentions légales, Conditions générales) : le
+     titre, puis le texte saisi dans le CMS (titres ##, ###, gras, italique). */}}
+{{ define "main" }}
+<div class="container">
+
+    <h1 class="hp" style="margin-bottom: 1rem;">{{ .Title }}</h1>
+
+    <div class="page_texte">{{ .Content }}</div>
+
+</div>
+{{ end }}

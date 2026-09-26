@@ -1,0 +1,26 @@
+{{/* Notre offre : plaquette à télécharger et texte. Reprise de
+     pages/notre-offre.html de l'ancien site. */}}
+{{ define "head" }}
+        <link rel="stylesheet" href="/resources/css/projets.css">
+        <link rel="stylesheet" href="/resources/css/ateliers.css">
+{{ end }}
+
+{{ define "main" }}
+<div class="container">
+
+    <h1 class="text_center">{{ with partial "onglet.html" . }}{{ .Name }}{{ end }}</h1>
+
+    {{ partial "tab_bar.html" . }}
+
+    {{ with .Params.plaquette }}
+    <a id="plaquette" href="{{ . }}" download="{{ path.Base . }}">
+        <div class="circle"></div>
+        <img loading="lazy" src="/resources/statics/articho/articho.svg">
+        <h2>Plaquette</h2>
+    </a>
+    {{ end }}
+
+    <div class="texte_offre">{{ .Content }}</div>
+
+</div>
+{{ end }}

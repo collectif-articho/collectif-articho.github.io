@@ -1,0 +1,25 @@
+{{/* Page d'onglet (Mobiliers, Ateliers) : des cartes vers les sous-rubriques.
+     Reprise de pages/mobiliers.html et pages/ateliers.html de l'ancien site. */}}
+{{ define "head" }}
+        <link rel="stylesheet" href="/resources/css/projets.css">
+{{ end }}
+
+{{ define "main" }}
+<div class="container">
+
+    <h1 class="text_center">{{ .Title }}</h1>
+
+    <div class="choice-bunch">
+        {{ range .Params.cartes }}
+        <a class="choice_thumbnail" href="{{ .lien }}">
+            <div class="overlay-permanent">
+                <h3>{{ .titre }}</h3>
+                {{ with .sous_titre }}<h4>{{ replace (htmlEscape .) "\n" "<br>" | safeHTML }}</h4>{{ end }}
+            </div>
+            {{ with .image }}<img src="{{ (partial "photo.html" (dict "chemin" . "taille" "2000x2000")).RelPermalink }}">{{ end }}
+        </a>
+        {{ end }}
+    </div>
+
+</div>
+{{ end }}

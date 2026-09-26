@@ -5,21 +5,14 @@
         <div id="container_space_social">
             <div id="container_space"></div>
             <div id="footer_social">
-                <a id="footer_social_instagram" href="https://www.instagram.com/collectif.articho/" target="_blank">
-                    <img src="/resources/statics/social/icon-instagram.svg"
+                {{/* Réseaux sociaux : ceux de la page Contact. */}}
+                {{ range (site.GetPage "/contact").Params.reseaux }}
+                <a id="footer_social_{{ .icone }}" href="{{ .lien }}" target="_blank">
+                    <img src="/resources/statics/social/icon-{{ .icone }}.svg"
                          onmouseover="changeImage(this, '_hover');"
                          onmouseout="restoreImage(this, '_hover');">
                 </a>
-                <a id="footer_social_facebook" href="https://www.facebook.com/collectifarticho/" target="_blank">
-                    <img src="/resources/statics/social/icon-facebook.svg"
-                         onmouseover="changeImage(this, '_hover');"
-                         onmouseout="restoreImage(this, '_hover');">
-                </a>
-                <a id="footer_social_linkedin" href="https://fr.linkedin.com/company/collectif-arti-ch%C3%B4" target="_blank">
-                    <img src="/resources/statics/social/icon-linkedin.svg"
-                         onmouseover="changeImage(this, '_hover');"
-                         onmouseout="restoreImage(this, '_hover');">
-                </a>
+                {{ end }}
             </div>
         </div>
 

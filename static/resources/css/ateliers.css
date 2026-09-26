@@ -25,3 +25,15 @@
     
 }
 
+
+/* Notre offre : la phrase en gras qui annonce la liste reste dans la colonne de
+   la liste, comme dans l'ancien HTML où elle était placée dans le <ul>. */
+.texte_offre p:has(+ ul) {
+    max-width: 27rem;
+    margin-bottom: 0;
+    padding-left: 2.5rem;
+    box-sizing: border-box;
+}
+.texte_offre p + ul {
+    margin-top: 0.5rem;
+}
