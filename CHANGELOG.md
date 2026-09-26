@@ -14,6 +14,9 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
   envois au-delà d'environ 5 s (HTTP 499), l'API REST non. Réduction abaissée de
   3 000 à 2 000 px (environ 1 Mo par photo). Test à refaire sur une connexion
   ordinaire.
+- Second essai réussi : photo de téléphone de 8,9 Mo enregistrée depuis Sveltia
+  (WebP 1 500 × 2 000, 1,3 Mo) dans le dossier de sa fiche, nouvelle fiche
+  créée au format prévu, publiée en moins de 30 s.
 - Passage de relais consigné : `CLAUDE.md` gagne l'état des comptes et du dépôt,
   la façon de construire en local sans installer Hugo, les pièges constatés
   pendant l'essai et une section « Travailler avec Louis ». Q2 détaillée dans

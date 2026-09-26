@@ -3,13 +3,12 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-26** : **étape 0 en cours, second essai (Sveltia CMS).**
-> Sveltia est en ligne sur https://collectif-articho.github.io/admin/. Premier
-> test depuis un train : la photo est bien réduite dans le navigateur mais
-> l'enregistrement échoue, parce que l'API GraphQL de GitHub coupe les envois de
-> plus d'environ 5 s et que le débit montant du train est faible (mesures sous
-> Q2). Réduction abaissée à 2 000 px. **Prochaine action** : Louis refait le test
-> depuis une connexion ordinaire ; si ça passe, finir le test (Q2, point 5).
+> **État au 2026-09-26** : **étape 0 : second essai réussi** avec Sveltia CMS
+> (constat sous Q2). Louis trouve le formulaire moins clair que Pages CMS mais
+> accepte le passage si Pages CMS est vraiment bloqué (il l'est : 4,5 Mo par
+> envoi). **Prochaine action** : confirmation de Louis, puis D12 (Sveltia),
+> ménage (point 6 de Q2 : `.pages.yml`, `3.jpeg`, fiche `test`, application
+> Pages CMS), clôture de `v0.1`.
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
@@ -240,6 +239,22 @@ même enregistrement s'additionnent (une seule mutation, cf. ticket Sveltia
 #1012). Réduction abaissée à 2 000 px (la plus grande taille servie par les
 gabarits), soit environ 1 Mo par photo. **À refaire depuis une connexion
 ordinaire** (fibre, 4G) avant de conclure.
+
+*Second essai réussi le 2026-09-26* (même train, photos réduites à 2 000 px) :
+
+| vérification | résultat |
+|---|---|
+| photo de téléphone 8,9 Mo ajoutée à LE LOPIN | ✅ enregistrée en WebP 1 500 × 2 000, 1,3 Mo, dans `le-lopin/` |
+| nouvelle fiche « TEST » | ✅ `content/projets/amenagements/test.md`, photo dans `test/`, URL `/pages/projets/amenagements/test.html` |
+| format de la fiche | identique à celui prévu (`title`, `sous_titre`, `infos` en liste `cle`/`valeur`, `photos` en liste de chemins `/photos/…`, corps Markdown) ; un champ vide est écrit `weight: null` |
+| nom des photos | nom d'origine gardé (`IMG20240618165007.webp`), sans risque de collision puisque chaque fiche a son dossier |
+| commits | signés du nom de l'utilisateur, publication en 25 à 30 s |
+| effet de bord | le premier essai échoué a laissé un commit sans photo (`692c9f5`, simple ligne vide ajoutée), comme décrit dans le ticket #1012 |
+
+Retour de Louis : ça marche, mais le formulaire de création paraît moins clair
+que celui de Pages CMS. La config de l'essai est brute (pas d'aide sur les
+champs, aperçu à côté du formulaire) ; l'interface existe en français
+(`fr.yaml` dans les sources de Sveltia). À soigner à l'étape 4.
 
 *Second essai proposé, si Louis dit oui* :
 
