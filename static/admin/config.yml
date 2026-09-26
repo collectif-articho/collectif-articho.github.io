@@ -1,0 +1,60 @@
+# Formulaires de Sveltia CMS, servis sous /admin/. Essai de l'étape 0 (Q2).
+backend:
+  name: github
+  repo: collectif-articho/collectif-articho.github.io
+  branch: main
+
+site_url: https://collectif-articho.github.io
+
+# Nom de fichier des nouvelles fiches, donc leur URL : tiré du titre à la
+# création, en ASCII sans accents, puis figé.
+slug:
+  encoding: ascii
+  clean_accents: true
+
+# Par défaut ; chaque collection range ses photos par fiche (voir plus bas).
+media_folder: /assets/photos
+public_folder: /photos
+
+# Photos réduites dans le navigateur avant l'envoi : 3 000 px au plus (D6).
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 3000
+          height: 3000
+
+collections:
+  - name: amenagements
+    label: Projets · Aménagements
+    label_singular: Projet
+    # Les _index.md de Hugo (la section elle-même) sont masqués par Sveltia.
+    folder: content/projets/amenagements
+    create: true
+    extension: md
+    format: frontmatter
+    # Photos dans assets/photos/projets/amenagements/<nom-de-la-fiche>/
+    media_folder: /assets/photos/projets/amenagements/{{filename}}
+    public_folder: /photos/projets/amenagements/{{filename}}
+    sortable_fields: [weight, title]
+    fields:
+      - { name: title, label: Titre, widget: string }
+      - { name: sous_titre, label: Sous-titre, widget: string }
+      - { name: weight, label: Ordre d'affichage, widget: number, value_type: int, required: false }
+      - name: infos
+        label: Informations
+        label_singular: information
+        widget: list
+        required: false
+        fields:
+          - { name: cle, label: Intitulé, widget: string }
+          - { name: valeur, label: Valeur, widget: string }
+      - name: photos
+        label: Photos (la première est la photo principale)
+        label_singular: photo
+        widget: list
+        field: { name: photo, label: Photo, widget: image }
+      - { name: body, label: Texte, widget: markdown, required: false }

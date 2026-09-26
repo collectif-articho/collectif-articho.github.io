@@ -3,16 +3,13 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-26** : **étape 0 en cours, en pause.** Compte
-> `collectif-articho` créé, dépôt `collectif-articho.github.io` public, Pages sur
-> « GitHub Actions », Louis collaborateur. Essai Hugo **publié** : la fiche du Lopin
-> répond sur https://collectif-articho.github.io/pages/projets/amenagements/le-lopin.html.
-> **Bloquant** : Pages CMS refuse les photos de plus de 4,5 Mo (erreur 413, limite
-> de son hébergeur Vercel). **Prochaine action** : obtenir le oui de Louis sur Q2
-> (§ 2), puis dérouler le second essai avec Sveltia CMS décrit sous Q2. L'étape 1
-> (gabarits) ne dépend pas de Q2 et peut avancer en parallèle si Louis le
-> préfère ; l'étape 2 (migration) attend que le format d'écriture du CMS soit
-> observé.
+> **État au 2026-09-26** : **étape 0 en cours, second essai (Sveltia CMS).**
+> Compte, dépôt et publication en place ; la fiche du Lopin est en ligne. Pages CMS
+> refuse les photos de plus de 4,5 Mo (Q2). Louis a dit oui à l'essai de Sveltia :
+> `static/admin/` (Sveltia 0.221.1 épinglé, `config.yml`) est poussé, servi sur
+> https://collectif-articho.github.io/admin/. **Prochaine action** : Louis s'y
+> connecte avec un jeton classic de test et fait le test décrit sous Q2 (point 5),
+> puis lire ce que le CMS a écrit (`git pull`).
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.

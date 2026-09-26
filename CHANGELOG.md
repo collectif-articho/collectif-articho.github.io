@@ -4,6 +4,11 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
 ## v0.1 (en cours), 2026-09-26
 
+- Second essai de CMS (Q2), avec l'accord de Louis : Sveltia CMS 0.221.1 servi
+  sous `/admin/` (`static/admin/`). Photos rangées par fiche grâce au
+  `media_folder` de collection avec `{{filename}}`, réduites dans le navigateur
+  en WebP 3 000 px avant l'envoi ; nom de fichier des nouvelles fiches en ASCII
+  sans accents, figé à la création. Pages CMS reste branché pour comparer.
 - Passage de relais consigné : `CLAUDE.md` gagne l'état des comptes et du dépôt,
   la façon de construire en local sans installer Hugo, les pièges constatés
   pendant l'essai et une section « Travailler avec Louis ». Q2 détaillée dans
