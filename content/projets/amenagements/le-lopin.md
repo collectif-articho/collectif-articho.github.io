@@ -19,6 +19,7 @@ photos:
   - /photos/projets/amenagements/le-lopin/1.jpg
   - /photos/projets/amenagements/le-lopin/2.jpg
   - /photos/projets/amenagements/le-lopin/3.jpg
+  - /photos/projets/amenagements/le-lopin/IMG20240618165007.webp
 ---
 
 Dans le cadre de l’appel à projet des Pariculteurs, le collectif missioné par l’association Croque Ta Ville a réalisé 200m2 de surfaces cultivables hors-sol, 9 mini-serres à semis et un local de stockage pour le matériel de jardinage dans le but d’aménager la cour et l’amphithéâtre extérieur de l’école de cuisine du CEPROC. Le projet a été réalisé intégralement sur mesure avec ¾ de bois issu du réemploi.
