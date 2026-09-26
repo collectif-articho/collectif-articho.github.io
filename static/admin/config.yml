@@ -1,4 +1,8 @@
-# Formulaires de Sveltia CMS, servis sous /admin/. Essai de l'étape 0 (Q2).
+# Formulaires de Sveltia CMS, servis sous /admin/ (D12).
+# Une collection par rubrique du site. Les champs d'une fiche sont décrits dans
+# la première collection (&fiche) et réutilisés dans les suivantes (*fiche).
+# Les _index.md de Hugo, qui décrivent les rubriques elles-mêmes, sont masqués
+# par Sveltia.
 backend:
   name: github
   repo: collectif-articho/collectif-articho.github.io
@@ -18,7 +22,7 @@ public_folder: /photos
 
 # Photos réduites dans le navigateur avant l'envoi. 2 000 px, la plus grande
 # taille servie par les gabarits : l'API qu'utilise Sveltia coupe tout envoi de
-# plus d'environ 5 s, donc chaque Mo compte sur une connexion lente (voir Q2).
+# plus d'environ 5 s, donc chaque Mo compte sur une connexion lente (ROADMAP, Q2).
 media_libraries:
   default:
     config:
@@ -32,31 +36,196 @@ media_libraries:
 collections:
   - name: amenagements
     label: Projets · Aménagements
-    label_singular: Projet
-    # Les _index.md de Hugo (la section elle-même) sont masqués par Sveltia.
+    label_singular: fiche
     folder: content/projets/amenagements
+    media_folder: /assets/photos/projets/amenagements/{{filename}}
+    public_folder: /photos/projets/amenagements/{{filename}}
     create: true
     extension: md
     format: frontmatter
-    # Photos dans assets/photos/projets/amenagements/<nom-de-la-fiche>/
-    media_folder: /assets/photos/projets/amenagements/{{filename}}
-    public_folder: /photos/projets/amenagements/{{filename}}
+    summary: "{{title}} · {{sous_titre}}"
     sortable_fields: [weight, title]
-    fields:
-      - { name: title, label: Titre, widget: string }
-      - { name: sous_titre, label: Sous-titre, widget: string }
-      - { name: weight, label: Ordre d'affichage, widget: number, value_type: int, required: false }
-      - name: infos
-        label: Informations
+    editor: { preview: false }
+    fields: &fiche
+      - name: title
+        label: Titre
+        widget: string
+        hint: "En majuscules, comme les autres fiches. Exemple : LE LOPIN"
+      - name: sous_titre
+        label: Sous-titre
+        widget: string
+        hint: "Une ligne. Exemple : Aménagement extérieur de l'école du CEPROC"
+      - { name: commanditaire, label: Commanditaire, widget: string, required: false }
+      - name: date_projet
+        label: Date
+        widget: string
+        required: false
+        hint: "Exemples : 2022, juillet 2023, mars - juillet 2025"
+      - name: localisation
+        label: Localisation
+        widget: string
+        required: false
+        hint: "Exemple : Paris 19e arrondissement (75)"
+      - name: intervention
+        label: Intervention
+        widget: string
+        required: false
+        hint: "Exemple : conception et réalisation"
+      - { name: materiaux_reemployes, label: Matériaux réemployés, widget: string, required: false }
+      - { name: materiaux_neufs, label: Matériaux neufs, widget: string, required: false }
+      - name: autres_infos
+        label: Autres informations
         label_singular: information
         widget: list
         required: false
+        hint: "Seulement si besoin : Collaboration, Type de projet, Partenaires…"
+        summary: "{{fields.intitule}} : {{fields.valeur}}"
         fields:
-          - { name: cle, label: Intitulé, widget: string }
+          - { name: intitule, label: Intitulé, widget: string }
           - { name: valeur, label: Valeur, widget: string }
       - name: photos
-        label: Photos (la première est la photo principale)
+        label: Photos
         label_singular: photo
         widget: list
+        min: 1
+        hint: "La première est la grande photo en haut de la fiche et la vignette des listes. Glisser pour changer l'ordre."
         field: { name: photo, label: Photo, widget: image }
       - { name: body, label: Texte, widget: markdown, required: false }
+      - name: weight
+        label: Ordre dans la rubrique
+        widget: number
+        value_type: int
+        required: false
+        hint: "1 pour la placer en premier, 2 en deuxième… Vide : en fin de liste."
+
+  - name: signaletiques
+    label: Projets · Signalétiques
+    label_singular: fiche
+    folder: content/projets/signaletiques
+    media_folder: /assets/photos/projets/signaletiques/{{filename}}
+    public_folder: /photos/projets/signaletiques/{{filename}}
+    create: true
+    extension: md
+    format: frontmatter
+    summary: "{{title}} · {{sous_titre}}"
+    sortable_fields: [weight, title]
+    editor: { preview: false }
+    fields: *fiche
+
+  - name: microarchitectures
+    label: Projets · Microarchitectures
+    label_singular: fiche
+    folder: content/projets/microarchitectures
+    media_folder: /assets/photos/projets/microarchitectures/{{filename}}
+    public_folder: /photos/projets/microarchitectures/{{filename}}
+    create: true
+    extension: md
+    format: frontmatter
+    summary: "{{title}} · {{sous_titre}}"
+    sortable_fields: [weight, title]
+    editor: { preview: false }
+    fields: *fiche
+
+  - name: chantiers-participatifs
+    label: Projets · Chantiers participatifs
+    label_singular: fiche
+    folder: content/projets/chantiers-participatifs
+    media_folder: /assets/photos/projets/chantiers-participatifs/{{filename}}
+    public_folder: /photos/projets/chantiers-participatifs/{{filename}}
+    create: true
+    extension: md
+    format: frontmatter
+    summary: "{{title}} · {{sous_titre}}"
+    sortable_fields: [weight, title]
+    editor: { preview: false }
+    fields: *fiche
+
+  - name: demarche-experimentale
+    label: Projets · Démarche expérimentale
+    label_singular: fiche
+    folder: content/projets/demarche-experimentale
+    media_folder: /assets/photos/projets/demarche-experimentale/{{filename}}
+    public_folder: /photos/projets/demarche-experimentale/{{filename}}
+    create: true
+    extension: md
+    format: frontmatter
+    summary: "{{title}} · {{sous_titre}}"
+    sortable_fields: [weight, title]
+    editor: { preview: false }
+    fields: *fiche
+
+  - name: agencements
+    label: Mobiliers · Agencements
+    label_singular: fiche
+    folder: content/mobiliers/agencements
+    media_folder: /assets/photos/mobiliers/agencements/{{filename}}
+    public_folder: /photos/mobiliers/agencements/{{filename}}
+    create: true
+    extension: md
+    format: frontmatter
+    summary: "{{title}} · {{sous_titre}}"
+    sortable_fields: [weight, title]
+    editor: { preview: false }
+    fields: *fiche
+
+  - name: ateliers-sur-mesures
+    label: Ateliers · Ateliers sur-mesures
+    label_singular: fiche
+    folder: content/ateliers/ateliers-sur-mesures
+    media_folder: /assets/photos/ateliers/ateliers-sur-mesures/{{filename}}
+    public_folder: /photos/ateliers/ateliers-sur-mesures/{{filename}}
+    create: true
+    extension: md
+    format: frontmatter
+    summary: "{{title}} · {{sous_titre}}"
+    sortable_fields: [weight, title]
+    editor: { preview: false }
+    fields: *fiche
+
+  - name: ligne-de-mobilier
+    label: Mobiliers · Ligne de mobilier
+    label_singular: meuble
+    folder: content/mobiliers/ligne-de-mobilier
+    media_folder: /assets/photos/mobiliers/ligne-de-mobilier/{{filename}}
+    public_folder: /photos/mobiliers/ligne-de-mobilier/{{filename}}
+    create: true
+    extension: md
+    format: frontmatter
+    sortable_fields: [weight, title]
+    editor: { preview: false }
+    fields:
+      - { name: title, label: Nom du meuble, widget: string, hint: "Exemple : Table basse" }
+      - name: modalite
+        label: Modalités de commande
+        label_singular: ligne
+        widget: list
+        required: false
+        hint: "Une ligne par modalité. Exemple : Sur commande, 1 pièce minimum"
+        field: { name: ligne, label: Ligne, widget: string }
+      - name: dimensions
+        label: Dimensions
+        label_singular: dimension
+        widget: list
+        required: false
+        hint: "Une ligne par dimension. Exemple : Longueur 100 cm"
+        field: { name: dimension, label: Dimension, widget: string }
+      - name: materiaux
+        label: Matériaux
+        label_singular: matériau
+        widget: list
+        required: false
+        hint: "Une ligne par matériau. Exemple : Issus du réemploi"
+        field: { name: materiau, label: Matériau, widget: string }
+      - name: photos
+        label: Photos
+        label_singular: photo
+        widget: list
+        min: 1
+        hint: "La première est celle affichée d'abord. Glisser pour changer l'ordre."
+        field: { name: photo, label: Photo, widget: image }
+      - name: weight
+        label: Ordre sur la page
+        widget: number
+        value_type: int
+        required: false
+        hint: "1 pour le placer en premier, 2 en deuxième… Vide : en fin de liste."

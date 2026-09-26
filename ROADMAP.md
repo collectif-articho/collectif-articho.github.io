@@ -3,11 +3,13 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-26** : **`v0.1` close** (étape 0). Chaîne complète validée :
-> Hugo, publication par GitHub Actions, Sveltia CMS (D12) sous
-> https://collectif-articho.github.io/admin/. **En cours : étape 1** (squelette et
-> gabarits). Louis a donné carte blanche pour avancer le plan en autonomie
-> (« keep it clean, keep it simple »), retours d'ergonomie ensuite.
+> **État au 2026-09-26** : **`v0.3`** : étapes 0, 1 et 2 faites. Le site généré
+> par Hugo reproduit l'ancien (vérifié à l'œil, captures côte à côte), avec les 53
+> fiches et 5 meubles migrés et les formulaires Sveltia à jour. **En cours : étape
+> 3**, pages fixes éditables (accueil, contact, notre offre, onglets Mobiliers et
+> Ateliers, pages texte) ; ce sont les seuls liens morts restants
+> (`python3 outils/verifier.py`). Louis a donné carte blanche pour avancer en
+> autonomie (« keep it clean, keep it simple »), retours d'ergonomie ensuite.
 > **Reste côté SCOP**, à caser dans une séance : désinstaller l'application Pages
 > CMS (compte `collectif-articho`, *Settings*, *Applications*), créer le jeton
 > fine-grained définitif (Q2).
@@ -188,6 +190,13 @@ remplis ; les intitulés rares (Type de projet 6, Collaboration 6, Implication,
 Partenaires, Équipage complet) vont dans une liste libre « Autres informations »,
 affichée après. Les variantes d'orthographe sont ramenées aux six intitulés à la
 migration. Clé `date_projet` et non `date`, que Hugo réserve à la date de la page.
+
+**D14. Redirections en fichiers fixes, hors du CMS** (2026-09-26). L'ancienne URL
+du QR code imprimé (`/pages/mobiliers/agencements/tpmobile.html`) est un fichier
+HTML dans `static/`, pas un champ `aliases` de la fiche TPMob : un CMS peut
+retirer à l'enregistrement les champs que son formulaire ne décrit pas, et une
+simple correction de la fiche casserait le QR code. Règle générale : **une fiche
+ne contient que des champs décrits dans `static/admin/config.yml`.**
 
 ## Questions ouvertes
 
@@ -436,30 +445,31 @@ fiches ajoutées à la main, une par gabarit.
 
 1. Parcourt `../collectif-articho/drive/`. Reprend les règles de l'ancien script
    (`CLAUDE.md`, § Pièges) : NFD, `trim`, `clé : valeur`, listes ` - ` des meubles.
-2. Écrit une fiche par dossier, au format validé à l'étape 0. Format de départ :
+2. Écrit une fiche par dossier. Format réel (D13, photos par fiche) :
 
    ```yaml
    ---
    title: "LE LOPIN"
-   sous_titre: "Aménagement extérieur de l'école du CEPROC"
+   sous_titre: "Aménagement extérieur de l’école du CEPROC"
    weight: 5                    # ordre, tiré du préfixe NN_ du dossier drive
-   infos:
-     - { cle: "Commanditaire", valeur: "Croque Ta Ville" }
-     - { cle: "Date", valeur: "2022" }
+   commanditaire: "Croque Ta Ville"
+   date_projet: "2022"          # pas `date`, réservé par Hugo
+   localisation: "Paris 19e arrondissement (75)"
+   intervention: "conception et réalisation"
+   materiaux_reemployes: "bois d’ossature"
+   materiaux_neufs: "polycarbonate alvéolaire"
+   autres_infos:                # intitulés rares seulement
+     - intitule: "Collaboration"
+       valeur: "…"
    photos:                      # ordre d'affichage, la 1re est la principale
-     - photos/projets/amenagements/le-lopin/1.jpg
-     - photos/projets/amenagements/le-lopin/2.jpg
+     - "/photos/projets/amenagements/le-lopin/1.jpg"
    ---
-   Dans le cadre de l'appel à projet des Pariculteurs, …
-
-   Deuxième paragraphe…
+   Dans le cadre de l’appel à projet des Pariculteurs, …
    ```
 
    Meubles : `modalite`, `dimensions` (liste), `materiaux` (liste), `photos`.
-3. Nom du fichier de fiche = slug actuel (`to_link()` de l'ancien script), pour
-   garder les mêmes URL. La fiche du TPMob porte
-   `aliases: [/pages/mobiliers/agencements/tpmobile.html]` : Hugo écrit lui-même
-   le stub de redirection du QR code.
+3. Nom du fichier de fiche = slug de l'URL publiée (`urls.tsv`), pour garder les
+   mêmes URL. Redirection du QR code en fichier fixe dans `static/` (D14).
 4. Photos (D6) : noms assainis, `mogrify -auto-orient -strip -resize '3000x3000>'
    -quality 88` (orientation appliquée, métadonnées GPS retirées, plafond 3 000 px).
    Les originaux restent dans l'ancien dépôt et dans le Drive.
@@ -594,6 +604,10 @@ couper les MX. À traiter **après** la bascule, jamais en même temps.
   CAVAPU qui « se transforme en SCOP ».
 - Page d'accueil : la transformation en SCOP est racontée dans deux paragraphes
   successifs qui se recoupent.
+- **Prix des meubles** : le drive en contient (Tabouret tapissé 285 € HT,
+  Luminaire 350 €, Tabouret 265 € HT, les tables « sur demande ») mais l'ancien
+  site ne les a jamais affichés (« Prix sur demande » partout) et ils n'ont pas
+  été migrés. Si la SCOP veut les afficher, c'est un champ à ajouter.
 
 ---
 

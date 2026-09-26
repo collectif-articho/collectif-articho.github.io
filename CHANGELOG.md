@@ -2,6 +2,34 @@
 
 Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
+## v0.3, 2026-09-26
+
+Étape 2, migration du contenu, par `migration/migrer.py` (bibliothèque standard
+et `mogrify`, relançable).
+
+- 53 fiches projet et 5 meubles migrés depuis `../collectif-articho/drive/`. Les
+  59 titres du drive sont présents sur le site, et chaque URL de l'ancien site a
+  sa fiche (nom de fichier repris de `urls.tsv`, pas recalculé).
+- 292 photos, plafonnées à 3 000 px (D6) : 398 Mo au lieu de 1,2 Go. L'ordre des
+  photos, photo principale comprise, est relevé **dans les pages publiées** de
+  l'ancien site plutôt que recalculé. Noms assainis (espaces, accents, `©`,
+  majuscules), extensions `.jpeg` ramenées à `.jpg`.
+- Informations en champs nommés (D13) ; variantes ramenées à leur champ :
+  « Matériaux de réemploi » (2 fiches), « Matériaux neuf », « Localisations ».
+- Textes : un paragraphe par ligne comme avant ; les lignes « - … » deviennent de
+  vraies listes à puces ; les lignes « > … » sont échappées (affichées telles
+  quelles, pas en citation) ; le lien HTML de la fiche TPMob devient un lien
+  Markdown (Hugo retire le HTML brut).
+- Prix des meubles **non migrés** : présents dans le drive (285 € HT, 350 €…),
+  jamais affichés par l'ancien site (« Prix sur demande »). Voir ROADMAP, « À
+  signaler à la SCOP ».
+- Redirection du QR code : fichier fixe `static/pages/mobiliers/agencements/tpmobile.html`
+  (D14), vérifié en local.
+- Formulaires Sveltia pour les 8 rubriques au format D13, avec les retours de
+  Louis sur l'essai : champs d'information nommés avec exemples, aide sous chaque
+  champ, aperçu retiré. Nécessaire tout de suite : un CMS peut retirer à
+  l'enregistrement les champs qu'il ne connaît pas.
+
 ## v0.2, 2026-09-26
 
 Étape 1, squelette et gabarits.

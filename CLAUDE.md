@@ -205,41 +205,63 @@ Appris en séance, à respecter sans le lui redemander :
 
 ## Le nouveau site : état technique et pièges constatés
 
-Ce qui existe au 2026-09-26 (étape 0, essai) :
+Ce qui existe au 2026-09-26 (`v0.3`) :
 
 ```
-hugo.toml                          uglyURLs, permalinks /pages/:sections/…, locale fr
-content/projets/_index.md          sections : un _index.md est OBLIGATOIRE par dossier,
-content/projets/amenagements/        sinon Hugo ne voit pas la section et l'URL perd
-    _index.md  le-lopin.md           un niveau (/pages/projets/le-lopin.html)
-assets/photos/projets/amenagements/
-    le-lopin/{1,2,3}.jpg           masters plafonnés 3 000 px (mogrify)
-layouts/baseof.html page.html      gabarits, noms du système de Hugo ≥ 0.146
-layouts/home.html section.html     PROVISOIRES (listes de liens), remplacés aux étapes 1 et 3
-static/resources/                  css, fonts, statics/assets, favicon, logo : copiés tels quels
-.github/workflows/publier.yml      modèle officiel GitHub pour Hugo, Hugo 0.166.0 épinglé
-static/admin/                      Sveltia CMS : index.html (version épinglée), config.yml
+hugo.toml                  URL (/pages/…, uglyURLs), MENU PRINCIPAL (en-tête et
+                             barres d'onglets en sont tirés), hardWraps
+content/<onglet>/<rubrique>/
+    _index.md              la rubrique : titre, ordre, url: /pages/….html
+    <slug>.md              une fiche (format : ROADMAP, étape 2 ; champs D13)
+content/mobiliers/ligne-de-mobilier/_index.md
+                           textes de la page et `cascade` : pas de page par meuble
+assets/photos/<onglet>/<rubrique>/<slug>/   photos d'une fiche (D8)
+layouts/baseof.html        squelette : <head>, #header, #footer
+layouts/page.html          fiche ; section.html : listings ; home.html : PROVISOIRE
+layouts/ligne-de-mobilier.html
+layouts/_partials/         header, footer, tab_bar (menus), actif (onglet actif),
+                           photo (redimensionne, erreur si absente), vignette
+static/resources/          css, fonts, statics, js repris de l'ancien site
+static/pages/…/tpmobile.html   redirection du QR code (D14)
+static/admin/              Sveltia CMS : index.html (version épinglée), config.yml
+migration/migrer.py        migration unique depuis ../collectif-articho (relançable)
+outils/verifier.py         liens morts, pages et titres de l'ancien site absents
 ```
 
 Pièges déjà rencontrés :
 
 - **NFD du drive** : `cp "drive/01_Projets/01_Aménagements/…"` échoue parce que le
-  `é` du disque est décomposé. Passer par `find drive -name '05_Le_Lopin'`.
-- **`uglyURLs` ne s'applique pas aux sections** : `amenagements/index.html` au lieu
-  de `amenagements.html`. Un permalink de section terminé par `.html` crée un
-  **dossier** `amenagements.html/`, à écarter. Piste : `url:` dans chaque
-  `_index.md` (étape 1).
-- `languageCode` est déprécié depuis Hugo 0.158 : utiliser `locale`.
-- Les photos de `assets/` ne sont publiées **que dans les tailles demandées** par les
-  gabarits (`.Fit`), jamais le master : vérifié en ligne, le master répond 404.
-- Le gabarit de fiche lève une erreur (`errorf`) si une photo listée dans la fiche
-  n'existe pas dans `assets/` : la construction échoue plutôt que publier une image
-  cassée.
-- Le workflow met en cache les images redimensionnées (`resources/_gen` et le cache
-  Hugo) : sans ça, chaque publication recalculerait les ~300 photos.
+  `é` du disque est décomposé. Passer par `find`, ou `unicodedata` en Python.
+- **Sections** : un `_index.md` est obligatoire par dossier, sinon Hugo ne voit
+  pas la section et l'URL perd un niveau. `uglyURLs` ne s'y applique pas, d'où
+  `url:` dans chaque `_index.md` (un permalink finissant par `.html` crée un
+  dossier `amenagements.html/`).
+- **`cascade`** s'applique aussi à la section elle-même : le `build: render:
+  never` des meubles est limité par `target: kind: page`.
+- **Une fiche ne contient que des champs décrits dans `static/admin/config.yml`**
+  (D14) : un CMS peut retirer à l'enregistrement les champs inconnus. Tout champ
+  ajouté aux gabarits s'ajoute aussi au formulaire, dans le même commit.
+- `date` est réservé par Hugo (date de la page) : l'information « Date » est
+  `date_projet`. `languageCode` est déprécié : `locale`.
+- Les photos de `assets/` ne sont publiées **que dans les tailles demandées** par
+  les gabarits, jamais le master. Le partial `photo.html` arrête la construction
+  si une photo listée est absente.
+- Le langage de gabarit de Hugo aplatit les `slice` imbriquées avec `append` :
+  préférer une `slice` de `dict`.
+- Le workflow met en cache les images redimensionnées ; en local, le premier
+  `hugo` complet prend environ 30 s, les suivants 3 s.
+- **Captures d'écran** : `chromium` est un snap, il ne peut pas écrire dans
+  `/tmp`. Écrire dans `~/snap/chromium/common/`, puis déplacer :
+
+  ```sh
+  chromium --headless=new --hide-scrollbars --virtual-time-budget=8000 \
+    --window-size=1400,2000 --screenshot=$HOME/snap/chromium/common/x.png URL
+  ```
+
+  Servir l'ancien site (`python3 -m http.server 8001` dans `../collectif-articho`)
+  et le nouveau (`python3 -m http.server 8002` dans `public/`) pour comparer.
 
 Vérifier une publication : le workflow dure moins d'une minute ; suivre avec
-`gh run list -R collectif-articho/collectif-articho.github.io` ou l'API
-`/repos/collectif-articho/collectif-articho.github.io/actions/runs`, puis `curl -I`
-sur les pages. Si le push est refusé (`fetch first`), c'est qu'un CMS a commité
+`gh run list -R collectif-articho/collectif-articho.github.io`, puis `curl -I`
+sur les pages. Si le push est refusé (`fetch first`), c'est que le CMS a commité
 entre-temps : `git pull --rebase`, puis lire ce qu'il a écrit.
