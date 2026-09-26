@@ -2,8 +2,12 @@
 
 Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
-## v0.1 (en cours), 2026-09-26
+## v0.1, 2026-09-26
 
+- Étape 0 close : chaîne complète validée (Hugo, GitHub Actions, Sveltia CMS).
+  Décisions D12 (Sveltia plutôt que Pages CMS) et D13 (informations d'une fiche
+  en champs nommés). Ménage : `.pages.yml`, photo `3.jpeg` et fiche `test`
+  retirés.
 - Second essai de CMS (Q2), avec l'accord de Louis : Sveltia CMS 0.221.1 servi
   sous `/admin/` (`static/admin/`). Photos rangées par fiche grâce au
   `media_folder` de collection avec `{{filename}}`, réduites dans le navigateur
@@ -23,7 +27,7 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
   `ROADMAP.md` avec le constat complet du test de Pages CMS et le second essai
   prêt à dérouler.
 
-## v0.1 (en cours), 2026-09-25
+## v0.1 (suite), 2026-09-25
 
 - Compte GitHub `collectif-articho` et dépôt `collectif-articho.github.io` créés
   par la SCOP ; Pages sur « GitHub Actions », Pages CMS installé, Louis

@@ -3,12 +3,14 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-26** : **étape 0 : second essai réussi** avec Sveltia CMS
-> (constat sous Q2). Louis trouve le formulaire moins clair que Pages CMS mais
-> accepte le passage si Pages CMS est vraiment bloqué (il l'est : 4,5 Mo par
-> envoi). **Prochaine action** : confirmation de Louis, puis D12 (Sveltia),
-> ménage (point 6 de Q2 : `.pages.yml`, `3.jpeg`, fiche `test`, application
-> Pages CMS), clôture de `v0.1`.
+> **État au 2026-09-26** : **`v0.1` close** (étape 0). Chaîne complète validée :
+> Hugo, publication par GitHub Actions, Sveltia CMS (D12) sous
+> https://collectif-articho.github.io/admin/. **En cours : étape 1** (squelette et
+> gabarits). Louis a donné carte blanche pour avancer le plan en autonomie
+> (« keep it clean, keep it simple »), retours d'ergonomie ensuite.
+> **Reste côté SCOP**, à caser dans une séance : désinstaller l'application Pages
+> CMS (compte `collectif-articho`, *Settings*, *Applications*), créer le jeton
+> fine-grained définitif (Q2).
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
@@ -165,13 +167,34 @@ franchie donne une version : `v0.1` à l'étape 0, jusqu'à `v1.0` à la bascule
 `CHANGELOG.md` est titré par version et date, et le commit qui la clôt porte une
 étiquette git du même nom.
 
+**D12. CMS : Sveltia CMS, pas Pages CMS** (2026-09-26, révise D4, tranche Q2).
+Pages CMS refuse tout envoi de plus de 4,5 Mo (limite de son hébergeur Vercel),
+donc la plupart des photos de téléphone. Sveltia, servi par le site sous `/admin/`,
+réduit les photos dans le navigateur (WebP, 2 000 px) et écrit directement dans
+GitHub : essai réussi avec une photo de 8,9 Mo. Connexion par jeton GitHub.
+Limite connue : l'API qu'il utilise coupe un enregistrement de plus d'environ 5 s,
+donc sur une connexion lente on ajoute les photos quelques-unes à la fois (mode
+d'emploi). Louis trouve l'interface moins soignée que Pages CMS : ergonomie à
+travailler à l'étape 4, puis retours de la SCOP.
+
+**D13. Informations d'une fiche : champs nommés, plus une liste libre**
+(2026-09-26, remarque de Louis après l'essai). Demander aux membres d'écrire
+l'intitulé *et* la valeur de chaque information les laisse sans repère, alors que
+les intitulés se répètent. Relevé sur les 53 fiches : Date (53), Commanditaire
+(52), Intervention (51), Localisation (49), Matériaux réemployés (44, plus 2
+« Matériaux de réemploi »), Matériaux neufs (29, plus 1 « Matériaux neuf »). Ces
+six deviennent des champs du formulaire, affichés dans cet ordre quand ils sont
+remplis ; les intitulés rares (Type de projet 6, Collaboration 6, Implication,
+Partenaires, Équipage complet) vont dans une liste libre « Autres informations »,
+affichée après. Les variantes d'orthographe sont ramenées aux six intitulés à la
+migration. Clé `date_projet` et non `date`, que Hugo réserve à la date de la page.
+
 ## Questions ouvertes
 
-Q1 est tranchée par D8 et D10.
+Aucune au 2026-09-26. Q1 est tranchée par D8 et D10, Q2 par D12.
 
 **Q2. Garder Pages CMS ou passer à Sveltia CMS ?** (ouverte le 2026-09-25,
-**en attente de Louis**, qui a eu les éléments ci-dessous et n'a pas encore dit oui
-au second essai).
+**tranchée le 2026-09-26 par D12**, conservée pour mémoire).
 
 *Constat de l'essai (2026-09-25, Louis avec son compte `lou-heraut`)* :
 

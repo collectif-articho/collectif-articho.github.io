@@ -119,7 +119,7 @@ SCOP, à réutiliser pour tout document destiné aux membres (mode d'emploi…).
 |---|---|
 | hébergeur | **GitHub Pages**, gratuit, à conserver |
 | ancien site | dépôt `lou-heraut/collectif-articho` (compte perso de Louis), sert `collectifarticho.com` jusqu'à la bascule |
-| nouveau site | compte utilisateur **`collectif-articho`** tenu par la SCOP (créé le 2026-09-25, e-mail `contact@collectifarticho.com`, identifiants gardés par la SCOP) ; dépôt public **`collectif-articho/collectif-articho.github.io`**, branche `main`, servi à la racine de https://collectif-articho.github.io/ (D3, D7) ; Pages réglé sur « GitHub Actions » ; `lou-heraut` collaborateur (peut pousser, pas toucher aux réglages) ; application Pages CMS installée sur ce dépôt (à désinstaller si Q2 part sur Sveltia) |
+| nouveau site | compte utilisateur **`collectif-articho`** tenu par la SCOP (créé le 2026-09-25, e-mail `contact@collectifarticho.com`, identifiants gardés par la SCOP) ; dépôt public **`collectif-articho/collectif-articho.github.io`**, branche `main`, servi à la racine de https://collectif-articho.github.io/ (D3, D7) ; Pages réglé sur « GitHub Actions » ; `lou-heraut` collaborateur (peut pousser, pas toucher aux réglages) ; CMS : **Sveltia**, page `/admin/` du site, connexion par jeton GitHub (D12) ; l'application Pages CMS, essayée puis écartée, reste à désinstaller côté SCOP |
 | remote local | `origin` = `git@github.com:collectif-articho/collectif-articho.github.io.git` |
 | domaine | `collectifarticho.com`, enregistré chez Google Domains, **repris par Squarespace** ; payé par la SCOP |
 | DNS | serveurs `ns-cloud-d{1..4}.googledomains.com` ; A vers `185.199.10{8,9,10,11}.153` (GitHub Pages) |
@@ -214,12 +214,11 @@ content/projets/amenagements/        sinon Hugo ne voit pas la section et l'URL 
     _index.md  le-lopin.md           un niveau (/pages/projets/le-lopin.html)
 assets/photos/projets/amenagements/
     le-lopin/{1,2,3}.jpg           masters plafonnés 3 000 px (mogrify)
-    3.jpeg                         photo de TEST envoyée depuis Pages CMS, à supprimer
 layouts/baseof.html page.html      gabarits, noms du système de Hugo ≥ 0.146
 layouts/home.html section.html     PROVISOIRES (listes de liens), remplacés aux étapes 1 et 3
 static/resources/                  css, fonts, statics/assets, favicon, logo : copiés tels quels
 .github/workflows/publier.yml      modèle officiel GitHub pour Hugo, Hugo 0.166.0 épinglé
-.pages.yml                         config Pages CMS de l'essai, à retirer si Q2 → Sveltia
+static/admin/                      Sveltia CMS : index.html (version épinglée), config.yml
 ```
 
 Pièges déjà rencontrés :
