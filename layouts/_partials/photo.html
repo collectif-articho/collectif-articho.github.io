@@ -1,0 +1,8 @@
+{{/* Photo d'un contenu, redimensionnée. Reçoit le chemin écrit dans le contenu
+     (/photos/…, relatif à assets/) et la taille maximale (« 2000x2000 »).
+     Une photo introuvable arrête la construction plutôt que publier un trou. */}}
+{{ $photo := resources.Get (strings.TrimPrefix "/" .chemin) }}
+{{ if not $photo }}
+  {{ errorf "Photo introuvable dans assets/ : %s" .chemin }}
+{{ end }}
+{{ return $photo.Fit (printf "%s q80" .taille) }}

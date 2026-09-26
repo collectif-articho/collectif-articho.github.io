@@ -1,0 +1,7 @@
+{{/* Vignette d'une fiche dans un listing. */}}
+<a class="projet_thumbnail" href="{{ .RelPermalink }}">
+    <div class="overlay"><h2>{{ .Parent.Title }}</h2><h3>{{ .Title }}</h3><h4>{{ .Params.sous_titre }}</h4></div>
+    {{ with .Params.photos }}
+    <img loading="lazy" src="{{ (partial "photo.html" (dict "chemin" (index . 0) "taille" "1000x1000")).RelPermalink }}">
+    {{ end }}
+</a>

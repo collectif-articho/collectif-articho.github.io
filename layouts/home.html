@@ -1,12 +1,7 @@
-{{/* Accueil provisoire de l'essai (étape 0), remplacé à l'étape 3. */}}
+{{/* Accueil provisoire, remplacé à l'étape 3. */}}
 {{ define "main" }}
 <div class="container">
-    <h1 class="text_center text_compact">ARTI/CHÔ</h1>
-    <h2 class="text_center text_compact">Site en construction</h2>
-    <ul>
-        {{ range where site.RegularPages "Section" "projets" }}
-        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-        {{ end }}
-    </ul>
+    <h1 class="text_center">ARTI/CHÔ</h1>
+    <h2 class="text_center">Site en construction</h2>
 </div>
 {{ end }}

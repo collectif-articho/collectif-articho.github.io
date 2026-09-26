@@ -215,3 +215,8 @@ a#commander:hover {
     
 }
 
+
+/* Texte d'introduction de la Ligne de mobilier, saisi dans le CMS. */
+.intro_mobilier p:last-child {
+    margin-bottom: 2rem;
+}

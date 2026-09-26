@@ -2,6 +2,33 @@
 
 Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
+## v0.2, 2026-09-26
+
+Étape 1, squelette et gabarits.
+
+- En-tête, pied de page et barres d'onglets en partials Hugo, tirés d'un seul
+  menu déclaré dans `hugo.toml` : les slugs ne sont plus écrits qu'à un endroit
+  (ancien P3.2). L'onglet actif est calculé à la construction : `checkURL()`,
+  jQuery et les `fetch()` de `components/` disparaissent ; `script.js` ne garde
+  que les menus déroulants et le survol des icônes.
+- Gabarits : fiche (informations en champs nommés, D13), listing d'onglet et de
+  rubrique, page Ligne de mobilier (carrousel sans points de navigation quand un
+  meuble n'a qu'une photo, ancien P2.5 ; Material Icons chargé sur cette page
+  seulement). Les meubles n'ont pas de page à eux (`cascade` limité aux pages).
+- Mêmes URL : chaque rubrique fixe la sienne par `url:` dans son `_index.md`,
+  puisque `uglyURLs` ne s'applique pas aux sections.
+- Photos redimensionnées à la construction : 2 000 px pour les pages, 1 000 px
+  pour les vignettes.
+- Retouches CSS, les seules : listes du texte des fiches alignées sur les
+  paragraphes (`projets.css`), marge du texte d'introduction de la Ligne de
+  mobilier (`mobiliers.css`). Retour à la ligne saisi = retour à la ligne
+  (`hardWraps`). Année du pied de page calculée.
+- `outils/verifier.py` : liens internes morts, pages et titres de l'ancien site
+  absents (D9).
+- Vérifié à l'œil contre l'ancien site, captures côte à côte : fiche, listing
+  « Tout », listing de rubrique, Ligne de mobilier, page courte avec pied de
+  page, fiche sur téléphone (390 px). Identiques, sauf l'année et les listes.
+
 ## v0.1, 2026-09-26
 
 - Étape 0 close : chaîne complète validée (Hugo, GitHub Actions, Sveltia CMS).

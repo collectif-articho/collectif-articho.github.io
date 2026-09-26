@@ -1,0 +1,27 @@
+<a id="articho_logo" href="/index.html">
+</a>
+<div id="header_tab">
+    {{ range site.Menus.main }}
+    {{ $classe := cond (partial "actif.html" (dict "entree" . "page" $.Page)) "tab selected" "tab" }}
+    {{ if .HasChildren }}
+    <div onmouseover="showMenu('menu_{{ .Identifier }}')" onmouseleave="hideMenu('menu_{{ .Identifier }}')">
+        <a id="header_tab-{{ .Identifier }}" class="{{ $classe }}" href="{{ .URL }}">
+            <span>{{ .Name }}</span>
+        </a>
+        <div id="menu_{{ .Identifier }}" class="menu" onmouseover="showMenu('menu_{{ .Identifier }}')" onmouseleave="hideMenu('menu_{{ .Identifier }}')">
+            <div id="container_menu">
+                {{ range .Children }}
+                <a id="header_subtab-{{ .Identifier }}" class="subtab{{ if partial "actif.html" (dict "entree" . "page" $.Page) }} selected{{ end }}" href="{{ .URL }}">
+                    <span>{{ .Name }}</span>
+                </a>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+    {{ else }}
+    <a id="header_tab-{{ .Identifier }}" class="{{ $classe }}" href="{{ .URL }}">
+        <span>{{ .Name }}</span>
+    </a>
+    {{ end }}
+    {{ end }}
+</div>

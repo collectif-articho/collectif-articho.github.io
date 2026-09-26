@@ -1,0 +1,62 @@
+{{/* Page Ligne de mobilier : tous les meubles sur une page, chacun avec son
+     carrousel. Reprise de pages/default_mobiliers.html de l'ancien site. */}}
+{{ define "head" }}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+        <link rel="stylesheet" href="/resources/css/mobiliers.css">
+        <script src="/resources/js/gallery.js"></script>
+{{ end }}
+
+{{ define "main" }}
+<div class="container">
+
+    <h1 class="text_center">{{ .FirstSection.Title }}</h1>
+
+    {{ partial "tab_bar.html" . }}
+
+    <div class="intro_mobilier">{{ .RenderString (dict "display" "block") (.Params.texte_avant | default "") }}</div>
+
+    <div id="container_projets">
+        {{ range .RegularPages }}
+        <div class="mobilier">
+            <div class="text-container">
+                <div class="bunch_title">
+                    <h2>{{ .Title }}</h2>
+                    <a id="commander" href="/pages/contact.html">
+                        <span class="material-icons-outlined">shopping_bag</span>
+                        <h4>Prix sur demande</h4>
+                    </a>
+                </div>
+                <span class="modality">{{ delimit .Params.modalite "<br>" | safeHTML }}</span>
+                <div class="bunch_info">
+                    {{ with .Params.dimensions }}<span><b>Dimensions</b><br>{{ delimit . "<br>" | safeHTML }}</span>{{ end }}
+                    {{ with .Params.materiaux }}<span><b>Matériaux</b><br>{{ delimit . "<br>" | safeHTML }}</span>{{ end }}
+                </div>
+            </div>
+            <div class="gallery-container" data-index="1">
+                {{ range .Params.photos }}
+                <img class="image active" loading="lazy" src="{{ (partial "photo.html" (dict "chemin" . "taille" "2000x2000")).RelPermalink }}">
+                {{ end }}
+                {{ if gt (len .Params.photos) 1 }}
+                <div class="navigation">
+                    <button class="nav-button material-icons-outlined" onclick="plusSlides(-1, this)" style="transform: rotate(90deg);">expand_circle_down</button>
+                    {{ range $i, $_ := .Params.photos }}
+                    <span class="dot{{ if eq $i 0 }} active{{ end }}" onclick="showSlides({{ add $i 1 }}, this)"></span>
+                    {{ end }}
+                    <button class="nav-button material-icons-outlined" onclick="plusSlides(1, this)" style="transform: rotate(-90deg);">expand_circle_down</button>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+
+    {{ .RenderString (dict "display" "block") (.Params.texte_apres | default "") }}
+
+    {{ with .Params.photo }}
+    <div class="container_img"><img loading="lazy" src="{{ (partial "photo.html" (dict "chemin" . "taille" "2000x2000")).RelPermalink }}"></div>
+    {{ end }}
+
+    {{ .RenderString (dict "display" "block") (.Params.texte_fin | default "") }}
+
+</div>
+{{ end }}

@@ -336,3 +336,22 @@ p {
 
 } 
 
+
+/* Listes dans le texte d'une fiche (saisies dans le CMS) : même largeur que
+   les paragraphes (p ci-dessus), au lieu de la règle générale des ul de style.css. */
+.texte_projet ul,
+.texte_projet ol {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 50vw;
+    padding-left: 1.5rem;
+}
+.texte_projet li p {
+    margin: 0;
+}
+@media (max-width: 768px) {
+    .texte_projet ul,
+    .texte_projet ol {
+        max-width: none;
+    }
+}

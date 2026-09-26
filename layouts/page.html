@@ -1,18 +1,14 @@
-{{/* Fiche projet, reprise de pages/default_projet.html de l'ancien site. */}}
+{{/* Fiche projet, reprise de pages/default_projet.html de l'ancien site.
+     Informations : les champs nommés (D13) dans cet ordre, puis les autres. */}}
 {{ define "main" }}
+{{ $photos := slice }}
+{{ range .Params.photos }}
+    {{ $photos = $photos | append (partial "photo.html" (dict "chemin" . "taille" "2000x2000")) }}
+{{ end }}
 <div class="container">
 
     <h1 class="text_center text_compact">{{ .Title }}</h1>
     <h2 class="text_center text_compact">{{ .Params.sous_titre }}</h2>
-
-    {{ $photos := slice }}
-    {{ range .Params.photos }}
-        {{ with resources.Get (strings.TrimPrefix "/" .) }}
-            {{ $photos = $photos | append (.Fit "2000x2000 q80") }}
-        {{ else }}
-            {{ errorf "Photo introuvable dans assets/ : %s" . }}
-        {{ end }}
-    {{ end }}
 
     <div id="container_main_img">
         {{ with index $photos 0 }}<img src="{{ .RelPermalink }}">{{ end }}
@@ -26,17 +22,28 @@
         </svg>
 
         <div id="container_projet_info">
-            {{ range .Params.infos }}
-            <div class="projet_info"><b>{{ .cle }}</b><span>{{ .valeur }}</span></div>
+            {{ range $champ := slice
+                (dict "cle" "commanditaire" "intitule" "Commanditaire")
+                (dict "cle" "date_projet" "intitule" "Date")
+                (dict "cle" "localisation" "intitule" "Localisation")
+                (dict "cle" "intervention" "intitule" "Intervention")
+                (dict "cle" "materiaux_reemployes" "intitule" "Matériaux réemployés")
+                (dict "cle" "materiaux_neufs" "intitule" "Matériaux neufs") }}
+            {{ with index $.Params $champ.cle }}
+            <div class="projet_info"><b>{{ $champ.intitule }}</b><span>{{ . }}</span></div>
+            {{ end }}
+            {{ end }}
+            {{ range .Params.autres_infos }}
+            <div class="projet_info"><b>{{ .intitule }}</b><span>{{ .valeur }}</span></div>
             {{ end }}
         </div>
     </div>
 
-    {{ .Content }}
+    <div class="texte_projet">{{ .Content }}</div>
 
     <div id="container_bunch_img">
         {{ range after 1 $photos }}
-        <div class="container_img"><img src="{{ .RelPermalink }}"></div>
+        <div class="container_img"><img loading="lazy" src="{{ .RelPermalink }}"></div>
         {{ end }}
     </div>
 

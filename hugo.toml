@@ -3,15 +3,102 @@ baseURL = "https://collectif-articho.github.io/"
 locale = "fr"
 title = "ARTI/CHÔ"
 
-# Mêmes URL que l'ancien site : /pages/projets/amenagements/le-lopin.html
+# Mêmes URL que l'ancien site : /pages/projets/amenagements/le-lopin.html.
+# Les sections fixent la leur par `url:` dans leur _index.md (uglyURLs ne s'y
+# applique pas).
 uglyURLs = true
 disableKinds = ["taxonomy", "term", "rss"]
 
 [permalinks.page]
   projets = "/pages/:sections/:contentbasename"
-
-[permalinks.section]
-  projets = "/pages/:sections"
+  mobiliers = "/pages/:sections/:contentbasename"
+  ateliers = "/pages/:sections/:contentbasename"
 
 [module.hugoVersion]
   min = "0.146.0"
+
+# Navigation : en-tête, menus déroulants et barres d'onglets en sont tirés.
+# `tout` ajoute un onglet « Tout » en tête de la barre d'onglets.
+[[menus.main]]
+  identifier = "projets"
+  name = "Projets"
+  url = "/pages/projets.html"
+  weight = 1
+  params = { tout = true }
+[[menus.main]]
+  parent = "projets"
+  identifier = "amenagements"
+  name = "Aménagements"
+  url = "/pages/projets/amenagements.html"
+  weight = 1
+[[menus.main]]
+  parent = "projets"
+  identifier = "microarchitectures"
+  name = "Microarchitectures"
+  url = "/pages/projets/microarchitectures.html"
+  weight = 2
+[[menus.main]]
+  parent = "projets"
+  identifier = "signaletiques"
+  name = "Signalétiques"
+  url = "/pages/projets/signaletiques.html"
+  weight = 3
+[[menus.main]]
+  parent = "projets"
+  identifier = "chantiers-participatifs"
+  name = "Chantiers participatifs"
+  url = "/pages/projets/chantiers-participatifs.html"
+  weight = 4
+[[menus.main]]
+  parent = "projets"
+  identifier = "demarche-experimentale"
+  name = "Démarche expérimentale"
+  url = "/pages/projets/demarche-experimentale.html"
+  weight = 5
+
+[[menus.main]]
+  identifier = "mobiliers"
+  name = "Mobiliers"
+  url = "/pages/mobiliers.html"
+  weight = 2
+[[menus.main]]
+  parent = "mobiliers"
+  identifier = "agencements"
+  name = "Agencements"
+  url = "/pages/mobiliers/agencements.html"
+  weight = 1
+[[menus.main]]
+  parent = "mobiliers"
+  identifier = "ligne-de-mobilier"
+  name = "Ligne de mobilier"
+  url = "/pages/mobiliers/ligne-de-mobilier.html"
+  weight = 2
+
+[[menus.main]]
+  identifier = "ateliers"
+  name = "Ateliers"
+  url = "/pages/ateliers.html"
+  weight = 3
+[[menus.main]]
+  parent = "ateliers"
+  identifier = "ateliers-sur-mesures"
+  name = "Ateliers sur-mesures"
+  url = "/pages/ateliers/ateliers-sur-mesures.html"
+  weight = 1
+[[menus.main]]
+  parent = "ateliers"
+  identifier = "notre-offre"
+  name = "Notre offre"
+  url = "/pages/notre-offre.html"
+  weight = 2
+
+[[menus.main]]
+  identifier = "contact"
+  name = "Nous contacter"
+  url = "/pages/contact.html"
+  weight = 4
+
+# Un retour à la ligne saisi dans un texte reste un retour à la ligne : c'est ce
+# qu'attend quelqu'un qui écrit dans un formulaire.
+[markup.goldmark.renderer]
+  hardWraps = true

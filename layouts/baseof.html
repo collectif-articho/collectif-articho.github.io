@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{ if not .IsHome }}{{ .Title }} · {{ end }}ARTI/CHÔ</title>
-	<link rel="icon" href="/resources/statics/articho/favicon.ico" type="image/x-icon">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ if not .IsHome }}{{ .Title }} · {{ end }}ARTI/CHÔ</title>
+        <link rel="icon" href="/resources/statics/articho/favicon.ico" type="image/x-icon">
 
-	<link rel="stylesheet" href="/resources/css/style.css">
-	<link rel="stylesheet" href="/resources/css/header.css">
-	<link rel="stylesheet" href="/resources/css/footer.css">
-	<link rel="stylesheet" href="/resources/css/projets.css">
+        <link rel="stylesheet" href="/resources/css/style.css">
+        <link rel="stylesheet" href="/resources/css/header.css">
+        <link rel="stylesheet" href="/resources/css/footer.css">
+        <link rel="stylesheet" href="/resources/css/projets.css">
+        {{ block "head" . }}{{ end }}
+
+        <script src="/resources/js/script.js"></script>
     </head>
     <body>
-	{{ block "main" . }}{{ end }}
+
+        <div id="header">{{ partial "header.html" . }}</div>
+
+        {{ block "main" . }}{{ end }}
+
+        <div id="footer">{{ partial "footer.html" . }}</div>
+
     </body>
 </html>

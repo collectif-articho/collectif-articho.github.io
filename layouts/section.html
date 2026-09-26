@@ -1,11 +1,22 @@
-{{/* Listing brut de l'essai (étape 0), remplacé à l'étape 1. */}}
+{{/* Listing en vignettes. Sur un onglet (Projets), toutes les fiches de ses
+     sous-rubriques, dans l'ordre des sous-rubriques ; sur une sous-rubrique,
+     ses fiches. Reprise de pages/default_projets.html de l'ancien site. */}}
 {{ define "main" }}
 <div class="container">
-    <h1 class="text_center text_compact">{{ .Title }}</h1>
-    <ul>
-        {{ range .RegularPagesRecursive }}
-        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+
+    <h1 class="text_center">{{ .FirstSection.Title }}</h1>
+
+    {{ partial "tab_bar.html" . }}
+
+    <div id="container_projets">
+        {{ if eq .Page .FirstSection }}
+            {{ range .Sections }}
+                {{ range .RegularPages }}{{ partial "vignette.html" . }}{{ end }}
+            {{ end }}
+        {{ else }}
+            {{ range .RegularPages }}{{ partial "vignette.html" . }}{{ end }}
         {{ end }}
-    </ul>
+    </div>
+
 </div>
 {{ end }}
