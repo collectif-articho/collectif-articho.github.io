@@ -9,3 +9,5 @@ toucher au code et sans abonnement.
 - `CLAUDE.md` : contexte technique complet, y compris sur l'ancien site.
 
 Le site actuellement en ligne est dans le dossier voisin `../collectif-articho/`.
+Ce dépôt est `collectif-articho/collectif-articho.github.io` ; la version en
+construction est publiée à chaque push sur https://collectif-articho.github.io/.

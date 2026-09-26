@@ -2,6 +2,14 @@
 
 Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
+## v0.1 (en cours), 2026-09-26
+
+- Passage de relais consigné : `CLAUDE.md` gagne l'état des comptes et du dépôt,
+  la façon de construire en local sans installer Hugo, les pièges constatés
+  pendant l'essai et une section « Travailler avec Louis ». Q2 détaillée dans
+  `ROADMAP.md` avec le constat complet du test de Pages CMS et le second essai
+  prêt à dérouler.
+
 ## v0.1 (en cours), 2026-09-25
 
 - Compte GitHub `collectif-articho` et dépôt `collectif-articho.github.io` créés

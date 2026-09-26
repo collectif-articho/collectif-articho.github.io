@@ -18,6 +18,8 @@ sont dans `ROADMAP.md`. Ce qui est fait part dans `CHANGELOG.md`.
 3. Lire les dernières entrées de `CHANGELOG.md` et `git log --oneline | head`.
 4. Travailler étape par étape du plan d'attaque (§ 4) ; chaque étape a un critère
    de fin, ne pas passer à la suivante tant qu'il n'est pas atteint.
+5. Lire plus bas **Travailler avec Louis** et **Le nouveau site** : ce qui a été
+   appris en séance et n'est pas déductible du code.
 
 **Tenir la traçabilité à chaque étape franchie**, dans le même commit que le code :
 entrée au `CHANGELOG.md` (quoi, pourquoi, écarts constatés), bandeau État de
@@ -116,7 +118,9 @@ SCOP, à réutiliser pour tout document destiné aux membres (mode d'emploi…).
 | | |
 |---|---|
 | hébergeur | **GitHub Pages**, gratuit, à conserver |
-| comptes | aujourd'hui dépôt sur `lou-heraut` (compte perso de Louis) ; cible : un seul compte `collectif-articho` tenu par la SCOP, dépôt `collectif-articho.github.io` servi à la racine, Louis collaborateur (`ROADMAP.md`, D3 et D7). **Pas encore créé.** |
+| ancien site | dépôt `lou-heraut/collectif-articho` (compte perso de Louis), sert `collectifarticho.com` jusqu'à la bascule |
+| nouveau site | compte utilisateur **`collectif-articho`** tenu par la SCOP (créé le 2026-09-25, e-mail `contact@collectifarticho.com`, identifiants gardés par la SCOP) ; dépôt public **`collectif-articho/collectif-articho.github.io`**, branche `main`, servi à la racine de https://collectif-articho.github.io/ (D3, D7) ; Pages réglé sur « GitHub Actions » ; `lou-heraut` collaborateur (peut pousser, pas toucher aux réglages) ; application Pages CMS installée sur ce dépôt (à désinstaller si Q2 part sur Sveltia) |
+| remote local | `origin` = `git@github.com:collectif-articho/collectif-articho.github.io.git` |
 | domaine | `collectifarticho.com`, enregistré chez Google Domains, **repris par Squarespace** ; payé par la SCOP |
 | DNS | serveurs `ns-cloud-d{1..4}.googledomains.com` ; A vers `185.199.10{8,9,10,11}.153` (GitHub Pages) |
 | mail | MX vers `aspmx.l.google.com` : **Google Workspace**, adresse de la SCOP sur ce domaine |
@@ -153,8 +157,90 @@ une erreur sur les MX coupe le mail de la SCOP.
   `../collectif-articho/drive/`.
 - **Commits** en français, message au présent, sans cadratin.
 
-## Outils disponibles sur le poste de Louis (vérifié le 2026-09-24)
+## Outils disponibles sur le poste de Louis (vérifié le 2026-09-26)
 
 `Rscript`, `python3`, `node`, `chromium` (snap, utilisable en headless), ImageMagick
-(`compare`, `convert`), `dig`. **Hugo n'est pas installé** (étape 0 du plan). Pas de `whois`, pas de
+(`mogrify`, `identify`, `compare`), `dig`, `gh` (CLI GitHub). Pas de `whois`, pas de
 Playwright.
+
+**Hugo n'est pas installé sur le système**, et c'est voulu (D9). Pour construire en
+local, télécharger dans le dossier temporaire de la session la même version que le
+workflow (`HUGO_VERSION` dans `.github/workflows/publier.yml`), somme de contrôle
+vérifiée :
+
+```sh
+V=0.166.0   # celle du workflow
+curl -sLO https://github.com/gohugoio/hugo/releases/download/v$V/hugo_extended_${V}_linux-amd64.tar.gz
+curl -sL https://github.com/gohugoio/hugo/releases/download/v$V/hugo_${V}_checksums.txt \
+  | grep "hugo_extended_${V}_linux-amd64.tar.gz" | sha256sum -c
+tar -xzf hugo_extended_${V}_linux-amd64.tar.gz hugo
+./hugo --gc -s <chemin du dépôt>     # construit dans public/
+./hugo server -s <chemin du dépôt>   # aperçu sur http://localhost:1313
+```
+
+## Travailler avec Louis
+
+Appris en séance, à respecter sans le lui redemander :
+
+- **Pas de widget de questions à choix** (`AskUserQuestion`) : exposer les options
+  en texte, avec une recommandation, et le laisser répondre en prose. Tableaux et
+  schémas ASCII bienvenus.
+- **Commiter et pousser ce dépôt au fil de l'eau** sans demander, la doc
+  (`ROADMAP.md`, `CHANGELOG.md`) dans le même commit. Le dépôt est public : signaler
+  seulement ce qui serait risqué à publier.
+- Il tient au **process ROADMAP / CHANGELOG versionné / CLAUDE.md** : c'est ce qui
+  permet de reprendre. Ne pas proposer de l'alléger.
+- Ce qui l'agace, c'est la **sur-ingénierie technique** (exemple vécu : vouloir
+  comparer le HTML au caractère près avec l'ancien site, avec normalisation des
+  chemins). Chercher la solution la plus simple qui tient, et le dire quand un
+  choix du plan en ajoute sans nécessité.
+- Arbitrages à ne pas rouvrir : **compte unique** de la SCOP (D3, il sait que les
+  conditions de GitHub interdisent le partage d'identifiant et l'assume) ; **accueil
+  éditable** gardé dans le périmètre avant la démonstration à la SCOP (c'est
+  l'argument contre un retour de WordPress).
+- Les réglages sur le compte de la SCOP se font **en séance avec un membre** :
+  préparer des consignes pas à pas, clic par clic, et dire ce qui peut être ignoré.
+- Louis peut faire les tests d'édition avec son propre compte `lou-heraut`
+  (collaborateur), sans attendre la SCOP.
+
+## Le nouveau site : état technique et pièges constatés
+
+Ce qui existe au 2026-09-26 (étape 0, essai) :
+
+```
+hugo.toml                          uglyURLs, permalinks /pages/:sections/…, locale fr
+content/projets/_index.md          sections : un _index.md est OBLIGATOIRE par dossier,
+content/projets/amenagements/        sinon Hugo ne voit pas la section et l'URL perd
+    _index.md  le-lopin.md           un niveau (/pages/projets/le-lopin.html)
+assets/photos/projets/amenagements/
+    le-lopin/{1,2,3}.jpg           masters plafonnés 3 000 px (mogrify)
+    3.jpeg                         photo de TEST envoyée depuis Pages CMS, à supprimer
+layouts/baseof.html page.html      gabarits, noms du système de Hugo ≥ 0.146
+layouts/home.html section.html     PROVISOIRES (listes de liens), remplacés aux étapes 1 et 3
+static/resources/                  css, fonts, statics/assets, favicon, logo : copiés tels quels
+.github/workflows/publier.yml      modèle officiel GitHub pour Hugo, Hugo 0.166.0 épinglé
+.pages.yml                         config Pages CMS de l'essai, à retirer si Q2 → Sveltia
+```
+
+Pièges déjà rencontrés :
+
+- **NFD du drive** : `cp "drive/01_Projets/01_Aménagements/…"` échoue parce que le
+  `é` du disque est décomposé. Passer par `find drive -name '05_Le_Lopin'`.
+- **`uglyURLs` ne s'applique pas aux sections** : `amenagements/index.html` au lieu
+  de `amenagements.html`. Un permalink de section terminé par `.html` crée un
+  **dossier** `amenagements.html/`, à écarter. Piste : `url:` dans chaque
+  `_index.md` (étape 1).
+- `languageCode` est déprécié depuis Hugo 0.158 : utiliser `locale`.
+- Les photos de `assets/` ne sont publiées **que dans les tailles demandées** par les
+  gabarits (`.Fit`), jamais le master : vérifié en ligne, le master répond 404.
+- Le gabarit de fiche lève une erreur (`errorf`) si une photo listée dans la fiche
+  n'existe pas dans `assets/` : la construction échoue plutôt que publier une image
+  cassée.
+- Le workflow met en cache les images redimensionnées (`resources/_gen` et le cache
+  Hugo) : sans ça, chaque publication recalculerait les ~300 photos.
+
+Vérifier une publication : le workflow dure moins d'une minute ; suivre avec
+`gh run list -R collectif-articho/collectif-articho.github.io` ou l'API
+`/repos/collectif-articho/collectif-articho.github.io/actions/runs`, puis `curl -I`
+sur les pages. Si le push est refusé (`fetch first`), c'est qu'un CMS a commité
+entre-temps : `git pull --rebase`, puis lire ce qu'il a écrit.

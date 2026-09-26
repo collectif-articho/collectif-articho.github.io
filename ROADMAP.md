@@ -3,13 +3,16 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-09-25** : **étape 0 en cours.** Compte `collectif-articho` créé,
-> dépôt `collectif-articho.github.io` public, Pages sur « GitHub Actions », Pages
-> CMS installé, Louis collaborateur. Essai poussé et **publié** : la fiche du Lopin
+> **État au 2026-09-26** : **étape 0 en cours, en pause.** Compte
+> `collectif-articho` créé, dépôt `collectif-articho.github.io` public, Pages sur
+> « GitHub Actions », Louis collaborateur. Essai Hugo **publié** : la fiche du Lopin
 > répond sur https://collectif-articho.github.io/pages/projets/amenagements/le-lopin.html.
-> **Bloqué** : Pages CMS refuse les photos de plus de 4,5 Mo (erreur 413, limite
-> de son hébergeur). Question ouverte Q2 (§ 2) : passer à Sveltia CMS. Prochaine
-> action : décision de Louis sur Q2, puis second essai.
+> **Bloquant** : Pages CMS refuse les photos de plus de 4,5 Mo (erreur 413, limite
+> de son hébergeur Vercel). **Prochaine action** : obtenir le oui de Louis sur Q2
+> (§ 2), puis dérouler le second essai avec Sveltia CMS décrit sous Q2. L'étape 1
+> (gabarits) ne dépend pas de Q2 et peut avancer en parallèle si Louis le
+> préfère ; l'étape 2 (migration) attend que le format d'écriture du CMS soit
+> observé.
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
@@ -170,20 +173,80 @@ franchie donne une version : `v0.1` à l'étape 0, jusqu'à `v1.0` à la bascule
 
 Q1 est tranchée par D8 et D10.
 
-**Q2. Garder Pages CMS ou passer à Sveltia CMS ?** (ouverte le 2026-09-25, à
-trancher avec Louis). Constaté à l'étape 0 : l'envoi d'une photo lourde depuis
-Pages CMS échoue en `Failed to upload file: 413`. Cause vérifiée : l'application
-hébergée passe les envois par des fonctions Vercel (`server: Vercel`), limitées à
-**4,5 Mo** par requête ; ticket ouvert chez Pages CMS (#284), sans réponse. Les
-photos de téléphone (3 à 20 Mo) ne passeraient donc pas, ce qui bloque B1.
-Recommandation : **Sveltia CMS**, page statique `/admin/` servie par le site
-lui-même, qui écrit directement dans GitHub depuis le navigateur et **réduit les
-photos avant l'envoi** (WebP, taille maximale réglable), ce qui règle aussi D10.
-Contrepartie : connexion par jeton GitHub limité au dépôt, collé une fois par
-appareil et renouvelé à expiration (ou « Sign in with GitHub » via un
-authentificateur sur Cloudflare Workers, gratuit mais à déployer). Le contenu,
-les gabarits et `assets/photos/` ne changent pas. Prochaine action proposée : un
-second essai de l'étape 0 avec Sveltia sur la même fiche.
+**Q2. Garder Pages CMS ou passer à Sveltia CMS ?** (ouverte le 2026-09-25,
+**en attente de Louis**, qui a eu les éléments ci-dessous et n'a pas encore dit oui
+au second essai).
+
+*Constat de l'essai (2026-09-25, Louis avec son compte `lou-heraut`)* :
+
+| test | résultat |
+|---|---|
+| photo lourde (> 4 Mo) | ❌ `Failed to upload file: 413` |
+| photo de 2,9 Mo (2 896 × 2 896) | ✅ passée, commit `1aca82b` signé du nom de Louis |
+| dossier d'arrivée | `assets/photos/projets/amenagements/`, le `path` par défaut du champ, **pas** le dossier de la fiche |
+| nom du fichier | gardé tel quel (`3.jpeg`) malgré `rename: safe` : deux projets avec un `3.jpeg` entreraient en collision |
+| fiche | non modifiée (aucun commit sur `le-lopin.md`), donc format d'écriture du CMS **non observé** |
+| nouvelle fiche, nom de fichier | **non testé** |
+
+Cause du 413, vérifiée : app.pagescms.org tourne sur Vercel (`server: Vercel`,
+`x-powered-by: Next.js`) et les envois passent par ses fonctions, limitées à
+**4,5 Mo** par requête (doc Vercel, erreur `FUNCTION_PAYLOAD_TOO_LARGE`). Ticket
+ouvert chez Pages CMS (#284, juillet 2025), sans réponse. Les photos de téléphone
+font 3 à 20 Mo : bloque B1.
+
+*Options présentées à Louis* : A. garder Pages CMS et faire réduire les photos par
+les membres (ils ne le feront pas) ; **B. Sveltia CMS, recommandé** ; C. héberger
+Pages CMS nous-mêmes (exclu par B5).
+
+*Sveltia CMS, vérifié dans sa doc* : application d'une page chargée depuis un CDN,
+servie par notre site sous `/admin/`, compatible avec la config de Decap CMS. Avec
+la connexion par jeton, elle parle **directement à l'API GitHub depuis le
+navigateur**, sans serveur. Elle **réduit les images avant l'envoi** :
+
+```yaml
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image: { format: webp, quality: 85, width: 2048, height: 2048 }
+```
+
+WebP est le seul format de sortie : les photos envoyées par le CMS seront en WebP,
+les photos migrées restent en JPEG ; Hugo lit les deux. Règle aussi D10.
+
+*Connexion* : bouton « Sign In with Token », jeton stocké dans le navigateur.
+Rien à installer côté GitHub. Pour l'essai, Louis crée un jeton **classic** sur
+`lou-heraut`, permission `repo`, expiration 7 jours (un jeton fine-grained ne peut
+pas viser un dépôt dont on est seulement collaborateur). En production, un jeton
+**fine-grained** sur le compte `collectif-articho`, limité au dépôt, permission
+*Contents : Read and write* seule, collé une fois par appareil, renouvelé à
+expiration (procédure dans le mode d'emploi). Alternative plus confortable mais
+à héberger : « Sign in with GitHub » via `sveltia-cms-auth` sur Cloudflare
+Workers (gratuit).
+
+*Second essai proposé, si Louis dit oui* :
+
+1. `static/admin/index.html` qui charge Sveltia depuis le CDN **à version
+   épinglée** (lire la doc d'installation, sveltiacms.app/en/docs/start), et
+   `static/admin/config.yml` : backend `github`, `repo:
+   collectif-articho/collectif-articho.github.io`, `branch: main`.
+2. Collection « Projets · Aménagements » sur `content/projets/amenagements`,
+   mêmes champs que `.pages.yml` (titre, sous-titre, ordre, infos en liste
+   clé/valeur, photos en liste, corps Markdown), format YAML front matter.
+3. **Photos rangées par fiche et noms uniques** : chercher dans la doc si le
+   `media_folder` d'une collection accepte un gabarit du genre
+   `assets/photos/projets/amenagements/{{slug}}` avec `public_folder`
+   correspondant `/photos/…`. Sinon, prévoir un nommage unique (préfixe du slug).
+4. Transformations d'images comme ci-dessus.
+5. Pousser ; Louis se connecte sur https://collectif-articho.github.io/admin/
+   avec son jeton de test, modifie LE LOPIN, envoie une **photo de téléphone
+   lourde prise en portrait** (teste le poids et l'orientation EXIF : si elle
+   s'affiche couchée, ajouter la rotation dans le gabarit), crée une fiche
+   « Fiche d'essai ». Puis `git pull` et lire ce que le CMS a écrit : chemin et
+   nom de la photo, format de la fiche, nom du fichier de la nouvelle fiche.
+6. Si concluant : réviser D4 (nouvelle décision D12), retirer `.pages.yml`,
+   supprimer `assets/photos/projets/amenagements/3.jpeg` et la fiche d'essai,
+   faire désinstaller l'application Pages CMS du compte de la SCOP, clore `v0.1`.
 
 ---
 
@@ -258,6 +321,9 @@ Tout le reste est du code. C'est ce qui garantit le rendu quoi que saisissent le
 membres.
 
 ## Étape 0. Essai de bout en bout (v0.1)
+
+> Points 1 à 3 faits et publiés le 2026-09-25. Points 4 et 5 bloqués par le 413 de
+> Pages CMS : voir Q2 (§ 2), qui décrit le second essai avec Sveltia CMS.
 
 But : valider toute la chaîne sur **une seule fiche** avant d'investir, parce que
 c'est elle qui fixe le format de migration (D8).
