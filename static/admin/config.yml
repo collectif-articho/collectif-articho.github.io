@@ -16,7 +16,9 @@ slug:
 media_folder: /assets/photos
 public_folder: /photos
 
-# Photos réduites dans le navigateur avant l'envoi : 3 000 px au plus (D6).
+# Photos réduites dans le navigateur avant l'envoi. 2 000 px, la plus grande
+# taille servie par les gabarits : l'API qu'utilise Sveltia coupe tout envoi de
+# plus d'environ 5 s, donc chaque Mo compte sur une connexion lente (voir Q2).
 media_libraries:
   default:
     config:
@@ -24,8 +26,8 @@ media_libraries:
         raster_image:
           format: webp
           quality: 85
-          width: 3000
-          height: 3000
+          width: 2000
+          height: 2000
 
 collections:
   - name: amenagements

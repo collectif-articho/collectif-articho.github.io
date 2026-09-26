@@ -9,6 +9,11 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
   `media_folder` de collection avec `{{filename}}`, réduites dans le navigateur
   en WebP 3 000 px avant l'envoi ; nom de fichier des nouvelles fiches en ASCII
   sans accents, figé à la création. Pages CMS reste branché pour comparer.
+- Premier test de Sveltia depuis un train : échec d'enregistrement d'une photo de
+  8,9 Mo pourtant réduite en WebP. Mesuré : l'API GraphQL de GitHub coupe les
+  envois au-delà d'environ 5 s (HTTP 499), l'API REST non. Réduction abaissée de
+  3 000 à 2 000 px (environ 1 Mo par photo). Test à refaire sur une connexion
+  ordinaire.
 - Passage de relais consigné : `CLAUDE.md` gagne l'état des comptes et du dépôt,
   la façon de construire en local sans installer Hugo, les pièges constatés
   pendant l'essai et une section « Travailler avec Louis ». Q2 détaillée dans

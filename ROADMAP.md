@@ -4,12 +4,12 @@ Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part 
 `CHANGELOG.md`.
 
 > **État au 2026-09-26** : **étape 0 en cours, second essai (Sveltia CMS).**
-> Compte, dépôt et publication en place ; la fiche du Lopin est en ligne. Pages CMS
-> refuse les photos de plus de 4,5 Mo (Q2). Louis a dit oui à l'essai de Sveltia :
-> `static/admin/` (Sveltia 0.221.1 épinglé, `config.yml`) est poussé, servi sur
-> https://collectif-articho.github.io/admin/. **Prochaine action** : Louis s'y
-> connecte avec un jeton classic de test et fait le test décrit sous Q2 (point 5),
-> puis lire ce que le CMS a écrit (`git pull`).
+> Sveltia est en ligne sur https://collectif-articho.github.io/admin/. Premier
+> test depuis un train : la photo est bien réduite dans le navigateur mais
+> l'enregistrement échoue, parce que l'API GraphQL de GitHub coupe les envois de
+> plus d'environ 5 s et que le débit montant du train est faible (mesures sous
+> Q2). Réduction abaissée à 2 000 px. **Prochaine action** : Louis refait le test
+> depuis une connexion ordinaire ; si ça passe, finir le test (Q2, point 5).
 
 **Tenir ce bandeau à jour** à chaque étape franchie : c'est le point d'entrée d'une
 reprise de travail.
@@ -220,6 +220,26 @@ pas viser un dépôt dont on est seulement collaborateur). En production, un jet
 expiration (procédure dans le mode d'emploi). Alternative plus confortable mais
 à héberger : « Sign in with GitHub » via `sveltia-cms-auth` sur Cloudflare
 Workers (gratuit).
+
+*Second essai, constat du 2026-09-26* (Louis, depuis un train) : la photo de
+téléphone (JPEG 8,9 Mo, 3 072 × 4 096) est bien convertie en WebP dans le
+navigateur, mais l'enregistrement échoue en « NetworkError when attempting to
+fetch resource ». Mesures rejouées depuis le poste de Louis avec la même requête
+que Sveltia (`createCommitOnBranch` GraphQL, branche jetable supprimée) :
+
+| envoi | GraphQL (Sveltia) | REST `git/blobs` |
+|---|---|---|
+| 100 à 800 Ko | ✅ 1,7 à 3,5 s | |
+| 996 Ko (WebP 2 000 px) | 4 sur 5, échecs à ~5,5 s | ✅ 7,5 s |
+| 1,2 à 2 Mo | aléatoire, échecs à ~5,3 s (HTTP 499) | ✅ 5,8 s (1,9 Mo) |
+| 8,9 Mo (brut) | ❌ | ✅ 27 s |
+
+Conclusion : pas un seuil de taille mais un **délai d'environ 5 s** côté GraphQL,
+atteint selon le débit montant (180 à 450 Ko/s dans le train). Les photos d'un
+même enregistrement s'additionnent (une seule mutation, cf. ticket Sveltia
+#1012). Réduction abaissée à 2 000 px (la plus grande taille servie par les
+gabarits), soit environ 1 Mo par photo. **À refaire depuis une connexion
+ordinaire** (fibre, 4G) avant de conclure.
 
 *Second essai proposé, si Louis dit oui* :
 
