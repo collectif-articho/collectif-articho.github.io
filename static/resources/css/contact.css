@@ -1,3 +1,5 @@
+/* contact.css : page Contact (layouts/contact.html). Carte ronde à gauche,
+   e-mail, réseaux et adresses à droite. */
 
 #container_map_contact {
     display: flex;
@@ -41,14 +43,11 @@
 #container_contact h1 {
     font-size: 2.2rem;
 }
-/* #container_contact p { */
-    /* margin-top: -0.1rem; */
-    /* margin-bottom: 0rem; */
-/* } */
+
+/* ---- Carte (Leaflet) ------------------------------------------------------ */
 
 #container_map_contributer {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     flex-direction: column;
@@ -76,6 +75,7 @@
     bottom: 0px;
     left: 0px;
 }
+/* Crédits de la carte, sous le cercle. */
 h4 {
     margin-top: 0.5rem;
     margin-bottom: 0rem;
@@ -86,6 +86,7 @@ h4 {
 }
 
 
+/* Téléphone */
 @media (max-width: 768px) {
     #container_map {
 	height: 80vw;

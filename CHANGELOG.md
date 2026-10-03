@@ -2,7 +2,36 @@
 
 Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
-## v0.5 (en cours), 2026-09-26
+## v0.5 (en cours), 2026-10-03
+
+Étape 4, finitions avant la bascule. Arbitrages de Louis consignés en D15 à D19
+(`ROADMAP.md`) : bascule sans démonstration préalable, retour du fond de carte
+CARTO, guide en fiches PDF, jeton sans expiration ; `srcset` et prix des meubles
+abandonnés.
+
+- **Page 404** (`layouts/404.html`), servie par GitHub Pages pour toute adresse
+  inconnue : artichaut et liens vers l'accueil, les projets et le contact, dans
+  le style des offres de l'accueil. Le gabarit commun gagne un bloc `title`.
+- **CSS rangé**, rendu inchangé : en-tête de commentaire par feuille (ce qu'elle
+  stylise, quels gabarits la chargent) et sections. Retirés : règles sans élément
+  dans aucune page (`.sep`, `.notif`, `.title`, `.overlay h1`,
+  `.material-icons`, `-round`, `#header_tab_projets:hover`, l'élément `it` des
+  partenaires), préfixes `-webkit-`/`-moz-`/`-ms-`/`-o-` des rotations de
+  l'accueil, déclarations écrasées dans la même règle, `background-color: none`
+  (invalide), blocs en commentaire et `@media` vide. Vérifié par un diff des
+  déclarations et par 20 captures (10 pages, ordinateur et téléphone) identiques
+  au pixel avant et après.
+- **Mentions légales** : l'hébergeur est GitHub, Inc. (et non « le serveur de
+  Louis Héraut ») ; le directeur de publication passe dans sa propre section. Le
+  reste attend les réponses de la SCOP (Q3).
+- **Fiche de bascule** `docs/bascule.md` : qui fait quoi, clic par clic, retour
+  en arrière. Trouvé en la préparant : `www.collectifarticho.com` pointe vers
+  `lou-heraut.github.io` (à tester après la bascule, voir étape 5) ; le fichier
+  `CNAME` est inutile avec une publication par Actions.
+- Constaté : sans clé, CARTO ne sert plus qu'une tuile « API KEY REQUIRED » ;
+  clé gratuite demandée par Louis (D16).
+
+## v0.5 (suite), 2026-09-26
 
 Étape 4, formulaires du CMS et mode d'emploi.
 

@@ -1,3 +1,12 @@
+/* style.css : feuille commune, chargée par toutes les pages (layouts/baseof.html).
+   Polices, texte et titres, liens, mise en page générale, puis les blocs de
+   l'accueil. Reprise de l'ancien site ; le rendu ne doit pas changer.
+
+   Charte : bleu #213589 (texte, titres), orange #fec37e (accents),
+   polices Faune en local dans /resources/fonts/. */
+
+
+/* ---- Polices -------------------------------------------------------------- */
 
 /* Faune Display Black */
 @font-face {
@@ -43,12 +52,13 @@
 }
 
 
-.material-icons,
-.material-icons-outlined,
-.material-icons-round {
+/* Icônes Material (flèches du carrousel de la Ligne de mobilier). */
+.material-icons-outlined {
     color: #302f2f;
 }
 
+
+/* ---- Texte et titres ------------------------------------------------------ */
 
 body {
     margin: 0;
@@ -148,6 +158,7 @@ li {
     margin-bottom: 0.5rem;
 }
 
+/* Trait de séparation dessiné à la main. */
 hr {
     border: none;
     background: url("/resources/statics/assets/line.svg") center/cover no-repeat;
@@ -160,6 +171,7 @@ hr {
 }
 
 
+/* ---- Liens et boutons ----------------------------------------------------- */
 
 a {
     color: #213589;
@@ -181,16 +193,16 @@ a:hover {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;   
+    align-items: center;
 }
 .bunch.justify {
-    justify-content: center; 
+    justify-content: center;
 }
 .bunch.vertical {
     flex-direction: column;
 }
 .bunch.vertical.justify {
-    justify-content: center; 
+    justify-content: center;
 }
 
 button {
@@ -217,22 +229,8 @@ button:hover {
     color: #060508;
 }
 
-button.selected .notif,
-button:hover .notif {
-    position: absolute;
-    top: 0.25rem;
-    right: -0.05rem;
-    transform: translateY(-50%);
-    height: 0.6rem;
-    width: 0.6rem;
-    border-radius: 1rem/1rem;
-    background: red;
-    border: solid 2px #ffffff;
-    color: white;
-    display: inline-block;
-}
 
-
+/* Pastille orange qui apparaît derrière un lien au survol. */
 .circle {
     position: absolute;
     background: #fec37e;
@@ -255,6 +253,9 @@ a:hover .circle {
 }
 
 
+/* ---- Mise en page --------------------------------------------------------- */
+
+/* Colonne centrée qui porte le contenu de toutes les pages. */
 .container {
     margin-left: 4rem;
     margin-right: 4rem;
@@ -265,6 +266,10 @@ a:hover .circle {
     align-items: center;
 }
 
+
+/* ---- Accueil (layouts/home.html) ------------------------------------------ */
+
+/* Diaporama en haut de page, défilement horizontal. */
 #slideshow {
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
@@ -288,6 +293,7 @@ a:hover .circle {
     height: 60vh;
 }
 
+/* Les 4 valeurs, chacune avec un dessin incliné. */
 #container_valeur {
     display: flex;
     flex-direction: row;
@@ -316,58 +322,23 @@ a:hover .circle {
 }
 
 #valeur_img_1 {
-    -webkit-transform: rotate(-12deg); /* Safari and Chrome */
-    -moz-transform: rotate(-12deg); /* Firefox */
-    -ms-transform: rotate(-12deg); /* IE */
-    -o-transform: rotate(-12deg); /* Opera */
-    transform: rotate(-12deg); /* Standard syntax */
-    transform-origin: center center;
-    -webkit-transform-origin: center center; /* Safari and Chrome */
-    -moz-transform-origin: center center; /* Firefox */
-    -ms-transform-origin: center center; /* IE */
-    -o-transform-origin: center center; /* Opera */
+    transform: rotate(-12deg);
 }
 
 #valeur_img_2 {
-    -webkit-transform: rotate(9deg); /* Safari and Chrome */
-    -moz-transform: rotate(9deg); /* Firefox */
-    -ms-transform: rotate(9deg); /* IE */
-    -o-transform: rotate(9deg); /* Opera */
-    transform: rotate(9deg); /* Standard syntax */
-    transform-origin: center center;
-    -webkit-transform-origin: center center; /* Safari and Chrome */
-    -moz-transform-origin: center center; /* Firefox */
-    -ms-transform-origin: center center; /* IE */
-    -o-transform-origin: center center; /* Opera */
+    transform: rotate(9deg);
 }
 
 #valeur_img_3 {
-    -webkit-transform: rotate(52deg); /* Safari and Chrome */
-    -moz-transform: rotate(52deg); /* Firefox */
-    -ms-transform: rotate(52deg); /* IE */
-    -o-transform: rotate(52deg); /* Opera */
-    transform: rotate(52deg); /* Standard syntax */
-    transform-origin: center center;
-    -webkit-transform-origin: center center; /* Safari and Chrome */
-    -moz-transform-origin: center center; /* Firefox */
-    -ms-transform-origin: center center; /* IE */
-    -o-transform-origin: center center; /* Opera */
+    transform: rotate(52deg);
 }
 
 #valeur_img_4 {
-    -webkit-transform: rotate(110deg); /* Safari and Chrome */
-    -moz-transform: rotate(110deg); /* Firefox */
-    -ms-transform: rotate(110deg); /* IE */
-    -o-transform: rotate(110deg); /* Opera */
-    transform: rotate(110deg); /* Standard syntax */
-    transform-origin: center center;
-    -webkit-transform-origin: center center; /* Safari and Chrome */
-    -moz-transform-origin: center center; /* Firefox */
-    -ms-transform-origin: center center; /* IE */
-    -o-transform-origin: center center; /* Opera */
+    transform: rotate(110deg);
 }
 
 
+/* Les 3 offres, soulignées au survol. */
 #container_offre {
     display: flex;
     flex-direction: row;
@@ -406,6 +377,7 @@ a:hover .circle {
     font-size: 1.4rem;
 }
 
+/* Photo d'équipe. */
 #container_team {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
@@ -421,6 +393,7 @@ a:hover .circle {
     width: 100%;
 }
 
+/* Photo d'accueil sous les lettres ARTI/CHÔ découpées. */
 #container_accueil {
     margin-top: 3.5rem;
     margin-bottom: 3rem;
@@ -454,6 +427,7 @@ a:hover .circle {
 }
 
 
+/* Articles de presse. */
 #container_article {
     display: flex;
     flex-direction: row;
@@ -482,17 +456,11 @@ a:hover .circle {
     max-width: 11rem;
     margin-bottom: 0.4rem;
 }
-/* .article span { */
-/*     color: #fec37e; */
-/*     font-family: 'Faune-Bold', sans-serif; */
-/*     font-size: 1rem; */
-/* } */
 
 
-
+/* Logos des soutiens. */
 #container_soutiens {
     display: flex;
-    /* flex-direction: row; */
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
@@ -509,6 +477,7 @@ a:hover .circle {
 }
 
 
+/* Partenaires : noms séparés par des barres, rôle en italique. */
 #container_partenaires {
     margin-left: auto;
     margin-right: auto;
@@ -529,7 +498,6 @@ a:hover .circle {
     color: #fec37e;
     font-family: 'Faune-Regular', sans-serif;
 }
-#container_partenaires it,
 #container_partenaires em {
     margin-left: 0.2rem;
     color: #fec37e;
@@ -537,12 +505,15 @@ a:hover .circle {
     font-size: 0.95rem;
 }
 
+
+/* ---- Téléphone ------------------------------------------------------------ */
+
 @media (max-width: 768px) {
 
     .text_compact {
 	max-width: none;
     }
-    
+
     .container {
 	margin-left: 1rem;
 	margin-right: 1rem;
@@ -555,7 +526,7 @@ a:hover .circle {
     #slideshow figure img {
 	height: 40vh;
     }
-    
+
     #container_accueil {
 	width: calc(100vw - 2rem);
 	height: 50vh;
@@ -569,31 +540,25 @@ a:hover .circle {
 	height: 50vh;
     }
 
-
-    .title {
-	font-size: 2.5rem;
-    }
-
     .offre h1 {
 	font-size: 1.8rem;
     }
 
     .article img {
 	max-width: 10rem;
-    }	
+    }
     .soutiens img {
 	max-width: 10rem;
     }
-    
-} 
+
+}
 
 
+/* ---- Textes saisis dans le CMS -------------------------------------------- */
 
-
-/* Textes saisis dans le CMS (pages texte, Notre offre). Le bloc s'efface pour
-   que titres et paragraphes restent des enfants directs de .container, comme
-   dans l'ancien HTML ; les titres reprennent la classe .hp et les marges qui y
-   étaient écrites en ligne. */
+/* Pages texte et Notre offre. Le bloc s'efface pour que titres et paragraphes
+   restent des enfants directs de .container, comme dans l'ancien HTML ; les
+   titres reprennent la classe .hp et les marges qui y étaient écrites en ligne. */
 .page_texte,
 .texte_offre {
     display: contents;

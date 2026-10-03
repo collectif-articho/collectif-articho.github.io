@@ -1,3 +1,6 @@
+/* footer.css : pied de page, chargé par toutes les pages (layouts/baseof.html,
+   layouts/_partials/footer.html). Réseaux, liens d'information, copyright,
+   « Rejoindre l'aventure ». */
 
 #container_footer {
     font-family: Helvetica, Arial, sans-serif;
@@ -22,7 +25,7 @@
 }
 
 
-
+/* Réseaux sociaux et liens d'information, séparés par un filet. */
 #container_info_social_copyright {
     position: relative;
     flex-grow: 1;
@@ -62,7 +65,6 @@
     gap: 1rem;
 }
 #footer_social a {
-    background-color: #ffffff;
     color: #151206;
     border: none;
     margin: 0;
@@ -91,7 +93,6 @@
     justify-content: right;
 }
 #footer_info a {
-    background-color: #ffffff;
     color: #151206;
     border: none;
     min-width: 2rem;
@@ -122,7 +123,7 @@
 }
 
 
-
+/* Copyright : à droite sur ordinateur, sous les liens sur téléphone. */
 #footer_copyright {
     position: relative;
 }
@@ -132,7 +133,7 @@
     position: relative;
 }
 
-
+/* Logo ARTI/CHÔ incliné et « Rejoindre l'aventure ». */
 #container_articho {
     position: relative;
     margin-top: 1rem;
@@ -146,7 +147,6 @@
 }
 
 #container_articho a {
-    background-color: #ffffff;
     color: #151206;
     border: none;
     min-width: 2rem;
@@ -187,7 +187,7 @@
     font-family: 'Faune-Regular', sans-serif;
 }
 
-
+/* Téléphone */
 @media (max-width: 768px) {
     
     #container_footer {

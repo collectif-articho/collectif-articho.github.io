@@ -214,7 +214,7 @@ Appris en séance, à respecter sans le lui redemander :
 
 ## Le nouveau site : état technique et pièges constatés
 
-Ce qui existe au 2026-09-26 (`v0.4` publiée, `v0.5` en cours) :
+Ce qui existe au 2026-10-03 (`v0.4` publiée, `v0.5` en cours) :
 
 ```
 hugo.toml                  URL (/pages/…, uglyURLs), MENU PRINCIPAL (en-tête et
@@ -235,6 +235,7 @@ layouts/baseof.html        squelette : <head>, #header, #footer
 layouts/page.html          fiche ; section.html : listings ; home.html : accueil
 layouts/ligne-de-mobilier.html  onglet.html  offre.html  texte.html  contact.html
                            un gabarit par type de page fixe, choisi par `layout:`
+layouts/404.html           page introuvable, texte écrit dans le gabarit
 layouts/_partials/         header, footer, tab_bar (menus), actif (onglet actif),
                            photo (redimensionne, erreur si absente), vignette
 static/resources/          css, fonts, statics, js repris de l'ancien site
@@ -242,7 +243,8 @@ static/pages/…/tpmobile.html   redirection du QR code (D14)
 static/admin/              Sveltia CMS : index.html (version épinglée), config.yml
 migration/migrer.py        migration FAITE, NE PLUS LANCER (écraserait les fiches)
 outils/verifier.py         liens morts, pages et titres de l'ancien site absents
-docs/mode-emploi.md        pour les membres de la SCOP
+docs/mode-emploi.md        pour les membres de la SCOP (remplacé par le guide, D17)
+docs/bascule.md            bascule du domaine, clic par clic (étape 5)
 ```
 
 ### Commandes courantes
@@ -338,6 +340,10 @@ Pièges déjà rencontrés :
   d'écran (`vh`) : une fenêtre très haute les étire au lieu de montrer le bas de
   page, et une ancre (`#…`) donne une capture blanche ; comparer alors le HTML
   normalisé de ces sections.
+- **Vérifier qu'une retouche ne change rien au rendu** (CSS surtout) : mêmes
+  captures avant et après, puis `compare -metric AE avant.png apres.png /dev/null`
+  (ImageMagick) doit dire `0` pour chacune. Fait pour le rangement du CSS
+  (`v0.5`).
 - `pkill -f motif` ou `pgrep -f motif` dans une commande Bash se trouvent
   eux-mêmes (le motif est dans la ligne de commande) : écrire `http.serve[r]`.
 

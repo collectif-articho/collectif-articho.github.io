@@ -1,3 +1,8 @@
+/* mobiliers.css : page Ligne de mobilier (layouts/ligne-de-mobilier.html),
+   chargée après projets.css. Un bloc par meuble : carrousel de photos à gauche,
+   texte, modalités et bouton « Commander » à droite. */
+
+/* Remplace la grille de vignettes de projets.css par une colonne de meubles. */
 
 #container_projets {
     display: flex;
@@ -14,6 +19,8 @@
     row-gap: 3rem;
 }
 
+
+/* ---- Un meuble ------------------------------------------------------------ */
 
 .mobilier {
     margin-bottom: 1.4rem;
@@ -43,6 +50,7 @@
     width: 40vw;
 }
 
+/* Bouton « Commander » vers la page contact. */
 #commander {
     border: 2px solid #fec37e;
     border-radius: 1rem 1rem;
@@ -105,7 +113,7 @@ a#commander:hover {
 }
 
 
-
+/* ---- Carrousel (resources/js/gallery.js) --------------------------------- */
 
 .gallery-container {
     position: relative;
@@ -119,7 +127,6 @@ a#commander:hover {
 
 .image {
     display: none;
-    /* width: 100%; */
     height: 100%;
     object-fit: cover;
     margin-left: auto;
@@ -140,7 +147,6 @@ a#commander:hover {
     font-weight: bold !important;
     font-size: 1.3rem;
     color: #ffffff;
-    background-color: none;
     border: none;
     cursor: pointer;
 }
@@ -170,6 +176,7 @@ a#commander:hover {
 
 
 
+/* ---- Téléphone ------------------------------------------------------------ */
 
 @media (max-width: 768px) {
 
@@ -201,11 +208,9 @@ a#commander:hover {
     
     .bunch_info {
 	max-width: 90%;
-	/* justify-content: center; */
     }
     .bunch_info span {
 	max-width: 90%;
-	/* text-align: center; */
     }
     
     .gallery-container {

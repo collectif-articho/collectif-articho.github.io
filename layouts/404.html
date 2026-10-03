@@ -1,0 +1,36 @@
+{{/* Page 404 : GitHub Pages la sert pour toute adresse qui n'existe pas. Son
+     texte est écrit ici, pas dans le CMS. Elle reprend les blocs de l'accueil
+     (artichaut des valeurs, liens en forme d'offre). */}}
+{{ define "title" }}Page introuvable · ARTI/CHÔ{{ end }}
+{{ define "main" }}
+<div class="container">
+
+    <img src="/resources/statics/articho/articho_yellow_outlined.svg" alt=""
+         style="width: 7rem; margin-top: 3rem; margin-bottom: 1.5rem; transform: rotate(-12deg);">
+
+    <h1 class="text_center">Page introuvable</h1>
+
+    <p class="text_center">Cette adresse ne mène à aucune page du site : elle a
+    peut-être changé, ou contient une faute de frappe.</p>
+
+    <hr>
+
+    <div id="container_offre">
+        <a class="offre" href="/">
+            <h2 style="line-height: 120%;">L’ACCUEIL</h2>
+            <span>revenir au début</span>
+        </a>
+        <a class="offre" href="/pages/projets.html">
+            <h2 style="line-height: 120%;">LES PROJETS</h2>
+            <span>tout ce qu’on a construit</span>
+        </a>
+        <a class="offre" href="/pages/contact.html">
+            <h2 style="line-height: 120%;">NOUS CONTACTER</h2>
+            <span>une question, un lien cassé</span>
+        </a>
+    </div>
+
+    <hr>
+
+</div>
+{{ end }}

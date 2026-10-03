@@ -26,12 +26,14 @@ Le 6b / 6-10 Quai de Seine
 121 rue du Parc
 93130 NOISY-LE-SEC
 
-## Hébergement
+## Publication
 
 Directeur de la publication : Membre de l'association collectif ARTI/CHÔ et Louis Héraut
 
-Ce site est hébergé bénévolement sur le serveur de Louis Héraut
-69100 Villeurbanne
-FRANCE
+## Hébergement
 
-Pour le contacter, merci de bien vouloir passer par l'association collectif ARTI/CHÔ.
+Ce site est hébergé par GitHub Pages :
+GitHub, Inc.
+88 Colin P. Kelly Jr. St.
+San Francisco, CA 94107
+États-Unis
