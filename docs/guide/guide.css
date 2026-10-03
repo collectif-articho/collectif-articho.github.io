@@ -1,0 +1,215 @@
+/* Guide du site pour les membres de la SCOP (D17). Une affiche A3 paysage et
+   des fiches A4 paysage, aux couleurs et polices du site. Imprimé en PDF par
+   chromium : voir README.md. Polices et dessins repris de static/resources/. */
+
+@font-face { font-family: 'Faune Display'; src: url('../../static/resources/fonts/faune.display-black.otf'); }
+@font-face { font-family: 'Faune Text'; src: url('../../static/resources/fonts/faune.text-regular.otf'); }
+@font-face { font-family: 'Faune Bold'; src: url('../../static/resources/fonts/faune.text-bold.otf'); }
+@font-face { font-family: 'Faune Italic'; src: url('../../static/resources/fonts/faune.text-italic.otf'); }
+
+:root {
+    --bleu: #213589;
+    --orange: #FEC37E;
+    --orange-fort: #FEA945;
+    --brun: #A0520F;
+    --creme: #FFF7ED;
+    --carte: #FFFDF8;
+    --bord: #EAD9BF;
+    --pastille: #F3E6D3;
+    --texte: #151206;
+    --gris: #4A4538;
+}
+
+@page affiche { size: 420mm 297mm; margin: 0; }
+@page fiche { size: 297mm 210mm; margin: 0; }
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+    margin: 0;
+    background: #d9d4cb;
+    color: var(--texte);
+    font-family: 'Faune Text', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.35;
+}
+
+b, strong { font-family: 'Faune Bold', sans-serif; font-weight: normal; }
+i, em { font-family: 'Faune Italic', sans-serif; font-style: normal; }
+p { margin: 0 0 2.2mm; }
+
+/* ---- Pages ---------------------------------------------------------------- */
+
+.page {
+    position: relative;
+    overflow: hidden;
+    background: var(--creme);
+    margin: 10mm auto;
+    break-after: page;
+}
+.affiche { page: affiche; width: 420mm; height: 297mm; padding: 16mm 18mm; font-size: 13pt; }
+.fiche { page: fiche; width: 297mm; height: 210mm; padding: 11mm 13mm; }
+
+@media print {
+    body { background: none; }
+    .page { margin: 0; }
+}
+
+/* Artichaut dessiné, en filigrane dans un coin. */
+.artichaut {
+    position: absolute;
+    width: 34mm;
+    right: 10mm;
+    top: 8mm;
+    transform: rotate(14deg);
+    opacity: 0.9;
+}
+.affiche .artichaut { width: 52mm; right: 14mm; top: 10mm; }
+
+/* ---- En-tête -------------------------------------------------------------- */
+
+.surtitre {
+    font-family: 'Faune Bold', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 9pt;
+    color: var(--brun);
+    margin-bottom: 2mm;
+}
+.affiche .surtitre { font-size: 12pt; }
+
+h1 {
+    font-family: 'Faune Display', sans-serif;
+    font-weight: normal;
+    color: var(--bleu);
+    font-size: 30pt;
+    line-height: 1.05;
+    margin: 0;
+}
+.affiche h1 { font-size: 54pt; }
+
+.trait { display: block; width: 70mm; height: 4mm; margin: 2mm 0 3mm -2mm; }
+.affiche .trait { width: 110mm; height: 6mm; }
+
+.chapeau { font-size: 12pt; color: var(--gris); max-width: 200mm; }
+.affiche .chapeau { font-size: 17pt; max-width: 230mm; }
+
+h2 {
+    font-family: 'Faune Display', sans-serif;
+    font-weight: normal;
+    color: var(--bleu);
+    font-size: 15pt;
+    margin: 0 0 2.5mm;
+}
+.affiche h2 { font-size: 22pt; margin-bottom: 4mm; }
+
+/* ---- Mise en page --------------------------------------------------------- */
+
+.colonnes { display: grid; gap: 8mm; margin-top: 5mm; }
+.deux { grid-template-columns: 1fr 1fr; }
+.trois { grid-template-columns: 1fr 1fr 1fr; }
+
+.carte {
+    background: var(--carte);
+    border: 0.4mm solid var(--bord);
+    border-radius: 4mm;
+    padding: 5mm 6mm;
+}
+.carte.bleue { background: var(--bleu); border-color: var(--bleu); color: var(--creme); }
+.carte.bleue h2 { color: var(--orange); }
+.carte.orange { background: var(--orange); border-color: var(--orange); }
+
+ul.liste { margin: 0; padding-left: 4.5mm; }
+ul.liste li { margin: 0 0 1.6mm; }
+ul.liste li::marker { color: var(--orange-fort); }
+.carte.bleue ul.liste li::marker { color: var(--orange); }
+
+/* ---- Étapes numérotées ---------------------------------------------------- */
+
+ol.etapes { list-style: none; margin: 0; padding: 0; counter-reset: etape; }
+ol.etapes > li {
+    position: relative;
+    padding-left: 10mm;
+    margin-bottom: 2.6mm;
+    min-height: 7mm;
+}
+ol.etapes > li::before {
+    content: attr(data-n);
+    position: absolute;
+    left: 0;
+    top: -0.6mm;
+    width: 7mm;
+    height: 7mm;
+    border-radius: 50%;
+    background: var(--orange);
+    color: var(--bleu);
+    font-family: 'Faune Display', sans-serif;
+    font-size: 11pt;
+    line-height: 7mm;
+    text-align: center;
+}
+.affiche ol.etapes > li { padding-left: 15mm; margin-bottom: 5mm; min-height: 11mm; }
+.affiche ol.etapes > li::before { width: 11mm; height: 11mm; line-height: 11mm; font-size: 17pt; }
+
+/* ---- Captures d'écran et repères ------------------------------------------ */
+
+figure { margin: 0; }
+.capture {
+    position: relative;
+    border: 0.5mm solid var(--bleu);
+    border-radius: 2.5mm;
+    overflow: hidden;
+    background: #fff;
+}
+.capture img { display: block; width: 100%; height: auto; }
+.repere {
+    position: absolute;
+    width: 7mm;
+    height: 7mm;
+    margin: -3.5mm 0 0 -3.5mm;
+    border-radius: 50%;
+    background: var(--orange-fort);
+    border: 0.5mm solid var(--bleu);
+    color: var(--bleu);
+    font-family: 'Faune Display', sans-serif;
+    font-size: 10pt;
+    line-height: 6mm;
+    text-align: center;
+    box-shadow: 0 0 0 1mm rgba(254, 169, 69, 0.35);
+}
+.affiche .repere { width: 11mm; height: 11mm; margin: -5.5mm 0 0 -5.5mm; font-size: 16pt; line-height: 10mm; }
+figcaption { font-size: 8.5pt; color: var(--gris); margin-top: 1.5mm; }
+.affiche figcaption { font-size: 11pt; }
+
+/* Nom d'un bouton tel qu'il apparaît à l'écran. */
+.bouton {
+    display: inline-block;
+    font-family: 'Faune Bold', sans-serif;
+    background: var(--pastille);
+    color: var(--bleu);
+    border-radius: 1.2mm;
+    padding: 0 1.4mm;
+    white-space: nowrap;
+}
+.carte.bleue .bouton { background: #33479b; color: var(--creme); }
+
+.adresse {
+    font-family: 'Faune Display', sans-serif;
+    color: var(--bleu);
+    white-space: nowrap;
+}
+
+/* Pied de fiche. */
+.pied {
+    position: absolute;
+    left: 13mm;
+    right: 13mm;
+    bottom: 6mm;
+    display: flex;
+    justify-content: space-between;
+    font-size: 8pt;
+    color: var(--gris);
+}
+.affiche .pied { left: 18mm; right: 18mm; bottom: 9mm; font-size: 11pt; }

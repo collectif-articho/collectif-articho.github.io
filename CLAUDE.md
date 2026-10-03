@@ -106,7 +106,7 @@ drive de la SCOP continue d'exister.
 ## Charte graphique
 
 Relevée dans `resources/css/` de l'ancien site, reprise pour la présentation à la
-SCOP, à réutiliser pour tout document destiné aux membres (mode d'emploi…).
+SCOP, à réutiliser pour tout document destiné aux membres (guide, `docs/guide/`).
 
 | rôle | valeur |
 |---|---|
@@ -243,7 +243,7 @@ static/pages/…/tpmobile.html   redirection du QR code (D14)
 static/admin/              Sveltia CMS : index.html (version épinglée), config.yml
 migration/migrer.py        migration FAITE, NE PLUS LANCER (écraserait les fiches)
 outils/verifier.py         liens morts, pages et titres de l'ancien site absents
-docs/mode-emploi.md        pour les membres de la SCOP (remplacé par le guide, D17)
+docs/guide/                guide des membres : PDF (affiche A3, fiches A4) et sa source HTML
 docs/bascule.md            bascule du domaine, clic par clic (étape 5)
 ```
 
@@ -295,7 +295,7 @@ Meuble (`content/mobiliers/ligne-de-mobilier/<slug>.md`, pas de page à lui) :
 `static/admin/config.yml`, collection `pages`.
 
 **Ajouter un champ** : le gabarit, le formulaire (`static/admin/config.yml`) et,
-si besoin, `docs/mode-emploi.md`, dans le même commit.
+si besoin, le guide (`docs/guide/`, puis réimprimer le PDF), dans le même commit.
 
 Pièges déjà rencontrés :
 

@@ -9,15 +9,16 @@ Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part 
 >
 > Louis a testé le CMS le 2026-10-03 : tout fonctionne. Faits depuis : page 404,
 > rangement du CSS (rendu identique au pixel), hébergeur corrigé dans les
-> mentions légales, fiche de bascule.
+> mentions légales, fiche de bascule, écran de connexion du CMS réglé et
+> enregistrement vérifié (site identique), **guide des membres** (D17).
 >
 > **En attente de la SCOP** (demandé par Louis le 2026-10-03) : la clé CARTO
 > pour retrouver l'ancien fond de carte (D16), les réponses sur les pages
 > légales (Q3), un créneau sur le compte GitHub pour la bascule.
 >
-> **Prochaine action, Claude** : le guide des membres (D17). À réception de la
-> clé : la carte ; des réponses : les pages légales. Rien de cela ne bloque la
-> bascule.
+> **Prochaine action, Claude** : à réception de la clé, la carte ; des
+> réponses, les pages légales. Rien de cela ne bloque la bascule.
+> **Louis** : relire le guide (`docs/guide/guide-du-site.pdf`).
 >
 > **En suspens hors de ce dépôt** : l'ancien dépôt `../collectif-articho` a deux
 > commits de documentation non poussés (il est gelé ; les pousser ne change rien
@@ -457,7 +458,12 @@ les titres de l'ancien site présents).
   Louis le 2026-10-03, tout fonctionne**. Seul reproche : l'apparence de
   Sveltia, jugée vieillotte ;
 - page 404 et rangement du CSS (D18) ; hébergeur corrigé dans les mentions
-  légales ; fiche de bascule `docs/bascule.md`.
+  légales ; fiche de bascule `docs/bascule.md` ;
+- écran de connexion : connexion par jeton seule, logo et nom du collectif ;
+  enregistrement depuis le CMS vérifié avec le dépôt de test de Sveltia (site
+  identique après réécriture des fichiers) ;
+- **guide des membres** `docs/guide/` (D17) : affiche A3 et trois fiches A4,
+  captures de la vraie interface ; remplace `docs/mode-emploi.md`.
 
 **Reste** :
 
@@ -470,14 +476,12 @@ les titres de l'ancien site présents).
   à Q3 : dénomination et forme, RCS, capital, directeur·ice de publication ;
   « l'association » devient la SCOP dans les conditions générales ; section Prix
   accordée à « prix sur demande » ; phrase sur les postes salarié·es ;
-- **guide des membres** (D17), qui remplace `docs/mode-emploi.md` ;
-- Sveltia : logo du collectif sur l'écran de connexion si sa config le permet,
-  sans toucher à son CSS.
+- relecture du guide par Louis.
 
 **Adresses stables** : l'URL d'une fiche est le nom de son fichier, fixé à la
 création. Renommer un titre ne la change plus, contrairement à l'ancien site.
 
-**Fin** : clé et réponses intégrées, guide publié. Rien de cela ne bloque la
+**Fin** : clé et réponses intégrées, guide relu. Rien de cela ne bloque la
 bascule : si l'accès au compte de la SCOP arrive avant, on bascule d'abord.
 
 ## Étape 5. Bascule (v1.0)

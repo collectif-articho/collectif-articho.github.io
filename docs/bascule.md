@@ -95,9 +95,9 @@ publie. Chez Squarespace, dans le DNS de `collectifarticho.com`, modifier
 ## 5. Après (Louis)
 
 1. Un commit sur le nouveau dépôt : `baseURL` de `hugo.toml` et `site_url` de
-   `static/admin/config.yml` passent à `https://collectifarticho.com`, adresse
-   de l'administration mise à jour dans le guide ; `ROADMAP.md` et
-   `CHANGELOG.md` (`v1.0`).
+   `static/admin/config.yml` passent à `https://collectifarticho.com` (le guide
+   donne déjà cette adresse) ; `ROADMAP.md` et `CHANGELOG.md` (`v1.0`).
+3. Envoyer aux membres le guide, `docs/guide/guide-du-site.pdf`, avec le jeton.
 2. Ancien dépôt, une fois tout vérifié :
    https://github.com/lou-heraut/collectif-articho/settings/pages, *Branch* :
    **None**, **Save** (il n'est plus publié nulle part) ; puis *Settings*,

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Guide du site ARTI/CHÔ</title>
+<link rel="stylesheet" href="guide.css">
+<style>
+/* Mises en page propres à chaque fiche. */
+.affiche .corps { display: grid; grid-template-columns: 112mm 1fr; gap: 12mm; margin-top: 7mm; }
+.affiche .corps > div { display: flex; flex-direction: column; gap: 7mm; }
+.affiche .deux-cartes { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm; }
+.affiche .adresse-carte .adresse { color: var(--creme); font-size: 21pt; display: block; margin: 1mm 0 2mm; }
+.rangee { display: grid; grid-template-columns: 1fr 72mm; gap: 7mm; align-items: start; }
+.legende { display: grid; grid-template-columns: 1fr; gap: 3.5mm; font-size: 12pt; }
+.legende p { position: relative; padding-left: 13mm; margin: 0; }
+.legende p span.n { position: absolute; left: 0; top: 0; width: 10mm; height: 10mm; border-radius: 50%; background: var(--orange-fort); border: 0.5mm solid var(--bleu); color: var(--bleu); font-family: 'Faune Display', sans-serif; text-align: center; line-height: 9mm; font-size: 14pt; }
+.f2 .gauche-figs { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin: 3mm 0 4mm; align-items: start; }
+.f3 .corps { display: grid; grid-template-columns: 1fr 116mm; gap: 9mm; margin-top: 4mm; }
+.f3 .bandeau { display: grid; grid-template-columns: 30mm 1fr 1fr 1fr; gap: 6mm; align-items: start; margin-top: 4mm; padding: 4mm 6mm; }
+.f3 .bandeau h2 { margin: 0; }
+.f3 .bandeau p { margin: 0; font-size: 9.5pt; }
+.f3 .figs { display: flex; flex-direction: column; gap: 4mm; }
+.f4 .corps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7mm; margin-top: 5mm; }
+.f4 .corps > div { display: flex; flex-direction: column; gap: 3.5mm; }
+.coin { display: grid; grid-template-columns: 34mm 1fr; gap: 3mm; align-items: center; }
+.messages p { margin-bottom: 2.6mm; }
+.messages b { color: var(--bleu); }
+</style>
+</head>
+<body>
+
+<!-- ======================================================================= -->
+<!-- Affiche A3 : la vue d'ensemble                                          -->
+<!-- ======================================================================= -->
+<section class="page affiche">
+    <img class="artichaut" src="../../static/resources/statics/articho/articho_yellow_outlined.svg" alt="">
+
+    <div class="surtitre">Guide du site · 1 sur 4 · vue d’ensemble</div>
+    <h1>Le site, on le met à jour nous-mêmes</h1>
+    <img class="trait" src="../../static/resources/statics/assets/line.svg" alt="">
+    <p class="chapeau">Une page d’administration, des formulaires, et c’est en ligne. Pas de code, rien à installer, rien à payer. Ce qui est enregistré est publié : personne ne relit, alors on relit avant d’enregistrer.</p>
+
+    <div class="corps">
+        <div>
+            <div class="carte bleue adresse-carte">
+                <div class="surtitre" style="color: var(--orange);">L’adresse à retenir</div>
+                <span class="adresse">collectifarticho.com/admin</span>
+                <p>Depuis un ordinateur ou un téléphone, avec n’importe quel navigateur.</p>
+            </div>
+
+            <div>
+                <h2>Comment ça marche</h2>
+                <ol class="etapes">
+                    <li data-n="1">On ouvre <b>collectifarticho.com/admin</b>.</li>
+                    <li data-n="2">La première fois sur un appareil, on colle le <b>jeton</b> du collectif. Il est dans le gestionnaire de mots de passe de la SCOP (fiche 2).</li>
+                    <li data-n="3">On choisit une rubrique ou une page et on remplit le formulaire (fiche 3).</li>
+                    <li data-n="4">On clique sur <span class="bouton">Enregistrer</span>. Une à deux minutes plus tard, c’est sur le site.</li>
+                </ol>
+            </div>
+
+            <div class="carte orange">
+                <h2>Rien n’est jamais perdu</h2>
+                <p>Chaque enregistrement est gardé dans l’historique du site, même une fiche supprimée. Une erreur se corrige toujours (fiche 4).</p>
+            </div>
+        </div>
+
+        <div>
+            <div class="rangee">
+            <figure>
+                <div class="capture" style="aspect-ratio: 1280 / 440;">
+                    <img src="images/liste.png" alt="L’administration : les rubriques à gauche, les fiches de la rubrique ouverte à droite">
+                    <span class="repere" style="left: 19.4%; top: 27.3%;">1</span>
+                    <span class="repere" style="left: 88.4%; top: 19.1%;">2</span>
+                    <span class="repere" style="left: 19.4%; top: 90.2%;">3</span>
+                    <span class="repere" style="left: 95.2%; top: 6.4%;">4</span>
+                </div>
+            </figure>
+            <div class="legende">
+                <p><span class="n">1</span>Les <b>rubriques</b> du site, une par sous-onglet : Projets · Aménagements, Mobiliers · Agencements…</p>
+                <p><span class="n">2</span><span class="bouton">Nouveau</span> ajoute une fiche dans la rubrique ouverte. Sur téléphone, c’est un crayon rond.</p>
+                <p><span class="n">3</span><b>Pages du site</b> : l’accueil, le contact, notre offre, à propos, les mentions légales…</p>
+                <p><span class="n">4</span>Le <b>compte</b>, pour <span class="bouton">Se déconnecter</span> d’un ordinateur qui n’est pas à soi.</p>
+            </div>
+            </div>
+            <div class="deux-cartes">
+                <div class="carte">
+                    <h2>Ça se fait ici</h2>
+                    <ul class="liste">
+                        <li>Ajouter, modifier ou retirer un <b>projet</b>, un <b>meuble</b>, un <b>atelier</b>, avec ses photos.</li>
+                        <li>Les photos viennent directement du téléphone : elles sont réduites toutes seules.</li>
+                        <li>L’<b>accueil</b> : diaporama, textes, presse, soutiens, partenaires.</li>
+                        <li>Le <b>contact</b>, <b>notre offre</b> et sa plaquette, les onglets <b>Mobiliers</b> et <b>Ateliers</b>.</li>
+                        <li><b>À propos</b>, <b>mentions légales</b>, <b>conditions générales</b>.</li>
+                    </ul>
+                </div>
+                <div class="carte bleue">
+                    <h2>Ça ne se fait pas ici</h2>
+                    <p>On demande à Louis :</p>
+                    <ul class="liste">
+                        <li>créer, renommer ou supprimer une rubrique ou un onglet ;</li>
+                        <li>changer la mise en page, les couleurs, les polices ;</li>
+                        <li>le menu et le pied de page ;</li>
+                        <li>déplacer les points de la carte du contact ;</li>
+                        <li>le nom de domaine et les adresses mail.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pied">
+        <span>Les autres fiches : 2. Le jeton · 3. Ajouter un projet · 4. Modifier, supprimer, réparer</span>
+        <span>ARTI/CHÔ · octobre 2026</span>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- Fiche 2 : le jeton                                                      -->
+<!-- ======================================================================= -->
+<section class="page fiche f2">
+    <img class="artichaut" src="../../static/resources/statics/articho/articho_yellow_outlined.svg" alt="">
+    <div class="surtitre">Guide du site · 2 sur 4 · se connecter</div>
+    <h1>Le jeton, la clé du site</h1>
+    <img class="trait" src="../../static/resources/statics/assets/line.svg" alt="">
+    <p class="chapeau">Pas de mot de passe pour modifier le site : un <b>jeton</b>, une longue suite de caractères qui commence par <b>github_pat_</b>. Il est rangé dans le gestionnaire de mots de passe de la SCOP. Il n’ouvre que le site : ni le mail, ni le reste.</p>
+
+    <div class="colonnes deux">
+        <div>
+            <h2>Se connecter</h2>
+            <div class="gauche-figs">
+                <figure>
+                    <div class="capture" style="aspect-ratio: 620 / 420;">
+                        <img src="images/connexion.png" alt="Écran de connexion">
+                        <span class="repere" style="left: 21%; top: 92.1%;">2</span>
+                    </div>
+                </figure>
+                <figure>
+                    <div class="capture" style="aspect-ratio: 620 / 300;">
+                        <img src="images/jeton.png" alt="Fenêtre où coller le jeton">
+                        <span class="repere" style="left: 49.8%; top: 63.3%;">3</span>
+                        <span class="repere" style="left: 70.6%; top: 83.3%;">4</span>
+                    </div>
+                </figure>
+            </div>
+            <ol class="etapes">
+                <li data-n="1">Ouvrir <b>collectifarticho.com/admin</b>.</li>
+                <li data-n="2">Cliquer sur <span class="bouton">Se connecter avec un jeton d’accès</span>.</li>
+                <li data-n="3">Coller le jeton dans le champ.</li>
+                <li data-n="4">Cliquer sur <span class="bouton">Se connecter</span>.</li>
+            </ol>
+            <p>Le navigateur s’en souvient : la fois suivante, on arrive directement sur les rubriques. Sur un ordinateur qui n’est pas à soi, se déconnecter à la fin : le rond en haut à droite, puis <span class="bouton">Se déconnecter</span>.</p>
+        </div>
+
+        <div class="carte bleue">
+            <h2>Refaire un jeton</h2>
+            <p>S’il est perdu, s’il a pu être vu par quelqu’un d’autre, ou si l’administration répond « Le jeton fourni n’est pas valide ». Sur <b>github.com</b>, connecté·e avec le compte <b>collectif-articho</b> (identifiants et codes de secours dans le gestionnaire de mots de passe). Les écrans de GitHub sont en anglais :</p>
+            <ol class="etapes">
+                <li data-n="1">La photo du compte, en haut à droite, puis <span class="bouton">Settings</span>.</li>
+                <li data-n="2">Tout en bas de la colonne de gauche : <span class="bouton">Developer settings</span>.</li>
+                <li data-n="3"><span class="bouton">Personal access tokens</span>, <span class="bouton">Fine-grained tokens</span>, <span class="bouton">Generate new token</span>.</li>
+                <li data-n="4"><i>Token name</i> : <b>CMS du site</b>. <i>Expiration</i> : <span class="bouton">No expiration</span>.</li>
+                <li data-n="5"><i>Repository access</i> : <span class="bouton">Only select repositories</span>, puis <b style="white-space: nowrap;">collectif-articho.github.io</b>.</li>
+                <li data-n="6"><i>Permissions</i> : <span class="bouton">Contents</span>, en <span class="bouton">Read and write</span>. Rien d’autre.</li>
+                <li data-n="7"><span class="bouton">Generate token</span>, copier le jeton et le ranger dans le gestionnaire, à la place de l’ancien. GitHub ne le montre qu’une fois.</li>
+                <li data-n="8">Si l’ancien a pu fuiter : dans la liste des <i>Fine-grained tokens</i>, le supprimer (<span class="bouton">Delete</span>).</li>
+            </ol>
+            <p style="margin: 0;">Puis se reconnecter avec le nouveau sur chaque appareil.</p>
+        </div>
+    </div>
+
+    <div class="pied">
+        <span>1. Vue d’ensemble · <b>2. Le jeton</b> · 3. Ajouter un projet · 4. Modifier, supprimer, réparer</span>
+        <span>collectifarticho.com/admin</span>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- Fiche 3 : ajouter un projet                                             -->
+<!-- ======================================================================= -->
+<section class="page fiche f3">
+    <img class="artichaut" src="../../static/resources/statics/articho/articho_yellow_outlined.svg" alt="">
+    <div class="surtitre">Guide du site · 3 sur 4 · ajouter un projet</div>
+    <h1>Un nouveau projet en huit étapes</h1>
+    <img class="trait" src="../../static/resources/statics/assets/line.svg" alt="">
+
+    <div class="corps">
+        <div>
+            <ol class="etapes">
+                <li data-n="1">À gauche, choisir la <b>rubrique</b> : Projets · Aménagements, Mobiliers · Agencements, Ateliers…</li>
+                <li data-n="2">Cliquer sur <span class="bouton">Nouveau</span> (sur téléphone, le crayon rond).</li>
+                <li data-n="3"><b>Titre</b> en majuscules, comme les autres fiches, et <b>sous-titre</b> sur une ligne. L’adresse de la page est tirée du titre à la création, puis ne bouge plus : bien le choisir dès le départ.</li>
+                <li data-n="4">Les <b>informations</b> utiles : commanditaire, date, lieu, intervention, matériaux. Laisser vides celles qui ne servent pas. Une autre (Collaboration, Partenaires…) : <span class="bouton">Ajouter information</span>.</li>
+                <li data-n="5"><span class="bouton">Ajouter photo</span>…</li>
+                <li data-n="6">… puis <span class="bouton">Parcourir</span> et choisir la photo. Recommencer pour chacune. La première est la grande photo de la fiche et sa vignette dans les listes.</li>
+                <li data-n="7">Le <b>texte</b>. La barre d’outils met en gras, en italique, ajoute un lien. Une ligne vide sépare deux paragraphes.</li>
+                <li data-n="8"><span class="bouton">Enregistrer</span>, en haut à droite. Sur le site une à deux minutes plus tard.</li>
+            </ol>
+
+        </div>
+
+        <div class="figs">
+            <figure>
+                <div class="capture" style="aspect-ratio: 1280 / 560;">
+                    <img src="images/nouvelle.png" alt="Formulaire d’une nouvelle fiche, en haut">
+                    <span class="repere" style="left: 14.8%; top: 23.6%;">3</span>
+                    <span class="repere" style="left: 87.1%; top: 5%;">8</span>
+                </div>
+                <figcaption>Le haut du formulaire. Les champs marqués d’une étoile sont obligatoires ; sous chacun, une aide et un exemple.</figcaption>
+            </figure>
+            <figure>
+                <div class="capture" style="aspect-ratio: 1140 / 560;">
+                    <img src="images/photo.png" alt="Ajout d’une photo et barre d’outils du texte">
+                    <span class="repere" style="left: 63%; top: 59.8%;">5</span>
+                    <span class="repere" style="left: 32%; top: 45.9%;">6</span>
+                    <span class="repere" style="left: 15.1%; top: 76.5%;">7</span>
+                </div>
+                <figcaption>Plus bas : une case par photo, puis le texte et sa barre d’outils.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <div class="carte bandeau">
+        <h2>Bon à savoir</h2>
+        <p>Les photos du téléphone vont très bien telles quelles : elles sont réduites avant l’envoi.</p>
+        <p><b>Connexion lente</b> (train, 4G faible) : deux ou trois photos, enregistrer, puis les suivantes. « NetworkError » : l’envoi a pris trop de temps, recommencer avec moins de photos.</p>
+        <p><b>Ordre dans la rubrique</b>, en bas du formulaire : 1 pour la placer en premier. Vide, elle va en fin de liste.</p>
+    </div>
+
+    <div class="pied">
+        <span>1. Vue d’ensemble · 2. Le jeton · <b>3. Ajouter un projet</b> · 4. Modifier, supprimer, réparer</span>
+        <span>collectifarticho.com/admin</span>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- Fiche 4 : modifier, supprimer, réparer                                  -->
+<!-- ======================================================================= -->
+<section class="page fiche f4">
+    <img class="artichaut" src="../../static/resources/statics/articho/articho_yellow_outlined.svg" alt="">
+    <div class="surtitre">Guide du site · 4 sur 4 · modifier, réparer</div>
+    <h1>Modifier, supprimer, réparer</h1>
+    <img class="trait" src="../../static/resources/statics/assets/line.svg" alt="">
+
+    <div class="corps">
+        <div>
+            <h2>Modifier</h2>
+            <p>Ouvrir la rubrique, cliquer sur la fiche, changer ce qu’il faut, <span class="bouton">Enregistrer</span>. Les pages fixes sont dans <b>Pages du site</b> <b>(A)</b> : on y change textes, photos et listes, la mise en page ne bouge pas.</p>
+            <figure>
+                <div class="capture" style="aspect-ratio: 1000 / 520;">
+                    <img src="images/pages.png" alt="La liste des pages du site">
+                    <span class="repere" style="left: 24.5%; top: 68.7%;">A</span>
+                </div>
+            </figure>
+            <p>Les photos d’une fiche : flèches <b>↑ ↓</b> <b>(B)</b> pour changer l’ordre, croix <b>(C)</b> pour en retirer une, <span class="bouton">Remplacer</span> pour en changer.</p>
+            <figure>
+                <div class="capture" style="aspect-ratio: 1140 / 420;">
+                    <img src="images/photos.png" alt="Les photos d’une fiche, avec leurs flèches">
+                    <span class="repere" style="left: 37.3%; top: 78.8%;">B</span>
+                    <span class="repere" style="left: 71.4%; top: 78.8%;">C</span>
+                </div>
+            </figure>
+        </div>
+
+        <div>
+            <h2>Supprimer, annuler</h2>
+            <p>Le menu <b>⋮</b>, en haut à droite d’une fiche ouverte :</p>
+            <figure>
+                <div class="capture" style="aspect-ratio: 420 / 330;">
+                    <img src="images/menu.png" alt="Le menu d’une fiche : Dupliquer, Supprimer…">
+                    <span class="repere" style="left: 32%; top: 30%;">D</span>
+                    <span class="repere" style="left: 32%; top: 49.4%;">E</span>
+                </div>
+            </figure>
+            <p><span class="bouton">Supprimer</span> <b>(D)</b> retire la fiche du site. <span class="bouton">Annuler toutes les modifications</span> <b>(E)</b> revient à la dernière version enregistrée, tant qu’on n’a pas enregistré.</p>
+            <div class="coin">
+                <figure>
+                    <div class="capture" style="aspect-ratio: 380 / 220;">
+                        <img src="images/coin.png" alt="Les icônes à droite d’une fiche, dont l’historique">
+                        <span class="repere" style="left: 84%; top: 72.7%;">F</span>
+                    </div>
+                </figure>
+                <p style="margin: 0;">Après coup : corriger et enregistrer à nouveau. L’<b>historique</b> <b>(F)</b>, l’horloge à droite de la fiche, retrace ses enregistrements.</p>
+            </div>
+        </div>
+
+        <div>
+            <div class="carte messages">
+                <h2>Un message, un souci</h2>
+                <p><b>« Le jeton fourni n’est pas valide »</b> : en refaire un (fiche 2).</p>
+                <p><b>« NetworkError »</b> : l’envoi a pris trop de temps. Moins de photos à la fois.</p>
+                <p><b>L’enregistrement ne part pas</b> : un champ obligatoire (marqué d’une étoile) est vide.</p>
+                <p style="margin: 0;"><b>Rien ne change sur le site</b> : attendre deux minutes, puis recharger la page (Ctrl + Maj + R ; sur téléphone, tirer la page vers le bas).</p>
+            </div>
+            <div class="carte bleue">
+                <h2>On demande à Louis</h2>
+                <ul class="liste">
+                    <li>une fiche supprimée par erreur à récupérer : tout est dans l’historique du site ;</li>
+                    <li>une rubrique ou un onglet à créer, la mise en page ;</li>
+                    <li>le site ne se met plus à jour du tout.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="pied">
+        <span>1. Vue d’ensemble · 2. Le jeton · 3. Ajouter un projet · <b>4. Modifier, supprimer, réparer</b></span>
+        <span>collectifarticho.com/admin</span>
+    </div>
+</section>
+
+</body>
+</html>

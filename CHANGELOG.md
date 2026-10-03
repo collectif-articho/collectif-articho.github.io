@@ -45,6 +45,15 @@ abandonnés.
   `cascade`, `url` et `layout`. L'accueil, les textes de la Ligne de mobilier et
   les mentions légales sont repris dans ce format : sans cela, le bouton
   « Enregistrer » y était actif dès l'ouverture.
+- **Guide des membres** (D17), `docs/guide/` : une affiche A3 paysage (vue
+  d'ensemble : l'adresse, le circuit, ce qui se fait dans le CMS et ce qui ne
+  s'y fait pas) et trois fiches A4 paysage (le jeton et comment en refaire un,
+  ajouter un projet en huit étapes, modifier, supprimer, réparer). Charte du
+  site, captures de la vraie interface (dépôt de test de Sveltia) avec repères
+  numérotés, PDF imprimé par chromium (`guide-du-site.pdf`, moins de 1 Mo).
+  Remplace `docs/mode-emploi.md` et son PDF, retirés pour ne pas avoir deux
+  documents qui divergent. Vérifié en passant : l'interface de Sveltia marche
+  sur téléphone (le bouton « Nouveau » y devient un crayon rond).
 
 ## v0.5 (suite), 2026-09-26
 
