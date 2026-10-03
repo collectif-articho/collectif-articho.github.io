@@ -335,7 +335,7 @@ collections:
             label: Adresses
             label_singular: adresse
             widget: list
-            hint: "Les points de la carte ne suivent pas : prévenir Louis si une adresse change."
+            hint: "Les points de la carte ne suivent pas : prévenir Lou si une adresse change."
             summary: "{{fields.nom}}"
             fields:
               - { name: nom, label: Nom du lieu, widget: string }

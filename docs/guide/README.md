@@ -29,13 +29,13 @@ Les formats de page (A3 puis A4) sont donnés par `@page` dans `guide.css`.
 
 ## Refaire les captures
 
-Prises le 2026-10-03 avec Sveltia 0.221.1, sans jeton : Sveltia a un dépôt de
-test intégré au navigateur. Dans une copie de `static/admin/config.yml`,
-remplacer le bloc `backend` par `backend: { name: test-repo }`, servir cette
-copie en local, cliquer sur « Travailler avec un dépôt de test », puis y
-déposer les fichiers de `content/` (ils vivent dans le stockage du navigateur,
-rien n'est envoyé à GitHub). Fenêtre de 1280 × 800, écran en double densité.
-L'écran de connexion vient de la vraie page `/admin/`, servie depuis `public/`.
+Prises le 2026-10-03 avec Sveltia 0.221.1, sans jeton, avec le dépôt de test que
+Sveltia garde dans le navigateur, rempli avec le contenu du site : méthode dans
+`CLAUDE.md`, piège « Tester le CMS sans jeton ni commit ». Fenêtre de
+1280 × 800, écran en double densité. L'écran de connexion vient de la vraie page
+`/admin/`, servie depuis `public/` ; le bouton « Travailler avec un dépôt
+local », qui n'apparaît que sur `localhost`, a été retiré de la capture pour
+montrer ce qu'on voit en ligne.
 
 Les repères numérotés sont placés en pourcentage de chaque image, dans
 `guide.html` : les recaler si une capture change de cadrage.

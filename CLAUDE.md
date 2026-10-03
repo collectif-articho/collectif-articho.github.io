@@ -3,7 +3,7 @@
 Refonte du **mécanisme de mise à jour** du site vitrine du collectif ARTI/CHÔ
 (`collectifarticho.com`), une SCOP d'artisan·es designers constructeur·ices. Le but
 n'est pas de refaire le site : c'est de permettre aux membres de le mettre à jour
-**seul·es**, sans passer par Louis, en gardant le rendu actuel.
+**seul·es**, sans passer par Lou, en gardant le rendu actuel.
 
 Ce dossier est **autonome** : tout le contexte utile est écrit ici, sans supposer
 de mémoire d'une session précédente. Les besoins, les décisions et le plan d'attaque
@@ -18,13 +18,13 @@ sont dans `ROADMAP.md`. Ce qui est fait part dans `CHANGELOG.md`.
 3. Lire les dernières entrées de `CHANGELOG.md` et `git log --oneline | head`.
 4. Travailler étape par étape du plan d'attaque (§ 4) ; chaque étape a un critère
    de fin, ne pas passer à la suivante tant qu'il n'est pas atteint.
-5. Lire plus bas **Travailler avec Louis** et **Le nouveau site** : ce qui a été
+5. Lire plus bas **Travailler avec Lou** et **Le nouveau site** : ce qui a été
    appris en séance et n'est pas déductible du code.
 
 **Tenir la traçabilité à chaque étape franchie**, dans le même commit que le code :
 entrée au `CHANGELOG.md` (quoi, pourquoi, écarts constatés), bandeau État de
 `ROADMAP.md` mis à jour, nouvelle décision ajoutée au § 2 si un arbitrage a été
-fait avec Louis. Un fait qui n'est écrit que dans une conversation est perdu.
+fait avec Lou. Un fait qui n'est écrit que dans une conversation est perdu.
 
 ## Conventions de rédaction
 
@@ -51,7 +51,7 @@ décrit en détail son fonctionnement ; l'essentiel est résumé ci-dessous.
 ../collectif-articho/drive/<NN_Onglet>/<NN_SousOnglet>/<NN_Projet>/
     titre.txt  soustitre.txt  info.txt  text.txt  1.jpg 2.jpg …
             │
-            ▼  Rscript make_projet.R  (lancé à la main par Louis)
+            ▼  Rscript make_projet.R  (lancé à la main par Lou)
     pages/<onglet>/<sous-onglet>/<slug>.html     page de détail par projet
     pages/<onglet>/<sous-onglet>.html            listing en vignettes
     pages/projets.html                           listing de tout l'onglet Projets
@@ -59,7 +59,7 @@ décrit en détail son fonctionnement ; l'essentiel est résumé ci-dessous.
 ```
 
 - `drive/` est la copie d'un dossier Google Drive de l'association, synchronisé
-  depuis un Mac. Louis le recopie à la main dans le dépôt, lance le script, relit,
+  depuis un Mac. Lou le recopie à la main dans le dépôt, lance le script, relit,
   pousse. **C'est ce circuit que la v2 remplace.**
 - 3 onglets, 8 sous-onglets, 59 dossiers : 53 pages projet, plus 5 meubles de la
   « Ligne de mobilier » rendus sur **une seule page** en carrousel (prix,
@@ -121,11 +121,11 @@ SCOP, à réutiliser pour tout document destiné aux membres (guide, `docs/guide
 | | |
 |---|---|
 | hébergeur | **GitHub Pages**, gratuit, à conserver |
-| ancien site | dépôt `lou-heraut/collectif-articho` (compte perso de Louis), sert `collectifarticho.com` jusqu'à la bascule |
-| nouveau site | compte utilisateur **`collectif-articho`** tenu par la SCOP (créé le 2026-09-25, e-mail `contact@collectifarticho.com`, identifiants gardés par la SCOP) ; dépôt public **`collectif-articho/collectif-articho.github.io`**, branche `main`, servi à la racine de https://collectif-articho.github.io/ (D3, D7) ; Pages réglé sur « GitHub Actions » ; `lou-heraut` collaborateur (peut pousser, pas toucher aux réglages) ; CMS : **Sveltia**, page `/admin/` du site, connexion par jeton GitHub (D12) ; l'application Pages CMS, essayée puis écartée, reste à désinstaller côté SCOP |
+| ancien site | dépôt `lou-heraut/collectif-articho` (compte perso de Lou), sert `collectifarticho.com` jusqu'à la bascule |
+| nouveau site | compte utilisateur **`collectif-articho`** tenu par la SCOP (créé le 2026-09-25, e-mail `contact@collectifarticho.com`, identifiants gardés par la SCOP) ; dépôt public **`collectif-articho/collectif-articho.github.io`**, branche `main`, servi à la racine de https://collectif-articho.github.io/ (D3, D7) ; Pages réglé sur « GitHub Actions » ; `lou-heraut` collaborateur (peut pousser, pas toucher aux réglages) ; CMS : **Sveltia**, page `/admin/` du site, connexion par jeton GitHub seule (`auth_methods: [token]`, D12), jeton fine-grained du compte de la SCOP, sans expiration (D19) ; l'application Pages CMS, essayée puis écartée, reste à désinstaller côté SCOP |
 | remote local | `origin` = `git@github.com:collectif-articho/collectif-articho.github.io.git` |
 | domaine | `collectifarticho.com`, enregistré chez Google Domains, **repris par Squarespace** ; payé par la SCOP |
-| DNS | serveurs `ns-cloud-d{1..4}.googledomains.com` ; A vers `185.199.10{8,9,10,11}.153` (GitHub Pages) |
+| DNS | serveurs `ns-cloud-d{1..4}.googledomains.com` ; A vers `185.199.10{8,9,10,11}.153` (GitHub Pages) ; `www` : CNAME vers `lou-heraut.github.io` (relevé le 2026-10-03, à revoir à la bascule, voir `docs/bascule.md`) |
 | mail | MX vers `aspmx.l.google.com` : **Google Workspace**, adresse de la SCOP sur ce domaine |
 
 GitHub Pages ne fait ni réécriture ni redirection HTTP : une redirection est un
@@ -161,11 +161,12 @@ une erreur sur les MX coupe le mail de la SCOP.
   fois depuis l'ancien HTML (`v0.4`).
 - **Commits** en français, message au présent, sans cadratin.
 
-## Outils disponibles sur le poste de Louis (vérifié le 2026-09-26)
+## Outils disponibles sur le poste de Lou (vérifié le 2026-10-03)
 
-`Rscript`, `python3`, `node`, `chromium` (snap, utilisable en headless), ImageMagick
-(`mogrify`, `identify`, `compare`), `dig`, `gh` (CLI GitHub). Pas de `whois`, pas de
-Playwright.
+`Rscript`, `python3`, `node` 20 (client WebSocket avec `--experimental-websocket`),
+`chromium` (snap, utilisable en headless, impression PDF comprise), ImageMagick
+(`mogrify`, `identify`, `compare`, `montage`), `pdftoppm` et `gs` (PDF vers
+images), `dig`, `gh` (CLI GitHub). Pas de `whois`, pas de Playwright.
 
 **Hugo n'est pas installé sur le système**, et c'est voulu (D9). Pour construire en
 local, télécharger dans le dossier temporaire de la session la même version que le
@@ -182,10 +183,15 @@ tar -xzf hugo_extended_${V}_linux-amd64.tar.gz hugo
 ./hugo server -s <chemin du dépôt>   # aperçu sur http://localhost:1313
 ```
 
-## Travailler avec Louis
+## Travailler avec Lou
 
 Appris en séance, à respecter sans le lui redemander :
 
+- **Son prénom est Lou**, pas Louis (2026-10-03). Nom civil Louis Héraut, compte
+  git « Louis Héraut », compte GitHub `lou-heraut` ; mais c'est « Lou » qu'on
+  écrit, dans les réponses comme dans les documents, surtout ceux destinés à la
+  SCOP. « Louis » ne reste que dans les citations de textes existants (mentions
+  légales) et pour un autre Louis, partenaire cité dans une fiche.
 - **Pas de widget de questions à choix** (`AskUserQuestion`) : exposer les options
   en texte, avec une recommandation, et le laisser répondre en prose. Tableaux et
   schémas ASCII bienvenus.
@@ -200,17 +206,21 @@ Appris en séance, à respecter sans le lui redemander :
   choix du plan en ajoute sans nécessité.
 - Arbitrages à ne pas rouvrir : **compte unique** de la SCOP (D3, il sait que les
   conditions de GitHub interdisent le partage d'identifiant et l'assume) ; **accueil
-  éditable** gardé dans le périmètre avant la démonstration à la SCOP (c'est
-  l'argument contre un retour de WordPress).
-- Les réglages sur le compte de la SCOP se font **en séance avec un membre** :
-  préparer des consignes pas à pas, clic par clic, et dire ce qui peut être ignoré.
-- Louis peut faire les tests d'édition avec son propre compte `lou-heraut`
+  éditable** gardé dans le périmètre (c'est l'argument contre un retour de
+  WordPress).
+- Les réglages sur le compte de la SCOP se préparent en **consignes pas à pas,
+  clic par clic**, en disant ce qui peut être ignoré. Pour la bascule, Lou les
+  fait lui-même avec les identifiants de la SCOP (demandés le 2026-10-03).
+- Lou peut faire les tests d'édition avec son propre compte `lou-heraut`
   (collaborateur), sans attendre la SCOP.
 - Il a donné **carte blanche pour avancer le plan en autonomie** (2026-09-26,
   « keep it clean, keep it simple »), en consignant au fur et à mesure ; il fait
   ses retours d'ergonomie ensuite. Lui signaler clairement ce qui a été trouvé en
   route (exemple : la carte du contact cassée en production) et ce qui n'a pas pu
   être vérifié.
+- Les documents pour les membres sont soignés, **aux couleurs du site** (charte
+  ci-dessus) : le guide de `docs/guide/` a été validé tel quel (« c'est
+  parfait »). Repartir de lui pour tout nouveau document.
 
 ## Le nouveau site : état technique et pièges constatés
 
@@ -256,7 +266,7 @@ python3 outils/verifier.py    # après chaque construction : doit dire « Aucun 
 git pull --rebase             # AVANT de travailler : le CMS commite sur main
 ```
 
-Toujours `git pull` avant de modifier : la SCOP (et Louis) commitent depuis le CMS,
+Toujours `git pull` avant de modifier : la SCOP (et Lou) commitent depuis le CMS,
 directement sur `main`. Déployer, c'est pousser `main` ; le workflow publie en une
 à deux minutes.
 
@@ -267,7 +277,9 @@ SCOP a créé ou modifié depuis le CMS. Il est gardé pour la traçabilité.
 ### Format des contenus
 
 Fiche projet (`content/<onglet>/<rubrique>/<slug>.md`, D13) ; le nom du fichier
-fait l'URL, `/pages/<onglet>/<rubrique>/<slug>.html` :
+fait l'URL, `/pages/<onglet>/<rubrique>/<slug>.html`. Ci-dessous le format écrit
+par la migration ; Sveltia le réécrit à sa façon à chaque enregistrement (voir
+les pièges), sans effet sur le site :
 
 ```yaml
 ---
@@ -324,6 +336,43 @@ Pièges déjà rencontrés :
 - **Sveltia conserve les champs qu'il ne connaît pas** à l'enregistrement
   (vérifié dans son code, `serialize.js`). Des champs de structure (`url`,
   `layout`, `cascade`) peuvent donc vivre à côté des champs éditables.
+- **Sveltia reformate tout le fichier** qu'il enregistre : ordre des champs,
+  guillemets retirés, `|` devenu `|-`, `*italique*` devenu `_italique_`,
+  `lien: ''` pour un lien vide, commentaires YAML perdus. Vérifié en `v0.5` :
+  le site construit avec ces fichiers est identique. Le `diff` d'un commit du CMS
+  montre donc souvent tout le fichier ; juger sur le rendu, pas sur le texte.
+  Si le bouton « Enregistrer » est actif dès l'ouverture d'une entrée, c'est que
+  le fichier n'est pas encore à son format : l'enregistrer une fois suffit.
+- **Tester le CMS sans jeton ni commit** (fait en `v0.5` pour vérifier les
+  enregistrements et prendre les captures du guide). Sveltia a un dépôt de test
+  dans le navigateur : copier `public/admin/` dans un dossier temporaire et y
+  remplacer le bloc `backend` de `config.yml` par `backend: { name: test-repo }`.
+  Servir ce dossier avec, à côté, un dossier `repo/` (copie de `content/`, et
+  des photos réduites dans `repo/assets/photos/…` si on veut les vignettes) et sa
+  liste `repo/manifest.txt` (un chemin par ligne). Une page servie par le même
+  serveur dépose ces fichiers dans le stockage du navigateur (OPFS), là où le
+  dépôt de test les lit :
+
+  ```js
+  const base = await (await navigator.storage.getDirectory())
+    .getDirectoryHandle('sveltia-cms-test', { create: true });
+  const liste = (await (await fetch('/repo/manifest.txt')).text()).split('\n').filter(Boolean);
+  for (const chemin of liste) {
+    let d = base; const p = chemin.split('/');
+    for (const x of p.slice(0, -1)) d = await d.getDirectoryHandle(x, { create: true });
+    const w = await (await d.getFileHandle(p.at(-1), { create: true })).createWritable();
+    await w.write(await (await fetch('/repo/' + chemin)).blob()); await w.close();
+  }
+  ```
+
+  Puis, sur l'écran de connexion, « Travailler avec un dépôt de test ». Après un
+  enregistrement, relire le fichier par les mêmes `getDirectoryHandle`, le
+  recopier dans `content/`, construire dans un autre dossier (`hugo -d …`) et
+  comparer avec `diff -r` ; remettre `content/` avec `git checkout`. Pour piloter
+  chromium sans écran (clics, captures, lecture de l'OPFS) : protocole DevTools,
+  `chromium --headless=new --remote-debugging-port=9222
+  --user-data-dir=$HOME/snap/chromium/common/profil`, depuis `node
+  --experimental-websocket`. Le profil doit persister : l'OPFS y est stocké.
 - Le workflow met en cache les images redimensionnées ; en local, le premier
   `hugo` complet prend environ 30 s, les suivants 3 s.
 - **Captures d'écran** : `chromium` est un snap, il ne peut pas écrire dans
@@ -346,6 +395,9 @@ Pièges déjà rencontrés :
   (`v0.5`).
 - `pkill -f motif` ou `pgrep -f motif` dans une commande Bash se trouvent
   eux-mêmes (le motif est dans la ligne de commande) : écrire `http.serve[r]`.
+  Et ne jamais relancer le serveur dans la même commande que le `pkill` : la
+  ligne contient alors `http.server` en clair, et le `pkill` tue son propre
+  shell.
 
 Vérifier une publication : le workflow dure une à deux minutes ; suivre avec
 `gh run list -R collectif-articho/collectif-articho.github.io`, puis `curl -I`

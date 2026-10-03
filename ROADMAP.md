@@ -3,22 +3,20 @@
 Contexte technique et règles de travail dans `CLAUDE.md`. Ce qui est fait part dans
 `CHANGELOG.md`.
 
-> **État au 2026-10-03** : **`v0.4` publiée, étape 4 presque finie. La bascule
-> est prête et n'attend plus qu'un membre connecté au compte GitHub de la SCOP**
-> (`docs/bascule.md`, 10 minutes).
+> **État au 2026-10-03, fin de session** : **`v0.4` publiée, étape 4 presque
+> finie, bascule prête** (`docs/bascule.md`). Le guide des membres est fait et
+> validé par Lou (« c'est parfait »).
 >
-> Louis a testé le CMS le 2026-10-03 : tout fonctionne. Faits depuis : page 404,
-> rangement du CSS (rendu identique au pixel), hébergeur corrigé dans les
-> mentions légales, fiche de bascule, écran de connexion du CMS réglé et
-> enregistrement vérifié (site identique), **guide des membres** (D17).
+> **En attente** (demandé par Lou le 2026-10-03) :
+> - les **identifiants du compte GitHub de la SCOP**, avec de quoi passer sa
+>   double authentification : Lou fait la bascule lui-même (`docs/bascule.md`) ;
+> - la **clé CARTO**, pour retrouver l'ancien fond de carte (D16) ;
+> - les **réponses de la SCOP sur les pages légales** (Q3).
 >
-> **En attente de la SCOP** (demandé par Louis le 2026-10-03) : la clé CARTO
-> pour retrouver l'ancien fond de carte (D16), les réponses sur les pages
-> légales (Q3), un créneau sur le compte GitHub pour la bascule.
->
-> **Prochaine action, Claude** : à réception de la clé, la carte ; des
-> réponses, les pages légales. Rien de cela ne bloque la bascule.
-> **Louis** : relire le guide (`docs/guide/guide-du-site.pdf`).
+> **À la reprise, Claude** : `git pull` (le CMS a pu commiter), puis selon ce qui
+> est arrivé : la carte (une ligne, § 4 étape 4), les pages légales (Q3), ou
+> accompagner Lou pendant la bascule et faire le commit d'après (étape 5). Aucun
+> de ces trois ne bloque les autres.
 >
 > **En suspens hors de ce dépôt** : l'ancien dépôt `../collectif-articho` a deux
 > commits de documentation non poussés (il est gelé ; les pousser ne change rien
@@ -33,28 +31,28 @@ reprise de travail.
 
 ## Pourquoi changer
 
-Toute mise à jour du site passe aujourd'hui par Louis :
+Toute mise à jour du site passe aujourd'hui par Lou :
 
 | étape | qui | ce qui bloque |
 |---|---|---|
 | saisie | la SCOP, fichiers `.txt` dans le Drive | format implicite, aucun retour en cas d'erreur, jugé trop compliqué |
-| Drive vers dépôt | Louis, copie à la main | personne d'autre ne sait le faire |
-| génération | Louis, `Rscript` sur son poste | R installé, script connu de lui seul |
-| mise en ligne | Louis, `git push` | dépôt sur son compte GitHub personnel |
-| pages fixes, navigation | Louis, HTML à la main | aucun membre ne fait de HTML ni de CSS |
+| Drive vers dépôt | Lou, copie à la main | personne d'autre ne sait le faire |
+| génération | Lou, `Rscript` sur son poste | R installé, script connu de lui seul |
+| mise en ligne | Lou, `git push` | dépôt sur son compte GitHub personnel |
+| pages fixes, navigation | Lou, HTML à la main | aucun membre ne fait de HTML ni de CSS |
 
 Les membres ont proposé WordPress. Le rythme réel : environ **5 vagues de mises à
 jour en deux ans** (historique git). L'outil sera ouvert deux ou trois fois par an,
 par des gens qui auront oublié entre deux fois. Il doit être évident sans formation.
 
-## Cahier des besoins (validé par Louis le 2026-09-24)
+## Cahier des besoins (validé par Lou le 2026-09-24)
 
 | | besoin |
 |---|---|
 | B1 | Les membres **ajoutent, modifient, suppriment** projets, meubles et ateliers seul·es, sans compétence HTML ni CSS. Des formulaires plutôt que des fichiers ; du Markdown simple reste acceptable. |
 | B2 | Les **pages fixes** (accueil, à propos, contact, offre…) sont modifiables aussi. Il s'agit de corriger du texte, ajouter ou changer des photos, **pas** de restructurer. |
 | B3 | **Publication directe**, personne ne relit. On doit pouvoir **corriger ou annuler** après coup. |
-| B4 | **Louis n'intervient plus** pour les mises à jour courantes. |
+| B4 | **Lou n'intervient plus** pour les mises à jour courantes. |
 | B5 | **Aucun abonnement ni hébergement payant.** GitHub Pages, gratuit, convient. |
 | B6 | **Aucune ressaisie** du contenu existant. |
 | B7 | **Le rendu actuel est conservé.** Le CSS est très travaillé ; un nettoyage du code est bienvenu mais ne doit rien changer au rendu. |
@@ -69,7 +67,7 @@ Journal des arbitrages, du plus ancien au plus récent. Ne pas rouvrir une déci
 sans élément nouveau ; si c'est le cas, ajouter une entrée plutôt que réécrire.
 
 **D1. Option B : CMS « git » et générateur statique, pas WordPress** (2026-09-25,
-Louis, après présentation informelle à la SCOP). Raisons : 0 €, pas de serveur à
+Lou, après présentation informelle à la SCOP). Raisons : 0 €, pas de serveur à
 entretenir, design conservé, contenu en fichiers portables. Comparaison au § 3.
 
 **D2. Générateur : Hugo ; outillage : Python ; R abandonné** (2026-09-25 ; outillage révisé par D9). Hugo
@@ -85,7 +83,7 @@ imbriquées. Python sert en revanche à **tout l'outillage** (migration, compara
 HTML, captures), dans un venv avec `requirements.txt` épinglé. **R n'est pas
 conservé**, sous aucune forme.
 
-**D3. Accès : compte GitHub `collectif-articho` pour la SCOP, Louis collaborateur**
+**D3. Accès : compte GitHub `collectif-articho` pour la SCOP, Lou collaborateur**
 (2026-09-25 ; nom du dépôt révisé par D7). Pas d'invitation par e-mail ni de service d'authentification tiers,
 pas d'organisation.
 
@@ -98,7 +96,7 @@ pas d'organisation.
   GitHub sert le site à une adresse provisoire
   (`https://collectif-articho.github.io/website/`) ; ce qui la rend utilisable,
   c'est que **le site ne suppose pas d'être à la racine** (étape 3, chemins).
-- **Louis** : collaborateur avec son compte `lou-heraut`. Vérifié dans la doc
+- **Lou** : collaborateur avec son compte `lou-heraut`. Vérifié dans la doc
   GitHub, un collaborateur d'un dépôt personnel peut pousser, fusionner, publier
   des releases, mais **pas** toucher aux réglages (Pages, Actions, domaine,
   collaborateurs, applications installées). Ces réglages ne se font qu'une fois :
@@ -127,7 +125,7 @@ téléphone) : 78 Mo à l'origine, 30 Mo après, soit environ **460 Mo** pour le
 écran haute densité ; au-delà, rien sur le web ne s'en sert.
 
 Ce n'est pas destructif : **les originaux restent** dans le Drive de la SCOP et
-dans l'ancien dépôt, archivé avec tout son historique (étape 7). Les tailles
+dans l'ancien dépôt, archivé avec tout son historique (étape 5). Les tailles
 servies aux visiteurs (page, vignette) sont calculées par Hugo à la construction,
 jamais commitées. Plafonner après coup, par une action GitHub, ne servirait à
 rien : l'original resterait dans l'historique git. Le plafonnement doit donc se
@@ -143,7 +141,7 @@ les chemins absolus marchent tels quels, en test comme sur le domaine. C'est la
 convention GitHub pour « le site de ce compte ». Le reste de D3 est confirmé :
 **un seul compte `collectif-articho`** tenu par la SCOP, pas d'organisation, pas
 d'invitations par e-mail. Les conditions de GitHub interdisent le partage d'un
-identifiant entre plusieurs personnes ; choix assumé par Louis, en pratique une
+identifiant entre plusieurs personnes ; choix assumé par Lou, en pratique une
 ou deux personnes font les modifications, et c'est ce que la SCOP sait gérer.
 
 **D8. Photos dans un dossier média commun, pas dans le dossier de la fiche**
@@ -173,6 +171,8 @@ an au rythme actuel. Acceptable plusieurs années (GitHub ne bloque qu'à 100 Mo
 fichier). Le site publié reste léger : Hugo ne publie que les tailles réduites. Le
 mode d'emploi demandera d'envoyer des photos « taille moyenne » depuis le
 téléphone quand c'est possible. À réévaluer si le dépôt dépasse 2 Go.
+*Complément : depuis D12, Sveltia réduit les photos avant l'envoi (2 000 px,
+environ 1 Mo) ; la consigne « taille moyenne » est sans objet.*
 
 **D11. Une version par étape franchie** (2026-09-25). Chaque étape du plan (§ 4)
 franchie donne une version : `v0.1` à l'étape 0, jusqu'à `v1.0` à la bascule. Le
@@ -185,12 +185,12 @@ donc la plupart des photos de téléphone. Sveltia, servi par le site sous `/adm
 réduit les photos dans le navigateur (WebP, 2 000 px) et écrit directement dans
 GitHub : essai réussi avec une photo de 8,9 Mo. Connexion par jeton GitHub.
 Limite connue : l'API qu'il utilise coupe un enregistrement de plus d'environ 5 s,
-donc sur une connexion lente on ajoute les photos quelques-unes à la fois (mode
-d'emploi). Louis trouve l'interface moins soignée que Pages CMS : ergonomie à
+donc sur une connexion lente on ajoute les photos quelques-unes à la fois (guide,
+fiche 3). Lou trouve l'interface moins soignée que Pages CMS : ergonomie à
 travailler à l'étape 4, puis retours de la SCOP.
 
 **D13. Informations d'une fiche : champs nommés, plus une liste libre**
-(2026-09-26, remarque de Louis après l'essai). Demander aux membres d'écrire
+(2026-09-26, remarque de Lou après l'essai). Demander aux membres d'écrire
 l'intitulé *et* la valeur de chaque information les laisse sans repère, alors que
 les intitulés se répètent. Relevé sur les 53 fiches : Date (53), Commanditaire
 (52), Intervention (51), Localisation (49), Matériaux réemployés (44, plus 2
@@ -212,7 +212,7 @@ simple, et indépendante de la fiche (elle survit à sa suppression). Des champs
 structure (`url`, `layout`, `cascade`) peuvent vivre à côté des champs éditables.*
 
 **D15. Bascule sans démonstration préalable** (2026-10-03, révise l'étape 4).
-Louis a testé le CMS (« c'est super »). Pour les visiteurs rien ne change, sauf
+Lou a testé le CMS (« c'est super »). Pour les visiteurs rien ne change, sauf
 la carte : la bascule est transparente et n'attend que les réglages sur le compte
 de la SCOP. Pas de séance de démonstration : la SCOP essaie directement en
 production, avec le guide (D17), et l'historique git permet de tout corriger. Le
@@ -222,15 +222,15 @@ bascule.
 **D16. Carte du contact : retour au fond CARTO Voyager, avec une clé**
 (2026-10-03). Le fond de l'ancien site (terre crème, eau bleu pâle, routes
 orangées) allait avec la charte ; celui d'OpenStreetMap, mis à l'étape 3, ne
-plaît pas à Louis. CARTO exige désormais une clé (vérifié : sans elle, la tuile ne
+plaît pas à Lou. CARTO exige désormais une clé (vérifié : sans elle, la tuile ne
 montre que « API KEY REQUIRED »), gratuite jusqu'à 5 millions de tuiles par mois,
-sans compte, usage commercial accepté sous ce seuil. Demandée par Louis avec
+sans compte, usage commercial accepté sous ce seuil. Demandée par Lou avec
 l'adresse de la SCOP. La clé est visible dans le code, comme toute clé de fond de
 carte ; si elle est abusée ou si CARTO change encore ses conditions, repli sur
 OpenStreetMap en une ligne.
 
 **D17. Guide des membres en fiches PDF aux couleurs du site** (2026-10-03,
-Louis : « je te fais confiance »). Remplace `docs/mode-emploi.md` : une fiche A3
+Lou : « je te fais confiance »). Remplace `docs/mode-emploi.md` : une fiche A3
 paysage pour la vue d'ensemble (ce qui se fait dans le CMS, ce qui ne s'y fait
 pas), des fiches A4 paysage pour le reste (le jeton GitHub et comment en refaire
 un, ajouter un projet, corriger une erreur). Sources HTML dans `docs/guide/`,
@@ -245,7 +245,7 @@ supprimée plus tard). `static/CNAME` sort du plan : GitHub ignore ce fichier
 quand le site est publié par Actions (doc GitHub), le domaine se règle seulement
 dans les réglages Pages.
 
-**D19. Jeton du CMS sans expiration** (2026-10-03). Louis : une ou deux
+**D19. Jeton du CMS sans expiration** (2026-10-03). Lou : une ou deux
 personnes font les modifications et gardent le jeton dans le gestionnaire de mots
 de passe de la SCOP ; il faut surtout qu'elles sachent en refaire un. La doc
 GitHub autorise désormais les jetons fine-grained sans expiration : le jeton ne
@@ -255,12 +255,15 @@ guide explique comment en créer un nouveau s'il est perdu ou s'il a fuité.
 
 ## Questions ouvertes
 
-**Q3. Informations légales, à confirmer par la SCOP** (posées par Louis le
+**Q3. Informations légales, à confirmer par la SCOP** (posées par Lou le
 2026-10-03). Le registre public (annuaire des entreprises, consulté le
 2026-10-03) donne : raison sociale CAVAPU, SIREN 829 610 658, siège 6-10 quai de
 Seine à Saint-Denis, catégorie INSEE 5460 « autre SARL coopérative » (la
 catégorie propre aux SCOP en SARL est 5458), une personne à la gérance, 3 à 5
-salarié·es en 2024.
+salarié·es en 2024. SCOP et SARL ne s'opposent pas : une SCOP est un statut
+coopératif posé sur une SARL, une SA ou une SAS (« SCOP SARL à capital
+variable »). Reste à savoir pourquoi le registre ne porte pas le code 5458 : le
+Kbis tranche, et les mentions légales reprennent son libellé.
 
 1. Forme exacte et capital tels qu'écrits sur le Kbis, numéro RCS.
 2. Directeur·ice de la publication (par défaut, la gérance).
@@ -279,12 +282,12 @@ Q1 est tranchée par D8 et D10, Q2 par D12.
 **Q2. Garder Pages CMS ou passer à Sveltia CMS ?** (ouverte le 2026-09-25,
 **tranchée le 2026-09-26 par D12**, conservée pour mémoire).
 
-*Constat de l'essai (2026-09-25, Louis avec son compte `lou-heraut`)* :
+*Constat de l'essai (2026-09-25, Lou avec son compte `lou-heraut`)* :
 
 | test | résultat |
 |---|---|
 | photo lourde (> 4 Mo) | ❌ `Failed to upload file: 413` |
-| photo de 2,9 Mo (2 896 × 2 896) | ✅ passée, commit `1aca82b` signé du nom de Louis |
+| photo de 2,9 Mo (2 896 × 2 896) | ✅ passée, commit `1aca82b` signé du nom de Lou |
 | dossier d'arrivée | `assets/photos/projets/amenagements/`, le `path` par défaut du champ, **pas** le dossier de la fiche |
 | nom du fichier | gardé tel quel (`3.jpeg`) malgré `rename: safe` : deux projets avec un `3.jpeg` entreraient en collision |
 | fiche | non modifiée (aucun commit sur `le-lopin.md`), donc format d'écriture du CMS **non observé** |
@@ -296,7 +299,7 @@ Cause du 413, vérifiée : app.pagescms.org tourne sur Vercel (`server: Vercel`,
 ouvert chez Pages CMS (#284, juillet 2025), sans réponse. Les photos de téléphone
 font 3 à 20 Mo : bloque B1.
 
-*Options présentées à Louis* : A. garder Pages CMS et faire réduire les photos par
+*Options présentées à Lou* : A. garder Pages CMS et faire réduire les photos par
 les membres (ils ne le feront pas) ; **B. Sveltia CMS, recommandé** ; C. héberger
 Pages CMS nous-mêmes (exclu par B5).
 
@@ -317,19 +320,19 @@ WebP est le seul format de sortie : les photos envoyées par le CMS seront en We
 les photos migrées restent en JPEG ; Hugo lit les deux. Règle aussi D10.
 
 *Connexion* : bouton « Sign In with Token », jeton stocké dans le navigateur.
-Rien à installer côté GitHub. Pour l'essai, Louis crée un jeton **classic** sur
+Rien à installer côté GitHub. Pour l'essai, Lou crée un jeton **classic** sur
 `lou-heraut`, permission `repo`, expiration 7 jours (un jeton fine-grained ne peut
 pas viser un dépôt dont on est seulement collaborateur). En production, un jeton
 **fine-grained** sur le compte `collectif-articho`, limité au dépôt, permission
 *Contents : Read and write* seule, collé une fois par appareil, renouvelé à
-expiration (procédure dans le mode d'emploi). Alternative plus confortable mais
+expiration (révisé par D19 : sans expiration ; procédure dans le guide, fiche 2). Alternative plus confortable mais
 à héberger : « Sign in with GitHub » via `sveltia-cms-auth` sur Cloudflare
 Workers (gratuit).
 
-*Second essai, constat du 2026-09-26* (Louis, depuis un train) : la photo de
+*Second essai, constat du 2026-09-26* (Lou, depuis un train) : la photo de
 téléphone (JPEG 8,9 Mo, 3 072 × 4 096) est bien convertie en WebP dans le
 navigateur, mais l'enregistrement échoue en « NetworkError when attempting to
-fetch resource ». Mesures rejouées depuis le poste de Louis avec la même requête
+fetch resource ». Mesures rejouées depuis le poste de Lou avec la même requête
 que Sveltia (`createCommitOnBranch` GraphQL, branche jetable supprimée) :
 
 | envoi | GraphQL (Sveltia) | REST `git/blobs` |
@@ -357,12 +360,12 @@ ordinaire** (fibre, 4G) avant de conclure.
 | commits | signés du nom de l'utilisateur, publication en 25 à 30 s |
 | effet de bord | le premier essai échoué a laissé un commit sans photo (`692c9f5`, simple ligne vide ajoutée), comme décrit dans le ticket #1012 |
 
-Retour de Louis : ça marche, mais le formulaire de création paraît moins clair
+Retour de Lou : ça marche, mais le formulaire de création paraît moins clair
 que celui de Pages CMS. La config de l'essai est brute (pas d'aide sur les
 champs, aperçu à côté du formulaire) ; l'interface existe en français
 (`fr.yaml` dans les sources de Sveltia). À soigner à l'étape 4.
 
-*Second essai proposé, si Louis dit oui* :
+*Second essai proposé, si Lou dit oui* :
 
 1. `static/admin/index.html` qui charge Sveltia depuis le CDN **à version
    épinglée** (lire la doc d'installation, sveltiacms.app/en/docs/start), et
@@ -376,7 +379,7 @@ champs, aperçu à côté du formulaire) ; l'interface existe en français
    `assets/photos/projets/amenagements/{{slug}}` avec `public_folder`
    correspondant `/photos/…`. Sinon, prévoir un nommage unique (préfixe du slug).
 4. Transformations d'images comme ci-dessus.
-5. Pousser ; Louis se connecte sur https://collectif-articho.github.io/admin/
+5. Pousser ; Lou se connecte sur https://collectif-articho.github.io/admin/
    avec son jeton de test, modifie LE LOPIN, envoie une **photo de téléphone
    lourde prise en portrait** (teste le poids et l'orientation EXIF : si elle
    s'affiche couchée, ajouter la rotation dans le gabarit), crée une fiche
@@ -401,11 +404,11 @@ La présentation montrée à la SCOP est archivée dans `docs/presentation-scop/
 | coût mensuel | hébergement (≈ 5 à 10 €, plus en formule gérée) | 0 € | hébergement PHP (+ licence Kirby) | 0 € | abonnement |
 | entretien | élevé (mises à jour, sécurité) | quasi nul | moyen | moyen | nul |
 | design actuel | à reconstruire en thème PHP | porté tel quel | à porter | tel quel | à refaire |
-| Louis nécessaire | pour l'entretien | pour le design seulement | pour l'entretien | non | non |
+| Lou nécessaire | pour l'entretien | pour le design seulement | pour l'entretien | non | non |
 
 Sur A : la ressaisie n'est pas un argument (un script importe les projets) ; ses
 vrais coûts sont le thème sur mesure, l'hébergement et l'entretien de sécurité, qui
-retomberaient sur Louis. Sur D : Louis sort de la boucle, mais les membres gardent
+retomberaient sur Lou. Sur D : Lou sort de la boucle, mais les membres gardent
 les fichiers texte qu'iels trouvent trop compliqués.
 
 ---
@@ -423,7 +426,7 @@ code et le format des contenus sont décrits dans `CLAUDE.md` (§ Le nouveau sit
 | 2 | v0.3 | migration du contenu | ✅ 2026-09-26 |
 | 3 | v0.4 | pages fixes éditables, accueil compris | ✅ 2026-09-26 |
 | 4 | v0.5 | CMS testé, finitions, guide des membres | 🟠 en cours : clé CARTO et réponses de la SCOP attendues |
-| 5 | v1.0 | bascule du domaine | prête (`docs/bascule.md`), attend un membre sur le compte de la SCOP |
+| 5 | v1.0 | bascule du domaine | prête (`docs/bascule.md`), attend les identifiants du compte de la SCOP |
 | 6 | v1.x | améliorations, un sujet par version | à faire |
 
 **Règle de séparation** : la SCOP ne touche qu'à `content/`, `assets/photos/` et
@@ -454,16 +457,18 @@ les titres de l'ancien site présents).
 
 **Fait** :
 
-- formulaires Sveltia pour les 8 rubriques et les pages fixes ; **essayés par
-  Louis le 2026-10-03, tout fonctionne**. Seul reproche : l'apparence de
-  Sveltia, jugée vieillotte ;
+- formulaires Sveltia pour les 8 rubriques et les pages fixes. Lou les a
+  parcourus (« c'est super ») sans enregistrer ; l'enregistrement a été vérifié
+  ensuite avec le dépôt de test de Sveltia (ci-dessous). Seul reproche :
+  l'apparence de Sveltia, jugée vieillotte ;
 - page 404 et rangement du CSS (D18) ; hébergeur corrigé dans les mentions
   légales ; fiche de bascule `docs/bascule.md` ;
 - écran de connexion : connexion par jeton seule, logo et nom du collectif ;
   enregistrement depuis le CMS vérifié avec le dépôt de test de Sveltia (site
   identique après réécriture des fichiers) ;
 - **guide des membres** `docs/guide/` (D17) : affiche A3 et trois fiches A4,
-  captures de la vraie interface ; remplace `docs/mode-emploi.md`.
+  captures de la vraie interface ; remplace `docs/mode-emploi.md`. **Validé par
+  Lou le 2026-10-03.**
 
 **Reste** :
 
@@ -475,20 +480,21 @@ les titres de l'ancien site présents).
 - **pages À propos, mentions légales, conditions générales**, avec les réponses
   à Q3 : dénomination et forme, RCS, capital, directeur·ice de publication ;
   « l'association » devient la SCOP dans les conditions générales ; section Prix
-  accordée à « prix sur demande » ; phrase sur les postes salarié·es ;
-- relecture du guide par Louis.
+  accordée à « prix sur demande » ; phrase sur les postes salarié·es.
 
 **Adresses stables** : l'URL d'une fiche est le nom de son fichier, fixé à la
 création. Renommer un titre ne la change plus, contrairement à l'ancien site.
 
-**Fin** : clé et réponses intégrées, guide relu. Rien de cela ne bloque la
-bascule : si l'accès au compte de la SCOP arrive avant, on bascule d'abord.
+**Fin** : clé et réponses intégrées. Rien de cela ne bloque la bascule : si
+l'accès au compte de la SCOP arrive avant, on bascule d'abord ; si l'étape 4
+finit après, `v0.5` et `v1.0` se suivent simplement.
 
 ## Étape 5. Bascule (v1.0)
 
-Pas à pas dans `docs/bascule.md`. Louis retire le domaine de l'ancien dépôt ; un
-membre connecté au compte de la SCOP le pose sur le nouveau, coche *Enforce
-HTTPS*, crée le jeton définitif (D19) et désinstalle Pages CMS. Le DNS pointe
+Pas à pas dans `docs/bascule.md`. Lou retire le domaine de l'ancien dépôt, puis,
+connecté au compte de la SCOP (identifiants demandés le 2026-10-03), le pose sur
+le nouveau, coche *Enforce HTTPS*, crée le jeton définitif (D19) et désinstalle
+Pages CMS. Le DNS pointe
 déjà vers GitHub Pages et ne change pas, sauf peut-être une ligne :
 
 - **`www.collectifarticho.com` est un CNAME vers `lou-heraut.github.io`**
@@ -499,8 +505,9 @@ déjà vers GitHub Pages et ne change pas, sauf peut-être une ligne :
   Savoir avant le jour J qui, à la SCOP, a l'accès Squarespace.
 
 Ensuite, dans un commit : `baseURL` de `hugo.toml`, `site_url` de
-`static/admin/config.yml`, adresse de l'administration dans le guide. Ancien
-dépôt : dépublié (*Branch : None*), puis archivé sur le compte de Louis, avec son
+`static/admin/config.yml` (le guide donne déjà l'adresse définitive). Envoyer aux
+membres le guide (`docs/guide/guide-du-site.pdf`) et le jeton. Ancien
+dépôt : dépublié (*Branch : None*), puis archivé sur le compte de Lou, avec son
 historique et les photos originales. Le transfert au compte de la SCOP, prévu
 avant, demanderait des clics de plus à la SCOP pour un dépôt en lecture seule ;
 les originaux sont aussi dans son Drive.
@@ -514,8 +521,8 @@ Après la bascule, une version par sujet, chacune vérifiée contre le rendu :
 
 - métadonnées par page (description, Open Graph avec image absolue) ; le
   `<title>` est déjà propre à chaque page et `sitemap.xml` produit par Hugo ;
-- ergonomie du CMS d'après les retours de la SCOP ;
-- page Ligne de mobilier : peut-être supprimée (Louis, 2026-10-03). La
+- ergonomie et apparence du CMS d'après les retours de la SCOP ;
+- page Ligne de mobilier : peut-être supprimée (Lou, 2026-10-03). La
   redirection du QR code mène à la fiche TPMob, pas à cette page ;
 - surveiller la taille du dépôt (D10 : réévaluer au-delà de 2 Go ; `.git` à 417
   Mo au 2026-10-03).

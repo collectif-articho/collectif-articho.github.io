@@ -4,7 +4,7 @@ Du plus récent au plus ancien. Ce qui reste à faire est dans `ROADMAP.md`.
 
 ## v0.5 (en cours), 2026-10-03
 
-Étape 4, finitions avant la bascule. Arbitrages de Louis consignés en D15 à D19
+Étape 4, finitions avant la bascule. Arbitrages de Lou consignés en D15 à D19
 (`ROADMAP.md`) : bascule sans démonstration préalable, retour du fond de carte
 CARTO, guide en fiches PDF, jeton sans expiration ; `srcset` et prix des meubles
 abandonnés.
@@ -29,7 +29,7 @@ abandonnés.
   `lou-heraut.github.io` (à tester après la bascule, voir étape 5) ; le fichier
   `CNAME` est inutile avec une publication par Actions.
 - Constaté : sans clé, CARTO ne sert plus qu'une tuile « API KEY REQUIRED » ;
-  clé gratuite demandée par Louis (D16).
+  clé gratuite demandée par Lou (D16).
 - **Écran de connexion du CMS** : seule la connexion par jeton est proposée
   (`auth_methods: [token]`) ; le bouton « Se connecter avec GitHub » qu'on
   voyait jusque-là ne pouvait pas marcher sans service d'authentification.
@@ -54,6 +54,20 @@ abandonnés.
   Remplace `docs/mode-emploi.md` et son PDF, retirés pour ne pas avoir deux
   documents qui divergent. Vérifié en passant : l'interface de Sveltia marche
   sur téléphone (le bouton « Nouveau » y devient un crayon rond).
+- **Guide validé par Lou** (« c'est parfait ») ; seule demande : « Lou » et non
+  « Louis », corrigé dans le guide (PDF réimprimé), dans toute la doc et dans
+  l'aide du formulaire Contact. « Louis » ne reste que dans les citations de
+  l'ancien site (mentions légales) et pour un partenaire cité dans une fiche ;
+  les diapositives archivées de la présentation sont laissées telles quelles.
+- **Mise à plat de la doc pour une reprise propre** : bandeau de `ROADMAP.md`
+  (ce qu'on attend, ce que fait Claude à la reprise) ; étape 5 : Lou fait la
+  bascule lui-même avec les identifiants de la SCOP ; renvois à l'ancien mode
+  d'emploi et à une « étape 7 » corrigés, D10 complétée, Q3 explique SCOP et
+  SARL. `docs/bascule.md` : double authentification, fenêtre privée, liste
+  « Après » renumérotée. `CLAUDE.md` : prénom, ligne `www` du DNS, jeton sans
+  expiration, outils vérifiés, pièges « Sveltia reformate » et « Tester le CMS
+  sans jeton ni commit » (la méthode n'existait jusque-là que dans des scripts de
+  session).
 
 ## v0.5 (suite), 2026-09-26
 
@@ -69,7 +83,7 @@ abandonnés.
   formulaires restent à essayer une fois connecté.
 - `docs/mode-emploi.md` : une page pour les membres (connexion par jeton, ajouter
   une fiche, photos sur connexion lente, pages du site, erreurs, renouvellement du
-  jeton). Captures d'écran à ajouter après le test de Louis.
+  jeton). Captures d'écran à ajouter après le test de Lou.
 - Passage de relais consigné : `ROADMAP.md` § 4 réécrit (étapes faites résumées,
   reste détaillé, à faire à la bascule), D14 complétée (Sveltia conserve les
   champs inconnus) ; `CLAUDE.md` gagne le format des contenus et les commandes
@@ -136,7 +150,7 @@ et `mogrify`, relançable).
 - Redirection du QR code : fichier fixe `static/pages/mobiliers/agencements/tpmobile.html`
   (D14), vérifié en local.
 - Formulaires Sveltia pour les 8 rubriques au format D13, avec les retours de
-  Louis sur l'essai : champs d'information nommés avec exemples, aide sous chaque
+  Lou sur l'essai : champs d'information nommés avec exemples, aide sous chaque
   champ, aperçu retiré. Nécessaire tout de suite : un CMS peut retirer à
   l'enregistrement les champs qu'il ne connaît pas.
 
@@ -173,7 +187,7 @@ et `mogrify`, relançable).
   Décisions D12 (Sveltia plutôt que Pages CMS) et D13 (informations d'une fiche
   en champs nommés). Ménage : `.pages.yml`, photo `3.jpeg` et fiche `test`
   retirés.
-- Second essai de CMS (Q2), avec l'accord de Louis : Sveltia CMS 0.221.1 servi
+- Second essai de CMS (Q2), avec l'accord de Lou : Sveltia CMS 0.221.1 servi
   sous `/admin/` (`static/admin/`). Photos rangées par fiche grâce au
   `media_folder` de collection avec `{{filename}}`, réduites dans le navigateur
   en WebP 3 000 px avant l'envoi ; nom de fichier des nouvelles fiches en ASCII
@@ -188,14 +202,14 @@ et `mogrify`, relançable).
   créée au format prévu, publiée en moins de 30 s.
 - Passage de relais consigné : `CLAUDE.md` gagne l'état des comptes et du dépôt,
   la façon de construire en local sans installer Hugo, les pièges constatés
-  pendant l'essai et une section « Travailler avec Louis ». Q2 détaillée dans
+  pendant l'essai et une section « Travailler avec Lou ». Q2 détaillée dans
   `ROADMAP.md` avec le constat complet du test de Pages CMS et le second essai
   prêt à dérouler.
 
 ## v0.1 (suite), 2026-09-25
 
 - Compte GitHub `collectif-articho` et dépôt `collectif-articho.github.io` créés
-  par la SCOP ; Pages sur « GitHub Actions », Pages CMS installé, Louis
+  par la SCOP ; Pages sur « GitHub Actions », Pages CMS installé, Lou
   collaborateur.
 - Essai Hugo : fiche du Lopin aux mêmes URL que l'ancien site, gabarit repris de
   `default_projet.html`, CSS et polices recopiés tels quels, trois photos
@@ -205,7 +219,7 @@ et `mogrify`, relançable).
 - Écart constaté : `uglyURLs` ne s'applique pas aux sections
   (`amenagements/index.html` au lieu de `amenagements.html`), à traiter à
   l'étape 1.
-- Test de Pages CMS par Louis avec son compte collaborateur : l'envoi d'une
+- Test de Pages CMS par Lou avec son compte collaborateur : l'envoi d'une
   photo lourde échoue en `413`. Cause : limite de 4,5 Mo par requête des
   fonctions Vercel qui hébergent Pages CMS. Question Q2 ouverte dans
   `ROADMAP.md` (passage à Sveltia CMS).
@@ -232,7 +246,7 @@ et `mogrify`, relançable).
 
 - Décisions D1 à D6 consignées dans `ROADMAP.md` : option B (CMS git et Hugo),
   outillage en Python dans un venv et abandon de R, compte GitHub
-  `collectif-articho` avec dépôt `website` et Louis collaborateur, Pages CMS,
+  `collectif-articho` avec dépôt `website` et Lou collaborateur, Pages CMS,
   pages fixes en gabarit plus champs, photos plafonnées à 3 000 px (originaux
   conservés dans le Drive et l'ancien dépôt). Question ouverte Q1 : réduction des
   photos à l'envoi depuis le CMS.
