@@ -1,5 +1,4 @@
 ---
-title: ARTI/CHÔ
 diaporama:
   - /photos/pages/accueil/diaporama/1.jpg
   - /photos/pages/accueil/diaporama/2.jpg
@@ -27,20 +26,16 @@ offres:
   - titre: CONSULTER LE CATALOGUE
     sous_titre: ligne de mobiliers uniques
     lien: /pages/mobiliers/ligne-de-mobilier.html
-texte_intro: >-
-  À travers la réalisation de projets d’aménagement d’espace, d’artisanat, de
-  graphisme, de scénographie et de paysagisme, les membres du collectif
-  conjuguent savoir-faire manuels, techniques et artistiques dans une démarche
-  écologique, éthique et alternative.
+texte_intro: À travers la réalisation de projets d’aménagement d’espace, d’artisanat, de graphisme, de scénographie et de paysagisme, les membres du collectif conjuguent savoir-faire manuels, techniques et artistiques dans une démarche écologique, éthique et alternative.
 photo_accueil: /photos/pages/accueil/accueil.jpg
-texte_axes: |
+texte_axes: |-
   La pratique collaborative du collectif ARTI/CHÔ s’articule en 3 axes
 
   - **Une réalisation complète des projets** de la conception à la construction et l’accompagnement post-livraison.
   - **Une démarche sobre** le collectif, soucieux des matériaux qu’il emploie, recycle, réemploie et valorise au maximum la matière, en amont et en aval de ses projets.
   - **Une pratique conviviale** par une sensibilisation du public, des ateliers et des chantiers participatifs accessibles à tou·te·s.
 photo_equipe: /photos/pages/accueil/equipe.jpg
-texte_fin: |
+texte_fin: |-
   **Cette démarche est portée par le désir de travailler sur des manières alternatives d’habiter, de penser, d’organiser le territoire et les espaces communs.**
   Le travail à plusieurs échelles permet au collectif d’osciller entre une vie d’atelier et une vie du dehors avec des chantiers réalisés directement sur site.
 
@@ -69,13 +64,21 @@ presse:
     lien: https://www.instagram.com/p/CzYhjldMpnq/?hl=en&img_index=1
 soutiens:
   - logo: /photos/pages/accueil/soutiens/logo-urscop-2.png
+    lien: ''
   - logo: /photos/pages/accueil/soutiens/logo-agir-in.png
+    lien: ''
   - logo: /photos/pages/accueil/soutiens/logo-udt1.png
+    lien: ''
   - logo: /photos/pages/accueil/soutiens/logo-plaine-commune.png
+    lien: ''
   - logo: /photos/pages/accueil/soutiens/logo-endrix.png
+    lien: ''
   - logo: /photos/pages/accueil/soutiens/logo-france-active-meetropole.png
+    lien: ''
   - logo: /photos/pages/accueil/soutiens/logo-dla-93.png
+    lien: ''
   - logo: /photos/pages/accueil/soutiens/fondation-artelia-logo.png
+    lien: ''
   - logo: /photos/pages/accueil/soutiens/label-tempo-rouge.png
     lien: https://www.est-ensemble.fr/tempo
   - logo: /photos/pages/accueil/soutiens/fdva.png
@@ -88,12 +91,12 @@ soutiens_empiles:
   - logo: /photos/pages/accueil/soutiens/flag-of-region-ile-de-france.png
     lien: https://www.iledefrance.fr/
 partenaires:
-  - |
+  - |-
     Thomas Oblomo
     Noir Pétrole
     Jérome De Vienne
     La Martiennerie
-  - |
+  - |-
     Plaine Commune Habitat
     Maestra
     Collectif W.O.R.K ?
@@ -125,7 +128,7 @@ partenaires:
     La Ruche qui dit Oui
     Pffice Municipal d’Animation de la Cité de Torcy
     Engrainage
-  - |
+  - |-
     La Ligue de l’Enseignement
     Le 6B
     réseau Superville
@@ -133,13 +136,13 @@ partenaires:
     La Braderie de l’Art
     Pot Kommon
     YaKaFokon festival
-  - |
+  - |-
     Mission Locale Saint-Denis / Pierrefitte
     Maison des Solidarités à Saint-Denis
     La Réserve des Arts
     DSAA Alternatives Urbaines de Vitry-sur-Seine
     DNMADE Design d’Espace de Vitry-sur-Seine
-  - |
+  - |-
     Mairie de Noisy-le-Sec
     Mairie de Romainville
     Est-Ensemble
@@ -151,6 +154,6 @@ partenaires:
     Mairie de l’Ile-Saint-Denis
     Département de la Seine-Saint-Denis
     Ile-de-France Nature
-  - |
-    Et d'autres !
+  - Et d'autres !
+title: ARTI/CHÔ
 ---

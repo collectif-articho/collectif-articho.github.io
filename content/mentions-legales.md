@@ -1,8 +1,9 @@
 ---
 title: Mentions légales
-url: /pages/mentions-legales.html
 layout: texte
+url: /pages/mentions-legales.html
 ---
+
 ## Préambule
 
 ### Dénomination et forme juridique
@@ -18,11 +19,11 @@ E-mail: contact@collectifarticho.com
 
 ### Ateliers
 
-*Studio de création*
+_Studio de création_
 Le 6b / 6-10 Quai de Seine
 93200 SAINT-DENIS
 
-*Atelier de menuiserie*
+_Atelier de menuiserie_
 121 rue du Parc
 93130 NOISY-LE-SEC
 

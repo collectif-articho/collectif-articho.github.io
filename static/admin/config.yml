@@ -7,8 +7,16 @@ backend:
   name: github
   repo: collectif-articho/collectif-articho.github.io
   branch: main
+  # Connexion par jeton seulement (D19) : le bouton « Se connecter avec GitHub »
+  # demanderait un service d'authentification à héberger.
+  auth_methods: [token]
 
 site_url: https://collectif-articho.github.io
+
+# Écran de connexion et onglet du navigateur aux couleurs du collectif.
+app_title: Site d’ARTI/CHÔ
+logo:
+  src: /resources/statics/articho/articho.svg
 
 # Nom de fichier des nouvelles fiches, donc leur URL : tiré du titre à la
 # création, en ASCII sans accents, puis figé.
@@ -88,7 +96,7 @@ collections:
         label_singular: photo
         widget: list
         min: 1
-        hint: "La première est la grande photo en haut de la fiche et la vignette des listes. Glisser pour changer l'ordre."
+        hint: "La première est la grande photo en haut de la fiche et la vignette des listes. Flèches ↑ ↓ pour changer l'ordre."
         field: { name: photo, label: Photo, widget: image }
       - { name: body, label: Texte, widget: markdown, required: false, editor_components: [] }
       - name: weight
@@ -221,7 +229,7 @@ collections:
         label_singular: photo
         widget: list
         min: 1
-        hint: "La première est celle affichée d'abord. Glisser pour changer l'ordre."
+        hint: "La première est celle affichée d'abord. Flèches ↑ ↓ pour changer l'ordre."
         field: { name: photo, label: Photo, widget: image }
       - name: weight
         label: Ordre sur la page
@@ -247,7 +255,7 @@ collections:
             label: Diaporama
             label_singular: photo
             widget: list
-            hint: "Les grandes photos qui défilent en haut de la page. Glisser pour changer l'ordre."
+            hint: "Les grandes photos qui défilent en haut de la page. Flèches ↑ ↓ pour changer l'ordre."
             field: { name: photo, label: Photo, widget: image }
           - { name: titre, label: Titre, widget: string }
           - { name: accroche, label: Accroche, widget: string, hint: "La ligne sous le titre." }

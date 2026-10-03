@@ -30,6 +30,21 @@ abandonnés.
   `CNAME` est inutile avec une publication par Actions.
 - Constaté : sans clé, CARTO ne sert plus qu'une tuile « API KEY REQUIRED » ;
   clé gratuite demandée par Louis (D16).
+- **Écran de connexion du CMS** : seule la connexion par jeton est proposée
+  (`auth_methods: [token]`) ; le bouton « Se connecter avec GitHub » qu'on
+  voyait jusque-là ne pouvait pas marcher sans service d'authentification.
+  Artichaut du collectif et titre « Site d'ARTI/CHÔ » à la place du logo et du
+  nom de Sveltia. Aides des champs Photos alignées sur l'interface réelle
+  (flèches ↑ ↓, pas de glisser).
+- **Enregistrement depuis le CMS vérifié** sans jeton, avec le dépôt de test
+  intégré à Sveltia (`backend: test-repo`, rempli avec nos fichiers dans le
+  navigateur) : chaque page fixe et une fiche enregistrées, puis le site
+  construit avec les fichiers réécrits par Sveltia. **HTML identique**, fichier
+  pour fichier. Sveltia reformate le YAML (ordre des champs, guillemets, `|-`,
+  `_italique_`, `lien: ''` pour un lien vide) sans effet sur le rendu ; il garde
+  `cascade`, `url` et `layout`. L'accueil, les textes de la Ligne de mobilier et
+  les mentions légales sont repris dans ce format : sans cela, le bouton
+  « Enregistrer » y était actif dès l'ouverture.
 
 ## v0.5 (suite), 2026-09-26
 
